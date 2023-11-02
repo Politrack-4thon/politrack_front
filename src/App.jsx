@@ -18,7 +18,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   max-width: 420px;
-  background-color: #202029;
+  background-color: white;
 `;
 
 const Layout = () => {
