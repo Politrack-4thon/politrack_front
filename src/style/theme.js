@@ -1,18 +1,12 @@
-import { keyframes, css } from 'styled-components';
-
 const colors = {
-  font: '#FFFFFF', //폰트컬러
-  primary1: '#FBEDD0', //베이지
-  primary2: '#F0939E', //핑크
-  bg: '#282828',
-  gray1: '#F8F8FA',
-  gray2: '#EEEFF3',
-  gray3: '#DEDFE5',
-  gray4: '#AEAFB9',
-  gray5: '#606067',
-  gray6: '#E4E4E4',
-  gray7: '#E2E2E2',
-  black: '#282828',
+  black: '#000000',
+  white: '#FFFFFF',
+  gray1: '#F6F7FE',
+  gray2: '#EBEDF8',
+  gray3: '#C0C5DC',
+  gray4: '#7F85A3',
+  gray5: '#484A64',
+  gray6: '#2A2A3A',
 };
 
 export const theme = {
