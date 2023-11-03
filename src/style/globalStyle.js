@@ -1,4 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
+import NotoSans_MediumFont from '../assets/fonts/NotoSansKR-Medium.ttf';
+import NotoSans_RegularFont from '../assets/fonts/NotoSansKR-Regular.ttf';
 
 export const GlobalStyle = createGlobalStyle`
   :root {
@@ -17,6 +19,19 @@ export const GlobalStyle = createGlobalStyle`
   figure, figcaption, footer, header, hgroup,
   main, menu, nav, output, ruby, section, summary,
   time, mark, audio, video {
+
+    @font-face {
+    font-family: 'NotoSansRegular';
+    src: url(${NotoSans_RegularFont}) format('ttf');
+    font-weight: 100;
+  }
+
+  @font-face {
+    font-family: 'NotoSansMedium';
+    src: url(${NotoSans_MediumFont}) format('ttf');
+    font-weight: 600;
+    } 
+    
     margin: 0;
     border: 0;
     padding: 0;
@@ -94,7 +109,7 @@ export const GlobalStyle = createGlobalStyle`
     display: none;
   }
   .scroll {
-    -ms-overflow-style: none; /* 인터넷 익스플로러 */
-    scrollbar-width: none; /* 파이어폭스 */
+    -ms-overflow-style: none; 
+    scrollbar-width: none;
   }
 `;
