@@ -16,7 +16,7 @@ export const CommuTitle = styled.div`
   max-width: 420px;
   flex-shrink: 0;
   color: white;
-  background-color: ${({ theme }) => theme.colors.gray5};
+  background: linear-gradient(to left, #c0c5dc 0%, #50526c 100%);
   position: relative;
 `;
 
@@ -54,7 +54,7 @@ export const CommuTitleBottom = styled.div`
   margin-left: 20px;
 `;
 
-//CommunityTop.jsx
+//CommunityQuestion.jsx
 
 export const QuestionWrapper = styled.div`
   display: flex;
@@ -63,6 +63,9 @@ export const QuestionWrapper = styled.div`
   margin-left: 25px;
   position: relative;
   z-index: 2;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
 `;
 
 export const Question_sub = styled.div`
@@ -78,6 +81,31 @@ export const Question_main = styled.div`
   margin-bottom: 10px;
   font-family: 'NotoSansMedium';
   font-weight: 700;
+`;
+
+export const VoteResultText = styled.div`
+  width: 120px;
+  height: 32px;
+  background-color: ${({ theme }) => theme.colors.gray1};
+  color: ${({ theme }) => theme.colors.gray3};
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'NotoSansMedium';
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+`;
+
+export const VoteResult = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
+`;
+
+export const QuestionContainer = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 //CommunityContent.jsx
@@ -125,12 +153,12 @@ export const VoteStatus = styled.div`
   font-size: 10px;
   font-family: 'NotoSansRegular';
   font-weight: 700;
-  background-color: ${({ theme }) => theme.colors.gray2};
+  background-color: ${({ theme }) => theme.colors.gray5};
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 4px;
-  color: ${({ theme }) => theme.colors.gray3};
+  color: white;
   margin-right: 10px;
 `;
 
@@ -143,3 +171,21 @@ export const ContentText = styled.div`
   margin-left: 20px;
   margin-right: 20px;
 `;
+
+//CommunityDetailBg.jsx
+
+export const DetailBgWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+`;
+export const DetailWallpaper = styled.div`
+  width: 90%;
+
+  background-color: ${({ theme }) => theme.colors.gray1};
+  border-radius: 8px;
+  box-shadow: 2px 4px 10px 0 rgba(72, 74, 100, 0.1);
+`;
+
+export const DetailTitle = styled.div``;

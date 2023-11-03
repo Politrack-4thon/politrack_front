@@ -9,3 +9,10 @@ export const CommunityWrapper = styled.div`
 export const ContentContainer = styled.div`
   overflow: scroll;
 `;
+
+//CommunityDetail.jsx
+
+export const CommunityDetailWrapper = styled.div`
+  min-height: calc(100vh - 250px);
+  width: 100%;
+`;
