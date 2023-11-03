@@ -33,6 +33,7 @@ function Community() {
   // 더미 데이터
   const dummyData = [
     {
+      id: 1,
       title: '국민의 힘, 김포시 서울시로 편입 추진',
       status: '투표진행중',
       text: '국민의힘 소속인 김병수 김포시장이 김기현 국민의힘 대표에게 “김포시 서울 편입 검토해줘” 라고 건의했어요.',
@@ -61,9 +62,9 @@ function Community() {
       />
       <S.ContentContainer style={{ minHeight: minContentHeight }}>
         {(communityContents.length > 0 ? communityContents : dummyData).map(
-          (content, index) => (
+          (content) => (
             <CommunityContent
-              key={index}
+              id={content.id}
               title={content.title}
               status={content.status}
               text={content.text}

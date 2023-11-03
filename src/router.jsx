@@ -7,6 +7,7 @@ import Detail from './pages/cardDetail/Detail';
 import Login from './pages/login/Logins';
 import Community from './pages/community/Community';
 import Quiz from './pages/quiz/Quiz';
+import CommunityDetail from './pages/community/CommunityDetail';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: 'community',
         element: <Community />,
+      },
+      {
+        path: 'CommunityDetail/:id',
+        element: <CommunityDetail />,
       },
       {
         path: 'quiz',

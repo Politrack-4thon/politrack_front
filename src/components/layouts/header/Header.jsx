@@ -5,9 +5,11 @@ import { Link, useLocation } from 'react-router-dom';
 function Header() {
   return (
     <S.HeaderWrapper>
-      <S.Logo>
-        <S.LogoImg src='/Header/Logo.png' />
-      </S.Logo>
+      <Link to={``}>
+        <S.Logo>
+          <S.LogoImg src='/Header/Logo.png' />
+        </S.Logo>
+      </Link>
     </S.HeaderWrapper>
   );
 }
