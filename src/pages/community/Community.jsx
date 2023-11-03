@@ -55,7 +55,11 @@ function Community() {
 
   return (
     <S.CommunityWrapper>
-      <CommunityTop />
+      <CommunityTop
+        titlesub={'발전하는 우리나라를 만들어 나가기 위한 첫걸음'}
+        titleMain={'어려운 정치이슈, \n 폴리트랙에서 이야기 해봐요!'}
+        style={{ whiteSpace: 'pre-line' }}
+      />
       <CommunityQuestion
         subQuestion={'오늘의 쟁점은 무엇일까요?'}
         mainQuestion={'오늘의 쟁점을 확인해보세요.'}
