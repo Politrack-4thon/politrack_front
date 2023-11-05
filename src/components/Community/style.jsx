@@ -182,7 +182,7 @@ export const DetailBgWrapper = styled.div`
 `;
 export const DetailWallpaper = styled.div`
   width: 90%;
-
+  /* height: 100%; */
   background-color: ${({ theme }) => theme.colors.gray1};
   border-radius: 8px;
   box-shadow: 2px 4px 10px 0 rgba(72, 74, 100, 0.1);

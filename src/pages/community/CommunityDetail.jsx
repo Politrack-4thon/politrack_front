@@ -44,13 +44,6 @@ function CommunityDetail() {
         mainQuestion={'오늘의 쟁점을 확인해보세요.'}
       />
       <CommunityDetailBg />
-
-      {communityData && (
-        <ComDetailCard
-          title={communityData.title}
-          content={communityData.content}
-        />
-      )}
     </S.CommunityDetailWrapper>
   );
 }
