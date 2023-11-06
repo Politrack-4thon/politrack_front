@@ -11,6 +11,20 @@ function ComDetailQuiz() {
   const [error, setError] = useState(null);
   const [isVoteModalOpen, setVoteModalOpen] = useState(false);
   const [isVoteCompleted, setIsVoteCompleted] = useState(false);
+  const [isExpired, setIsExpired] = useState(false);
+
+  useEffect(() => {
+    const deadline = new Date(comDetailDate); // comDetailDate를 Date 객체로 변환
+    const now = new Date();
+
+    if (deadline < now) {
+      setIsExpired(true);
+    }
+  }, [comDetailDate]);
+
+  if (isExpired) {
+    return null; // 시간이 지난 경우 컴포넌트를 렌더링하지 않음
+  }
 
   // 제목, 기한 데이터를 백엔드에서 가져오는 함수
   const fetchData = () => {
