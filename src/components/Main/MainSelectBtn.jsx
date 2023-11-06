@@ -1,7 +1,7 @@
 import React from "react";
 import * as S from "./style";
 
-function CardDetailButton(props) {
+function MainSelectBtn(props) {
     const names = [
         {
           id: 1,
@@ -17,13 +17,14 @@ function CardDetailButton(props) {
         <S.ButtonContainer>
             {names.map(data => {
             return (
-                <S.CardDetailButton key={data.id}>{data.name}</S.CardDetailButton>
+                <S.SelectButton key={data.id}>{data.name}</S.SelectButton>
                 
                 
             )
             })}
         </S.ButtonContainer>
+        
 );
 }
 
-export default CardDetailButton;
+export default MainSelectBtn;

@@ -1,13 +1,14 @@
 import { styled } from 'styled-components';
 
-export const DetailWrapper = styled.div`
+export const MainWrapper = styled.div`
   flex-grow: 1;
   width: 100%;
   display: flex;
-  align-items: center;
   flex-direction: column;
   color: ${(props) => props.theme.colors.font};
   
+`;
+export const MainContainer = styled.div `
 `;
 export const DetailTitle = styled.div`
   display: flex;
@@ -57,63 +58,30 @@ export const DetailTitleBottom = styled.div`
   margin-left: 20px;
   color: ${({ theme }) => theme.colors.white};
 `;
-// 프로필 메인_지도
-export const CardDetailMap = styled.div `
-width: 90%;
-height: 50px;
-`;
-// 프로필 메인_타이틀
-export const CardDetailTitleBar = styled.div`
-  width: 90%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-export const CardDetailTitle = styled.div `
-color: ${({ theme }) => theme.colors.black};
-font-family: Noto Sans KR;
-font-size: 16px;
-font-style: normal;
-font-weight: 700;
-line-height: 150%; /* 24px */
-`;
 
 
-// 버튼
-export const CardDetailButton = styled.button `
-width: 70px;
-height: 24px;
-flex-shrink: 0;
-border-radius: 4px;
-background: ${({ theme }) => theme.colors.gray2};
-color: var(--main-gray-5, #484A64);
-text-align: center;
+
+export const MainVoteInfoContainer = styled.div `
+display:flex;
+gap:27px;
+margin-left: 20px;
+`
+export const TextElectionCriteria = styled.div`
+color: var(--main-gray-3, #C0C5DC);
 font-family: Noto Sans KR;
 font-size: 10px;
 font-style: normal;
-font-weight: 700;
-line-height: 150%; /* 15px */
-
+font-weight: 500;
+line-height: normal;
+margin: 8px 0 30px 20px;
 `;
 
-export const ButtonContainer = styled.div `
-display:flex;
-
-
+export const Border = styled.div`
+width: 100%;
+height: 1px;
+background: #EBEDF8;
 `;
 
-export const LocalVoteContainer = styled.div `
-width: 107px;
-height: 83px;
-flex-shrink: 0;
-border-radius: 6px;
-border: 1px solid var(--main-gray-2, #EBEDF8);
-background: var(--main-gray-1, #F6F7FE);
-display:flex;
-flex-direction:row;
-justify-content:center;
+export const Cards = styled.div`
+diplay:flex;
 `;
-export const LocalVoteInfoContainer = styled.div `
-display:flex;
-gap:15px;
-`

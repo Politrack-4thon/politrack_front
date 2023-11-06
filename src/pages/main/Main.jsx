@@ -8,7 +8,7 @@ function Main() {
       <S.MainTitle>4호선톤 ㄱㅂㅈㄱ</S.MainTitle>
       {/* 추후 삭제예정 */}
       <S.MainSection>
-        <Link to='/Detail'>
+        <Link to='/PMain'>
           <S.MainSectionButton>정치인 카드 디테일</S.MainSectionButton>
         </Link>
         <Link to='/login'>
