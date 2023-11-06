@@ -46,14 +46,19 @@ export const ComDetailCardWrapper = styled.div`
   /* width: 90%; */
   justify-content: center;
   background-color: ${({ theme }) => theme.colors.gray1};
+
+  &:last-child {
+    margin-bottom: 20px;
+  }
 `;
 
 export const Cardbg = styled.div`
   width: 90%;
-  height: 120px;
+  /* height: 120px; */
   background-color: white;
   border-radius: 8px;
   margin-top: 15px;
+  padding: 10px;
 `;
 
 export const CardTitleContainer = styled.div`
