@@ -41,7 +41,7 @@ export const FooterKor = styled.div`
   color: ${({ theme }) => theme.colors.gray4};
   font-weight: 500;
   font-size: 12px;
-  margin-top: 15px;
+  margin-top: 7px;
   position: relative;
   margin-left: 20px;
 `;

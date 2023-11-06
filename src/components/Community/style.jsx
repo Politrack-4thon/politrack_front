@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import { styled, css } from 'styled-components';
 
 //communitytop.jsx에 대한 styled-components
 export const CommunityWrapper = styled.div`
@@ -182,10 +182,121 @@ export const DetailBgWrapper = styled.div`
 `;
 export const DetailWallpaper = styled.div`
   width: 90%;
-
+  /* height: 10%; */
   background-color: ${({ theme }) => theme.colors.gray1};
   border-radius: 8px;
   box-shadow: 2px 4px 10px 0 rgba(72, 74, 100, 0.1);
 `;
 
 export const DetailTitle = styled.div``;
+
+export const ComDetailDate = styled.div`
+  font-size: 10px;
+  font-weight: 400;
+  font-family: 'NotoSansRegular';
+  color: ${({ theme }) => theme.colors.gray3};
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-bottom: 15px;
+`;
+
+//ComDetailQuiz.jsx
+
+export const DetailQuizWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+`;
+export const DetailQuizWallpaper = styled.div`
+  width: 90%;
+  /* height: 10%; */
+  background-color: ${({ theme }) => theme.colors.gray1};
+  border-radius: 8px;
+  box-shadow: 2px 4px 10px 0 rgba(72, 74, 100, 0.1);
+`;
+
+export const DetailQuizTitle = styled.div`
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'NotoSansRegular';
+  line-height: 21px;
+  margin-top: 10px;
+`;
+
+export const Vote = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
+`;
+
+export const VoteText = styled.div`
+  width: 58px;
+  height: 24px;
+  background-color: ${({ theme }) => theme.colors.gray2};
+  color: ${({ theme }) => theme.colors.gray4};
+  font-size: 10px;
+  font-weight: 700;
+  font-family: 'NotoSansMedium';
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  margin-top: 15px;
+
+  ${(props) =>
+    props.selected &&
+    css`
+      background-color: ${({ theme }) => theme.colors.gray4};
+      color: white;
+    `}
+`;
+
+export const VoteContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const VoteContent = styled.div`
+  width: 318px;
+  height: 60px;
+  border: 1px solid ${({ theme }) => theme.colors.gray2};
+  border-radius: 10px;
+  background-color: white;
+  margin-bottom: 10px;
+  align-items: center;
+  display: flex;
+  text-indent: 10px;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: 'NotoSansMedium';
+  justify-content: space-between;
+  padding: 0 15px;
+
+  &:first-child {
+    margin-top: 30px;
+  }
+
+  //투표 선택시 색 변경
+  &.selected-background {
+    background-color: ${({ theme }) => theme.colors.gray5};
+    color: white;
+  }
+`;
+
+export const CircleIcon = styled.div`
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid ${({ theme }) => theme.colors.gray2};
+`;
+
+export const VoteIcon = styled.div`
+  background-image: url('/Community/VoteIcon.png');
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+  margin-right: -5px;
+`;

@@ -4,6 +4,7 @@ import { API } from '../../api/axois';
 import CommunityTop from '../../components/Community/CommunityTop';
 import CommunityQuestion from '../../components/Community/CommunityQuestion';
 import CommunityContent from '../../components/Community/CommunityContent';
+import CommunityQuestionver2 from '../../components/Community/ComQuestionver2';
 
 function Community() {
   const [communityContents, setCommunityContents] = useState([]);
@@ -39,11 +40,13 @@ function Community() {
       text: '국민의힘 소속인 김병수 김포시장이 김기현 국민의힘 대표에게 “김포시 서울 편입 검토해줘” 라고 건의했어요.',
     },
     {
+      id: 2,
       title: '국민의 힘, 김포시 서울시로 편입 추진',
       status: '투표진행중',
       text: '국민의힘 소속인 김병수 김포시장이 김기현 국민의힘 대표에게 “김포시 서울 편입 검토해줘” 라고 건의했어요.',
     },
     {
+      id: 3,
       title: '국민의 힘, 김포시 서울시로 편입 추진',
       status: '투표진행중',
       text: '국민의힘 소속인 김병수 김포시장이 김기현 국민의힘 대표에게 “김포시 서울 편입 검토해줘” 라고 건의했어요.',
@@ -60,7 +63,7 @@ function Community() {
         titleMain={'어려운 정치이슈, \n 폴리트랙에서 이야기 해봐요!'}
         style={{ whiteSpace: 'pre-line' }}
       />
-      <CommunityQuestion
+      <CommunityQuestionver2
         subQuestion={'오늘의 쟁점은 무엇일까요?'}
         mainQuestion={'오늘의 쟁점을 확인해보세요.'}
       />
