@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { API } from '../../api/axois'; // 아마도 axios를 사용하고 있으므로 'axios'일 것입니다.
-import * as S from '../Community/style'; // 스타일링 관련 코드
-import VoteModal from './VoteModal'; // 투표 모달 컴포넌트
+import { API } from '../../api/axois';
+import * as S from '../Community/style';
+import VoteModal from './VoteModal';
 
 function ComDetailQuiz() {
   const [selectedVote, setSelectedVote] = useState(null);
@@ -21,11 +21,11 @@ function ComDetailQuiz() {
         // 가져온 데이터를 상태에 설정
         setComDetailTitle(data.comDetailTitle);
         setComDetailDate(data.comDetailDate);
-        setLoading(false); // 로딩 완료
+        setLoading(false);
       })
       .catch((error) => {
         setError(error);
-        setLoading(false); // 로딩 완료
+        setLoading(false);
       });
   };
 

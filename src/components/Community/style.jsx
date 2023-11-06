@@ -360,3 +360,43 @@ export const VoteModalBtn = styled.div`
   align-items: center;
   cursor: pointer;
 `;
+
+//ComDetailForm.jsx
+
+export const FormWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const FormBg = styled.input`
+  width: 90%;
+  height: 200px;
+  background-color: white;
+  border-radius: 8px;
+  border: 1px solid ${({ theme }) => theme.colors.gray2};
+  box-shadow: 2px 4px 10px 0px #484a641a;
+  padding: 10px;
+  font-family: 'NotoSansRegular';
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.gray3};
+    font-family: 'NotoSansRegular';
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 17.5px;
+  }
+`;
+
+export const FormBtn = styled.button`
+  width: 90%;
+  background-color: ${({ theme }) => theme.colors.gray2};
+  color: ${({ theme }) => theme.colors.gray3};
+  height: 40px;
+  margin-top: 20px;
+  border-radius: 8px;
+`;

@@ -7,6 +7,7 @@ import ComDetailCard from '../../components/CommunityDetail/ComDetailCard';
 import { API } from '../../api/axois';
 import CommunityQuestionver2 from '../../components/Community/ComQuestionver2';
 import ComDetailQuiz from '../../components/Community/ComDetailQuiz';
+import ComDetailForm from '../../components/Community/ComDetailForm';
 
 function CommunityDetail() {
   const [communityData, setCommunityData] = useState(null);
@@ -51,6 +52,8 @@ function CommunityDetail() {
         mainQuestion={'여러분의 의견을 남겨주세요.'}
       />
       <ComDetailQuiz />
+      <CommunityQuestionver2 mainQuestion={'자유롭게 의견을 적어주세요.'} />
+      <ComDetailForm />
     </S.CommunityDetailWrapper>
   );
 }
