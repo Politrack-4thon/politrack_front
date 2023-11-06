@@ -5,6 +5,8 @@ import CommunityQuestion from '../../components/Community/CommunityQuestion';
 import CommunityDetailBg from '../../components/Community/CommunityDetailBg';
 import ComDetailCard from '../../components/CommunityDetail/ComDetailCard';
 import { API } from '../../api/axois';
+import CommunityQuestionver2 from '../../components/Community/ComQuestionver2';
+import ComDetailQuiz from '../../components/Community/ComDetailQuiz';
 
 function CommunityDetail() {
   const [communityData, setCommunityData] = useState(null);
@@ -44,6 +46,11 @@ function CommunityDetail() {
         mainQuestion={'오늘의 쟁점을 확인해보세요.'}
       />
       <CommunityDetailBg />
+      <CommunityQuestionver2
+        subQuestion={'어떻게 생각하나요?'}
+        mainQuestion={'여러분의 의견을 남겨주세요.'}
+      />
+      <ComDetailQuiz />
     </S.CommunityDetailWrapper>
   );
 }
