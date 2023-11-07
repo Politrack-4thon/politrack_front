@@ -4,7 +4,6 @@ import { API } from '../../api/axois';
 import CommunityTop from '../../components/Community/CommunityTop';
 import CommunityQuestion from '../../components/Community/CommunityQuestion';
 import CommunityContent from '../../components/Community/CommunityContent';
-import CommunityQuestionver2 from '../../components/Community/ComQuestionver2';
 
 function Community() {
   const [communityContents, setCommunityContents] = useState([]);
@@ -63,7 +62,7 @@ function Community() {
         titleMain={'어려운 정치이슈, \n 폴리트랙에서 이야기 해봐요!'}
         style={{ whiteSpace: 'pre-line' }}
       />
-      <CommunityQuestionver2
+      <CommunityQuestion
         subQuestion={'오늘의 쟁점은 무엇일까요?'}
         mainQuestion={'오늘의 쟁점을 확인해보세요.'}
       />

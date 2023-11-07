@@ -2,18 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './style';
 import CommunityTop from '../../components/Community/CommunityTop';
-import CommunityQuestion from '../../components/Community/CommunityQuestion';
 import CommunityDetailBg from '../../components/Community/CommunityDetailBg';
 import ComDetailCard from '../../components/CommunityDetail/ComDetailCard';
 import { API } from '../../api/axois'; // 백엔드 API 모듈 import
-import CommunityQuestionver2 from '../../components/Community/ComQuestionver2';
+import CommunityQuestion from '../../components/Community/CommunityQuestion';
 import ComDetailQuiz from '../../components/Community/ComDetailQuiz';
 import ComDetailForm from '../../components/Community/ComDetailForm';
 
 function CommunityDetail() {
   const [communityData, setCommunityData] = useState(null);
   const [isQuestionResultClickable, setIsQuestionResultClickable] =
-    useState(false);
+    useState(true);
 
   const questionResultStyle = {
     color: isQuestionResultClickable ? 'white' : '#C0C5DC',
@@ -92,7 +91,7 @@ function CommunityDetail() {
           onClick={() => {
             if (isQuestionResultClickable) {
               //이동 링크 변화 필요
-              navigate('/main');
+              navigate('/ComResult');
             }
           }}
         >
@@ -105,12 +104,12 @@ function CommunityDetail() {
         <div></div>
       ) : (
         <S.ComDetailOpinion>
-          <CommunityQuestionver2
+          <CommunityQuestion
             subQuestion={'어떻게 생각하나요?'}
             mainQuestion={'여러분의 의견을 남겨주세요.'}
           />
           <ComDetailQuiz />
-          <CommunityQuestionver2 mainQuestion={'자유롭게 의견을 적어주세요.'} />
+          <CommunityQuestion mainQuestion={'자유롭게 의견을 적어주세요.'} />
           <ComDetailForm />
         </S.ComDetailOpinion>
       )}
