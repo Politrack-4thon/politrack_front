@@ -3,11 +3,16 @@ import React from 'react';
 import App from './App';
 
 import Main from './pages/main/Main';
-import Detail from './pages/cardDetail/Detail';
+import PMain from './pages/cardDetail/PMain';
 import Login from './pages/login/Logins';
 import Community from './pages/community/Community';
 import Quiz from './pages/quiz/Quiz';
 import CommunityDetail from './pages/community/CommunityDetail';
+
+import Detail from './pages/cardDetail/Detail';
+
+import ComResult from './pages/community/ComResult';
+
 
 const router = createBrowserRouter([
   {
@@ -19,8 +24,12 @@ const router = createBrowserRouter([
         element: <Main />,
       },
       {
-        path: 'Detail',
-        element: <Detail />,
+        path: 'PMain',
+        element: <PMain />,
+      },
+      {
+        path:'Detail/:id',
+        element:<Detail />,
       },
       {
         path: 'login',
@@ -37,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: 'quiz',
         element: <Quiz />,
+      },
+      {
+        path: 'ComResult',
+        element: <ComResult />,
       },
     ],
   },

@@ -207,6 +207,7 @@ export const DetailQuizWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 10px;
+  position: relative;
 `;
 export const DetailQuizWallpaper = styled.div`
   width: 90%;
@@ -299,4 +300,103 @@ export const VoteIcon = styled.div`
   height: 30px;
   background-size: cover;
   margin-right: -5px;
+`;
+
+//VoteModal
+
+export const VoteModalWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 5;
+  width: 90%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  border-radius: 8px;
+`;
+
+export const VoteModalBg = styled.div`
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  background-color: white;
+  width: 243px;
+  height: 121px;
+  border-radius: 8px;
+  flex-direction: column;
+`;
+
+export const VoteModalTitle = styled.div`
+  font-size: 15px;
+  font-weight: 700;
+  font-family: 'NotoSansMedium';
+  display: flex;
+  align-items: center;
+`;
+
+export const VoteModalSub = styled.div`
+  font-family: 'NotoSansMedium';
+  font-size: 12px;
+  font-weight: 400;
+  margin-top: 10px;
+`;
+
+export const VoteModalBtn = styled.div`
+  background-color: black;
+  color: white;
+  width: 50px;
+  height: 24px;
+  margin-top: 20px;
+  border-radius: 50px;
+  font-family: 'NotoSansMedium';
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+`;
+
+//ComDetailForm.jsx
+
+export const FormWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const FormBg = styled.input`
+  width: 90%;
+  height: 200px;
+  background-color: white;
+  border-radius: 8px;
+  border: 1px solid ${({ theme }) => theme.colors.gray2};
+  box-shadow: 2px 4px 10px 0px #484a641a;
+  padding: 10px;
+  font-family: 'NotoSansRegular';
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.gray3};
+    font-family: 'NotoSansRegular';
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 17.5px;
+  }
+`;
+
+export const FormBtn = styled.button`
+  width: 90%;
+  background-color: ${({ theme }) => theme.colors.gray2};
+  color: ${({ theme }) => theme.colors.gray3};
+  height: 40px;
+  margin-top: 20px;
+  border-radius: 8px;
 `;

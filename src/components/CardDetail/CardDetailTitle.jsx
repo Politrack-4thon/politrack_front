@@ -1,5 +1,5 @@
 import React from "react";
-import * as S from "../../pages/cardDetail/style";
+import * as S from "./style";
 
 function CardDetailTitle(props) {
     const arrow = {
@@ -7,7 +7,7 @@ function CardDetailTitle(props) {
     }
     return (
         <S.CardDetailTitleBar>
-            <S.CardDetailTitle>{props.title}</S.CardDetailTitle>
+            <S.DetailTitle>{props.title}</S.DetailTitle>
             <img style={arrow} src="\src\assets\images\arrow_back.svg"></img>
         </S.CardDetailTitleBar>
     );

@@ -1,14 +1,14 @@
 import React from "react";
-import * as S from "../../pages/cardDetail/style";
+import * as S from "./style";
 
 function LocalVoteInfo(props) {
     return (
         <S.LocalVoteContainer>
-            <div>
+            <S.IconTitle>
                 <img src={props.icon}/>
                 {props.title}
-            </div>
-            <div></div>
+            </S.IconTitle>
+            <S.Value>{props.value}</S.Value>
         </S.LocalVoteContainer>
     );
 }

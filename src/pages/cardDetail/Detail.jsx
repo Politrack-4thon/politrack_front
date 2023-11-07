@@ -1,31 +1,30 @@
-import React from 'react';
-import * as S from './style';
-import CardDetailTop from '../../components/CardDetail/CardDetailTop';
-import CardDetailMap from '../../components/CardDetail/CardDetailMap';
-import CardDetailButton from '../../components/CardDetail/CardDetailButton';
-import CardDetailTitle from '../../components/CardDetail/CardDetailTitle';
-import LocalVoteInfo from '../../components/CardDetail/LocalVoteInfo';
+import { useParams } from "react-router-dom"
+import * as S from "../../components/Main/style";
 
 
-function Detail() {
-    
-    
+
+function Detail(props) {
+  const params = useParams();
+  const {homeLogoUrl, instagramLogoUrl } = props;
   return (
-    <S.DetailWrapper>
-      <CardDetailTop/>
-      <CardDetailMap/>
-      <CardDetailTitle title='대한민국 정치의 중심지, 서울'/>
-      <S.LocalVoteInfoContainer>
-        <LocalVoteInfo icon="" title = "선거구 수" />
-        <LocalVoteInfo icon="" title = "선거구 수" />
-        <LocalVoteInfo icon="" title = "선거구 수" />
-      </S.LocalVoteInfoContainer>
-      
-      <CardDetailTitle title='제 21대 국회의원 선거 결과'/>
-
-      <CardDetailButton/>
-    </S.DetailWrapper>
+      <S.MainCardContainer style={{width: '100%', height: '429px'}}>
+              <S.MainCardImage style={{width: '150px', height: '150px'}}>
+                  <img src='' alt="국회의원 이미지" />
+              </S.MainCardImage>
+          <S.MainCardParty style={{width: '163px', height: '40px'}}>{props.partyName}</S.MainCardParty>
+          <S.MainCardName style={{fontSize:'20px'}}>{props.name}</S.MainCardName>
+          <S.MainCardDistrict style={{fontSize:'12px'}}>{props.district}</S.MainCardDistrict>
+          <S.MainCardUrl>
+              <a href={homeLogoUrl} target="_blank" rel="noopener noreferrer">
+                  <img src='\src\assets\images\card_home.svg' alt="Home Logo" />
+              </a>
+              <a href={instagramLogoUrl} target="_blank" rel="noopener noreferrer">
+                  <img src='\src\assets\images\card_insta.svg' alt="Instagram Logo" />
+              </a>
+          </S.MainCardUrl>
+      </S.MainCardContainer>
   );
 }
+
 
 export default Detail;
