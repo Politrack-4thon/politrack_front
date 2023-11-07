@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import { styled, css } from 'styled-components';
 
 //communitytop.jsx에 대한 styled-components
 export const CommunityWrapper = styled.div`
@@ -182,10 +182,221 @@ export const DetailBgWrapper = styled.div`
 `;
 export const DetailWallpaper = styled.div`
   width: 90%;
-
+  /* height: 10%; */
   background-color: ${({ theme }) => theme.colors.gray1};
   border-radius: 8px;
   box-shadow: 2px 4px 10px 0 rgba(72, 74, 100, 0.1);
 `;
 
 export const DetailTitle = styled.div``;
+
+export const ComDetailDate = styled.div`
+  font-size: 10px;
+  font-weight: 400;
+  font-family: 'NotoSansRegular';
+  color: ${({ theme }) => theme.colors.gray3};
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-bottom: 15px;
+`;
+
+//ComDetailQuiz.jsx
+
+export const DetailQuizWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  position: relative;
+`;
+export const DetailQuizWallpaper = styled.div`
+  width: 90%;
+  /* height: 10%; */
+  background-color: ${({ theme }) => theme.colors.gray1};
+  border-radius: 8px;
+  box-shadow: 2px 4px 10px 0 rgba(72, 74, 100, 0.1);
+`;
+
+export const DetailQuizTitle = styled.div`
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'NotoSansRegular';
+  line-height: 21px;
+  margin-top: 10px;
+`;
+
+export const Vote = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
+`;
+
+export const VoteText = styled.div`
+  width: 58px;
+  height: 24px;
+  background-color: ${({ theme }) => theme.colors.gray2};
+  color: ${({ theme }) => theme.colors.gray4};
+  font-size: 10px;
+  font-weight: 700;
+  font-family: 'NotoSansMedium';
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  margin-top: 15px;
+
+  ${(props) =>
+    props.selected &&
+    css`
+      background-color: ${({ theme }) => theme.colors.gray4};
+      color: white;
+    `}
+`;
+
+export const VoteContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const VoteContent = styled.div`
+  width: 318px;
+  height: 60px;
+  border: 1px solid ${({ theme }) => theme.colors.gray2};
+  border-radius: 10px;
+  background-color: white;
+  margin-bottom: 10px;
+  align-items: center;
+  display: flex;
+  text-indent: 10px;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: 'NotoSansMedium';
+  justify-content: space-between;
+  padding: 0 15px;
+
+  &:first-child {
+    margin-top: 30px;
+  }
+
+  //투표 선택시 색 변경
+  &.selected-background {
+    background-color: ${({ theme }) => theme.colors.gray5};
+    color: white;
+  }
+`;
+
+export const CircleIcon = styled.div`
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid ${({ theme }) => theme.colors.gray2};
+`;
+
+export const VoteIcon = styled.div`
+  background-image: url('/Community/VoteIcon.png');
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+  margin-right: -5px;
+`;
+
+//VoteModal
+
+export const VoteModalWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 5;
+  width: 90%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  border-radius: 8px;
+`;
+
+export const VoteModalBg = styled.div`
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  background-color: white;
+  width: 243px;
+  height: 121px;
+  border-radius: 8px;
+  flex-direction: column;
+`;
+
+export const VoteModalTitle = styled.div`
+  font-size: 15px;
+  font-weight: 700;
+  font-family: 'NotoSansMedium';
+  display: flex;
+  align-items: center;
+`;
+
+export const VoteModalSub = styled.div`
+  font-family: 'NotoSansMedium';
+  font-size: 12px;
+  font-weight: 400;
+  margin-top: 10px;
+`;
+
+export const VoteModalBtn = styled.div`
+  background-color: black;
+  color: white;
+  width: 50px;
+  height: 24px;
+  margin-top: 20px;
+  border-radius: 50px;
+  font-family: 'NotoSansMedium';
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+`;
+
+//ComDetailForm.jsx
+
+export const FormWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const FormBg = styled.input`
+  width: 90%;
+  height: 200px;
+  background-color: white;
+  border-radius: 8px;
+  border: 1px solid ${({ theme }) => theme.colors.gray2};
+  box-shadow: 2px 4px 10px 0px #484a641a;
+  padding: 10px;
+  font-family: 'NotoSansRegular';
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.gray3};
+    font-family: 'NotoSansRegular';
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 17.5px;
+  }
+`;
+
+export const FormBtn = styled.button`
+  width: 90%;
+  background-color: ${({ theme }) => theme.colors.gray2};
+  color: ${({ theme }) => theme.colors.gray3};
+  height: 40px;
+  margin-top: 20px;
+  border-radius: 8px;
+`;
