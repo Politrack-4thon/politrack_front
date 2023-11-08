@@ -11,7 +11,7 @@ function Main() {
         <Link to='/PMain'>
           <S.MainSectionButton>정치인 카드 디테일</S.MainSectionButton>
         </Link>
-        <Link to='/login'>
+        <Link to='/SignUp'>
           <S.MainSectionButton>로그인 및 회원가입</S.MainSectionButton>
         </Link>
         <Link to='/community'>
