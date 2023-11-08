@@ -51,7 +51,6 @@ export const ComResultWrapper = styled.div`
 
 export const ComResultBg = styled.div`
   width: 90%;
-  /* height: 100%; */
   background-color: ${({ theme }) => theme.colors.gray1};
   border-radius: 8px;
   box-shadow: 2px 4px 10px 0 rgba(72, 74, 100, 0.1);
@@ -178,4 +177,52 @@ export const ResultDate = styled.div`
   font-size: 10px;
   margin-left: 17px;
   margin-bottom: 10px;
+`;
+
+export const ResultLineImg = styled.img`
+  width: 5px;
+  display: flex;
+`;
+
+export const ResultLine = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 50px;
+`;
+
+export const ResultText = styled.div`
+  text-align: center;
+  width: 100%;
+  line-height: 24.5px;
+  font-size: 14px;
+  font-family: 'NotoSansMedium';
+  font-weight: 700;
+  color: ${({ theme }) => theme.colors.gray4};
+`;
+
+export const ResultTextSub = styled.div`
+  text-align: center;
+  width: 100%;
+  justify-content: center;
+  line-height: 17.5px;
+  font-size: 10px;
+  font-family: 'NotoSansMedium';
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.gray3};
+  margin-top: 20px;
+`;
+
+export const ResultCloud = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+`;
+
+export const ResultCloudImg = styled.img`
+  width: 354px;
+  height: 286px;
+  //워드클라우드 api 연동시 삭제 할 내용
+  border: 1px solid red;
 `;
