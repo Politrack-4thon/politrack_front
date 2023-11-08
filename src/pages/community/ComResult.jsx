@@ -19,6 +19,8 @@ function ComResult() {
     resultDate: '',
   });
 
+  const [wordcloudImage, setWordcloudImage] = useState('');
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -26,6 +28,10 @@ function ComResult() {
           '/politician/community/<community_id>/board/<int:board_id>/result'
         );
         setData(response.data);
+
+        // 백엔드에서 받아온 wordcloud 이미지 URL 설정
+        const wordcloudURL = `/politician/community/<community_id>/wordcloud`;
+        setWordcloudImage(wordcloudURL);
       } catch (error) {
         console.error('데이터를 가져오는 중 오류 발생: ', error);
         // 에러 발생 시 더미 데이터 사용
@@ -61,6 +67,59 @@ function ComResult() {
     data.option2_count === maxVoteCount ? circleIconImage : circleIconNoImage;
   const circleIconSrc3 =
     data.option3_count === maxVoteCount ? circleIconImage : circleIconNoImage;
+
+  const maxVotePercentage = (() => {
+    if (data.option1_count === maxVoteCount) {
+      return (
+        (data.option1_count /
+          (data.option1_count + data.option2_count + data.option3_count)) *
+        100
+      );
+    } else if (data.option2_count === maxVoteCount) {
+      return (
+        (data.option2_count /
+          (data.option1_count + data.option2_count + data.option3_count)) *
+        100
+      );
+    } else {
+      return (
+        (data.option3_count /
+          (data.option1_count + data.option2_count + data.option3_count)) *
+        100
+      );
+    }
+  })();
+
+  const maxVoteText = (() => {
+    if (data.option1_count === maxVoteCount) {
+      return '좋은 것 같아';
+    } else if (data.option2_count === maxVoteCount) {
+      return '난 별로,,';
+    } else {
+      return '잘 모르겠어';
+    }
+  })();
+
+  //색상 지정
+  const maxVotePercentageColor = (() => {
+    if (data.option1_count === maxVoteCount) {
+      return data.option1_count === maxVoteCount ? 'black' : '#7F85A3';
+    } else if (data.option2_count === maxVoteCount) {
+      return data.option2_count === maxVoteCount ? 'black' : '#7F85A3';
+    } else {
+      return data.option3_count === maxVoteCount ? 'black' : '#7F85A3';
+    }
+  })();
+
+  const maxVoteTextColor = (() => {
+    if (data.option1_count === maxVoteCount) {
+      return data.option1_count === maxVoteCount ? 'black' : '#7F85A3';
+    } else if (data.option2_count === maxVoteCount) {
+      return data.option2_count === maxVoteCount ? 'black' : '#7F85A3';
+    } else {
+      return data.option3_count === maxVoteCount ? 'black' : '#7F85A3';
+    }
+  })();
 
   return (
     <S.ComResultWrapper>
@@ -166,6 +225,28 @@ function ComResult() {
           <S.ResultDate>{data.resultDate}</S.ResultDate>
         </S.GraphWrapper>
       </S.ComResultBg>
+      <S.ResultLine>
+        <S.ResultLineImg src='/Community/ResultDots.png' />
+      </S.ResultLine>
+      <S.ResultText style={{ whiteSpace: 'pre-line' }}>
+        <span style={{ color: maxVotePercentageColor }}>
+          {`${maxVotePercentage.toFixed(0)}%`}
+        </span>
+        의 사용자분들께서
+        <br />
+        <span style={{ color: maxVoteTextColor }}>"{maxVoteText}"</span>라고
+        대답했어요
+      </S.ResultText>
+      <S.ResultTextSub>
+        유저들이 이와 같은 반응을 보인 이유는 무엇일까요? <br />
+        다음 워드 클라우드를 통해 유저들이 어떤 생각을 가지고 있는지 분석해봐요!
+      </S.ResultTextSub>
+      <S.ResultCloud>
+        <S.ResultCloudImg src={wordcloudImage} alt='Word Cloud' />
+      </S.ResultCloud>
+      <S.ResultLine>
+        <S.ResultLineImg src='/Community/ResultDots.png' />
+      </S.ResultLine>
     </S.ComResultWrapper>
   );
 }

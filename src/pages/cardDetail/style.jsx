@@ -6,7 +6,6 @@ export const MainWrapper = styled.div`
   display: flex;
   flex-direction: column;
   color: ${(props) => props.theme.colors.font};
-  
 `;
 export const MainContainer = styled.div `
 `;
@@ -107,7 +106,9 @@ border-radius: 4px;
 background: ${({ theme }) => theme.colors.gray1};
 box-shadow: 2px 4px 10px 0px rgba(72, 74, 100, 0.10);
 padding: 26px 14px;
+
 margin-left: 20px;
+
 `;
 
 export const cardDetailBill = styled.div `
@@ -127,6 +128,7 @@ display:flex;
 justify-content:center;
 align-items:center;
 gap:54px;
+
 margin-left: 20px;
 `;
 
