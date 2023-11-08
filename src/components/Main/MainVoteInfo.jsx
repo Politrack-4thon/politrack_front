@@ -3,7 +3,7 @@ import * as S from "./style";
 
 function MainVoteInfo(props) {
     return (
-        <S.MainVoteInfoContainer>
+        <S.MainVoteInfoContainer style={{width: '107px', height: '83px'}}>
             <S.IconAndTitle>
                 <img src={props.icon}/>
                 {props.title}

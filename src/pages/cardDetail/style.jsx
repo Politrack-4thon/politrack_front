@@ -6,7 +6,6 @@ export const MainWrapper = styled.div`
   display: flex;
   flex-direction: column;
   color: ${(props) => props.theme.colors.font};
-  
 `;
 export const MainContainer = styled.div `
 `;
@@ -85,3 +84,64 @@ background: #EBEDF8;
 export const Cards = styled.div`
 diplay:flex;
 `;
+
+
+// Detail.jsx
+export const cardDetail = styled.div `
+width: 100%:
+`;
+export const cardDetailContainer = styled.div `
+
+flex-shrink: 0;
+border-radius: 16px 16px 0px 0px;
+background: var(--main-white, #FFF);
+box-shadow: -4px 0px 24px 0px rgba(0, 0, 0, 0.12);
+padding: 20px 0;
+`;
+export const cardDetailRow = styled.div `
+display:flex;
+`;
+export const cardDetailSummary = styled.div `
+width: 351px;
+flex-shrink: 0;
+border-radius: 4px;
+background: ${({ theme }) => theme.colors.gray1};
+box-shadow: 2px 4px 10px 0px rgba(72, 74, 100, 0.10);
+padding: 26px 14px;
+
+`;
+
+export const cardDetailBill = styled.div `
+width: 350px;
+height: 77px;
+flex-shrink: 0;
+border-radius: 8px;
+background: ${({ theme }) => theme.colors.gray1};
+box-shadow: 2px 4px 10px 0px rgba(72, 74, 100, 0.10);
+color: ${({ theme }) => theme.colors.black};
+font-family: Noto Sans KR;
+font-size: 14px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+display:flex;
+justify-content:center;
+align-items:center;
+gap:54px;
+`;
+
+export const billDetailBtn = styled.button `
+width: 58px;
+height: 24px;
+flex-shrink: 0;
+border-radius: 4px;
+background: ${({ theme }) => theme.colors.gray5};
+color: ${({ theme }) => theme.colors.white};
+text-align: center;
+font-family: Noto Sans KR;
+font-size: 10px;
+font-style: normal;
+font-weight: 700;
+line-height: 150%; /* 15px */
+`;
+

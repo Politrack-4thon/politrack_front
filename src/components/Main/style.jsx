@@ -109,8 +109,6 @@ margin: 32px 0 27px 0;
 
 // 특정 지역 선거구, 투표구, 선거인 수 정보
 export const MainVoteInfoContainer = styled.div `
-width: 107px;
-height: 83px;
 flex-shrink: 0;
 border-radius: 6px;
 border: 1px solid var(--main-gray-2, #EBEDF8);
