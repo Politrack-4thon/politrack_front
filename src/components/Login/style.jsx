@@ -42,7 +42,7 @@ export const StyledLoginButton = styled.button`
   border-radius: 8px;
   align-items: center;
   cursor: pointer;
-  margin-top: 130px;
+  margin-top: 50px;
   font-size: 16px;
   font-weight: 500;
   font-family: 'NotoSansRegular';

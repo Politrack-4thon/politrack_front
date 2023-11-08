@@ -18,6 +18,11 @@ function Signup() {
   const [confirmPw, setConfirmPw] = useState('');
   const [isAvailableId, setIsAvailableId] = useState(null);
 
+  const handleLogiMove = () => {
+    // 로그인 페이지로 이동
+    navigate('/SignIn');
+  };
+
   // const checkDuplicateId = async (userId) => {
   //   try {
   //     const response = await API.get(
@@ -194,6 +199,12 @@ function Signup() {
           buttonText='회원가입 완료하기'
         />
       </S.SignUpInputContainer>
+      <S.SignupMove>
+        <S.SignupMoveSub>이미 회원이신가요?</S.SignupMoveSub>
+        <S.SignupMoveMain onClick={handleLogiMove}>
+          로그인 하러가기
+        </S.SignupMoveMain>
+      </S.SignupMove>
     </S.SignupWhole>
   );
 }

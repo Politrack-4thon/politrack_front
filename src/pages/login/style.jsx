@@ -9,7 +9,7 @@ export const LoginWrapper = styled.div`
 export const SignupWhole = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   -webkit-box-pack: center;
   -webkit-box-align: center;
   margin-top: 30px;
@@ -62,7 +62,6 @@ export const MessageText = styled.span`
 export const SignUpInputContainer = styled.form`
   display: flex;
   flex-direction: column;
-  margin-bottom: 6rem;
   -webkit-box-align: center;
   align-items: center;
   -webkit-box-pack: center;
@@ -80,4 +79,29 @@ export const InputTitle = styled.div`
   font-size: 16px;
   font-weight: 700;
   font-family: 'NotoSansMedium';
+`;
+
+export const SignupMove = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+`;
+
+export const SignupMoveSub = styled.div`
+  margin-right: 10px;
+  color: #7f85a3;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'NotoSansRegular';
+`;
+export const SignupMoveMain = styled.div`
+  color: black;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'NotoSansRegular';
+  cursor: pointer;
+  &:hover {
+    font-size: 16px;
+  }
 `;
