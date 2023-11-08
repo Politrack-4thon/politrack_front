@@ -93,7 +93,7 @@ function Signup() {
 
       if (response.status === 200) {
         alert('회원가입이 완료되었습니다.');
-        navigate('/Main');
+        navigate('/PMain');
       } else {
         alert('회원가입에 실패했다네.');
       }
