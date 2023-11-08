@@ -27,7 +27,7 @@ const Layout = () => {
   const currentPath = location.pathname;
 
   // /login 및 /SignUp 경로일 때 푸터 숨김
-  const hideFooter = currentPath === '/login' || currentPath === '/SignUp';
+  const hideFooter = currentPath === '/signin' || currentPath === '/SignUp';
 
   return (
     <BackGroundColor>

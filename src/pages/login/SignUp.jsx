@@ -20,7 +20,7 @@ function Signup() {
 
   const handleLogiMove = () => {
     // 로그인 페이지로 이동
-    navigate('/SignIn');
+    navigate('/signin');
   };
 
   // const checkDuplicateId = async (userId) => {
@@ -92,8 +92,17 @@ function Signup() {
       });
 
       if (response.status === 200) {
+        // 회원가입 성공 시 사용자 정보를 userInfo 객체에 저장
+        const userInfo = {
+          user_id: user.user_id,
+          password: user.password,
+        };
+
+        // userInfo 객체를 로컬 스토리지에 JSON 문자열로 저장
+        localStorage.setItem('userInfo', JSON.stringify(userInfo));
+
         alert('회원가입이 완료되었습니다.');
-        navigate('/PMain');
+        navigate('/signin');
       } else {
         alert('회원가입에 실패했다네.');
       }
