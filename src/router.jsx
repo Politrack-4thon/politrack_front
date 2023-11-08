@@ -12,6 +12,7 @@ import Detail from './pages/cardDetail/Detail';
 
 import ComResult from './pages/community/ComResult';
 import SignUp from './pages/login/SignUp';
+import Signin from './pages/login/SignIn';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: 'SignUp',
         element: <SignUp />,
+      },
+      {
+        path: 'SignIn',
+        element: <Signin />,
       },
       {
         path: 'community',
