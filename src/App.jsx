@@ -1,7 +1,7 @@
 import { styled, ThemeProvider } from 'styled-components';
 import { GlobalStyle } from './style/globalStyle';
 import { theme } from './style/theme.js';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Footer from './components/layouts/footer/Footer';
 import Header from './components/layouts/header/Header';
 
@@ -16,18 +16,25 @@ const Wrapper = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
   max-width: 420px;
   background-color: white;
 `;
 
 const Layout = () => {
+  const location = useLocation();
+
+  const currentPath = location.pathname;
+
+  // /login 및 /SignUp 경로일 때 푸터 숨김
+  const hideFooter = currentPath === '/signin' || currentPath === '/SignUp';
+
   return (
     <BackGroundColor>
       <Wrapper>
         <Header />
         <Outlet />
-        <Footer />
+        {!hideFooter && <Footer />}
       </Wrapper>
     </BackGroundColor>
   );
