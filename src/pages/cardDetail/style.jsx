@@ -84,22 +84,21 @@ background: #EBEDF8;
 export const Cards = styled.div`
 diplay:flex;
 `;
-
-
 // Detail.jsx
 export const cardDetail = styled.div `
 width: 100%:
 `;
-export const cardDetailContainer = styled.div `
 
+export const cardDetailContainer = styled.div `
 flex-shrink: 0;
 border-radius: 16px 16px 0px 0px;
-background: var(--main-white, #FFF);
+background: ${({ theme }) => theme.colors.white};
 box-shadow: -4px 0px 24px 0px rgba(0, 0, 0, 0.12);
 padding: 20px 0;
 `;
 export const cardDetailRow = styled.div `
 display:flex;
+margin-left: 20px;
 `;
 export const cardDetailSummary = styled.div `
 width: 351px;
@@ -108,6 +107,8 @@ border-radius: 4px;
 background: ${({ theme }) => theme.colors.gray1};
 box-shadow: 2px 4px 10px 0px rgba(72, 74, 100, 0.10);
 padding: 26px 14px;
+
+margin-left: 20px;
 
 `;
 
@@ -128,6 +129,8 @@ display:flex;
 justify-content:center;
 align-items:center;
 gap:54px;
+
+margin-left: 20px;
 `;
 
 export const billDetailBtn = styled.button `
@@ -144,4 +147,3 @@ font-style: normal;
 font-weight: 700;
 line-height: 150%; /* 15px */
 `;
-
