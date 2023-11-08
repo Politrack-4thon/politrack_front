@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import { useEffect } from 'react';
 import { useState } from 'react';
+import { API } from '../../api/axois'; // 백엔드 API 모듈 import
+
 import * as S from './style';
 import CommunityTop from '../../components/Community/CommunityTop';
 import MainMap from '../../components/Main/MainMap';
@@ -13,37 +16,82 @@ import MainCard from '../../components/Main/MainCard';
 
 
 import {MainCardName, SubTitle} from '../../components/Main/style';
+
+
 function PMain() {
   let region = 0;
 
-  const dummyData = [ // 지역별
+  const [data, setData] = useState({
+    POLY_NM : '', // 정당명
+    HG_NM: '', // 한글 이름
+    ENG_NM:'', // 영어 이름
+    ORIG_NM:'', // 선거구명
+    HOMEPAGE:'', // 홈페이지 링크
+
+  });
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await API.get('/politician/poly/<str:poly_nm>');
+        setData(response.data); // data값들 상태 값 변경
+
+        if (response.status === 200) {
+          const data = response.data;
+          setCommunityContents(data);
+        } else {
+          console.error(
+            'Error fetching community content:',
+            response.statusText
+          );
+        }
+      } catch (error) {
+        console.error('Error fetching community content:', error);
+        setData ({
+          POLY_NM : '더불어민주당', // 정당명
+          HG_NM: '김철수', // 한글 이름
+          ENG_NM:'KIM CHUL SU', // 영어 이름
+          ORIG_NM:'중구 성동구 갑', // 선거구명
+          HOMEPAGE:'#', // 홈페이지 링크
+        })
+      }
+    }
+
+    fetchData();
+  }, []);
+
+
+  const dummyData = [ 
     {
       id:1,
+      imageSrc: 'src/assets/images/congress_man1.png'
+    },
+    {
+      id:2,
+      imageSrc: 'src/assets/images/congress_man1.png'
+
+    }
+  ]
+  const dummyData2 = [ // 지역별
+    {
       title: '대한민국 정치의 중심지, 서울',
       constituency: '49개',
       votingPre:'2.25개',
       voter: '8,477.244명',
       더불어민주당: '41개',
-      국민의힘: '8개',
+      국민의힘:'8개',
     },
     {
-      id:2,
-      title: '대한민국 정치의 중심지, 서울',
-      constituency: '49개',
-      votingPre:'2.25개',
-      voter: '8,477.244명',
+      title: '경기도',
+      constituency: '',
+      votingPre:'',
+      voter: '',
+
     }
-  ]
-
-  const dummyData2 = [ // 정치인
-    {
-      id: 1, name:'홍익표', partyName:'더불어민주당', district:'구'
-    },
-    {
-      id: 2, name:'ddd', partyName:'dddd', district:'구'
-    },
 
   ]
+  const defaultImageSrc = 'src/assets/images/default_profile.png'
+
   const [isVoteInfoVisible, setIsVoteInfoVisible] = useState(true);
   const [isVoteResultVisible, setIsVoteResultVisible] = useState(true);
 
@@ -69,7 +117,7 @@ function PMain() {
         <S.Border/>
 
         <MainSubTitle 
-        title={dummyData[region].title}
+        title={dummyData2[region].title}
         onClick={toggleVoteInfoVisibility}
         />
 
@@ -81,17 +129,17 @@ function PMain() {
                 <MainVoteInfo
                   icon="src/assets/images/icon1.svg"
                   title="선거구 수"
-                  value={dummyData[region].constituency}
+                  value={dummyData2[region].constituency}
                 />
                 <MainVoteInfo
                   icon="src/assets/images/icon2.png"
                   title="투표구 수"
-                  value={dummyData[region].votingPre}
+                  value={dummyData2[region].votingPre}
                 />
                 <MainVoteInfo
                   icon="src/assets/images/icon3.svg"
                   title="선거인 수"
-                  value={dummyData[region].voter}
+                  value={dummyData2[region].voter}
                 />
               </>
             
@@ -108,8 +156,8 @@ function PMain() {
         />
         {isVoteResultVisible && (
         <MainVoteResult
-        party1={dummyData[region].더불어민주당}
-        party2={dummyData[region].국민의힘}
+        party1 = {dummyData2[region].더불어민주당}
+        party2 = {dummyData2[region].국민의힘}
         />
         )};
         <S.Border/>
@@ -119,9 +167,14 @@ function PMain() {
         <MainSelectBtn/>
 
         <S.Cards>
-            {dummyData2.map((data) => (
-              <MainCard key={data.id} name={data.name} partyName={data.partyName} district={data.district} />
-            ))}
+          {(data.length > 0 ? data : dummyData).map((content) => (     
+            <MainCard
+              POLY_NM={content.POLY_NM}
+              HG_NM={content.HG_NM}
+              ORIG_NM={content.ORIG_NM}
+              HOMEPAGE={content.HOMEPAGE}
+            />
+          ))};        
         </S.Cards>      
       </S.MainContainer>
     </S.MainWrapper>

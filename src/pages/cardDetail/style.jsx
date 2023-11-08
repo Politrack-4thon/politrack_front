@@ -88,10 +88,11 @@ diplay:flex;
 export const cardDetail = styled.div `
 width: 100%:
 `;
+
 export const cardDetailContainer = styled.div `
 flex-shrink: 0;
 border-radius: 16px 16px 0px 0px;
-background: var(--main-white, #FFF);
+background: ${({ theme }) => theme.colors.white};
 box-shadow: -4px 0px 24px 0px rgba(0, 0, 0, 0.12);
 padding: 20px 0;
 `;

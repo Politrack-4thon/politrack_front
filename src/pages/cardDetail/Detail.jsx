@@ -1,4 +1,7 @@
+import React from 'react';
+
 import { useParams } from "react-router-dom"
+import { useState } from 'react';
 
 import MainVoteInfo from "../../components/Main/MainVoteInfo";
 import MainSubTitle from "../../components/Main/MainSubTitle";
@@ -9,6 +12,18 @@ import * as R from './style';
 function Detail(props) {
   const params = useParams();
   const {homeLogoUrl, instagramLogoUrl } = props;
+
+  const [isCardDetailSummVisible, setIsCardDetailSummVisible] = useState(true);
+  const [isCardDetailBillVisible, setIsCardDetailBillVisible] = useState(true);
+
+  const toggleCardDetailSumm = () => {
+    setIsCardDetailSummVisible(!isCardDetailSummVisible);
+  };
+
+  const toggleCardDetailBill = () => {
+    setIsCardDetailBillVisible(!isCardDetailBillVisible);
+  }
+
   return (
 
     <div style ={{width:'100%'}}>
@@ -28,7 +43,7 @@ function Detail(props) {
                 </a>
             </S.MainCardUrl>
         </S.MainCardContainer>
-        <div>
+        <R.cardDetailContainer>
             <R.cardDetailRow style={{gap: '16px'}}>
                 <MainVoteInfo 
                   icon="/src/assets/images/icon1.svg"
@@ -37,21 +52,30 @@ function Detail(props) {
                 />
                 <S.MainVoteInfoContainer style={{width: '226.9px', height: '83px'}}>
                     <S.IconAndTitle>
-                        <img src=''/>
-                        소속위원회
+                        <img src='/src/assets/images/Frame 41.png'/>
                     </S.IconAndTitle>
-                    <S.Val>문홫ㅇ리ㅏㅇ</S.Val>
+                    <S.Val>{}</S.Val>
                 </S.MainVoteInfoContainer>
             </R.cardDetailRow>
-            <MainSubTitle title="국회의원 약력"/>
+            <MainSubTitle 
+            title="국회의원 약력"
+            onClick={toggleCardDetailSumm}
+            />
+            {isCardDetailSummVisible && (
             <R.cardDetailSummary>dfsdfsdfsdfsdf</R.cardDetailSummary>
-            <MainSubTitle title="최근 발의 법안"/>
+            )};
+            <MainSubTitle 
+            title="최근 발의 법안"
+            onClick={toggleCardDetailBill}
+            />
+            {isCardDetailBillVisible && (
             <R.cardDetailBill>
                 특정강력범죄의 처벌에 관한
                 <R.billDetailBtn>상세보기</R.billDetailBtn>
             </R.cardDetailBill>
+            )};
 
-        </div>    
+        </R.cardDetailContainer>    
     </div>
     )
 
