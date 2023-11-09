@@ -32,13 +32,15 @@ function Community() {
 
   async function fetchData() {
     try {
-      const response = await API.get('/politician/community');
+      const response = await API.get('/politician/community/');
 
       if (response.status === 200) {
         const data = response.data;
 
         // 커뮤니티 리스트를 'id' 역순으로 정렬
-        const sortedCommunityContents = data.sort((a, b) => b.id - a.id);
+        const sortedCommunityContents = data.sort(
+          (a, b) => b.community_id - a.community_id
+        );
         setCommunityContents(sortedCommunityContents);
       } else {
         console.error('Error fetching community content:', response.statusText);
