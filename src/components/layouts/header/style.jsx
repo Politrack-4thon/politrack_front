@@ -57,6 +57,7 @@ export const SidebarWrapper = styled.div`
   background-color: #f6f7fe;
   z-index: 10;
   display: none;
+  padding: 10px;
 `;
 
 export const UserInfo = styled.div`
@@ -118,6 +119,17 @@ export const LogoutContainer = styled.div`
   margin-top: 10px;
   margin-left: 30px;
   margin-bottom: 20px;
+  cursor: pointer;
+`;
+
+export const LoginContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  /* justify-content: center; */
+  align-items: center;
+  margin-top: 10px;
+  margin-left: 30px;
+  /* margin-bottom: 20px; */
   cursor: pointer;
 `;
 

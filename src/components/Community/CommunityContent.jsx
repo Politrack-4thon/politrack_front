@@ -9,7 +9,7 @@ function CommunityContent({ id, title, status, content, style }) {
         <S.ContentBg>
           <S.ContentTitleWrapper>
             <S.ContentTitle>{title}</S.ContentTitle>
-            {/* <S.VoteStatus>{status}</S.VoteStatus> */}
+            <S.VoteStatus>{status}</S.VoteStatus>
           </S.ContentTitleWrapper>
           <S.ContentText>{content}</S.ContentText>
         </S.ContentBg>

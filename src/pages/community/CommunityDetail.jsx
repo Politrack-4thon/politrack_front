@@ -31,15 +31,33 @@ function CommunityDetail() {
     date: '2023-12-31',
   });
 
-  useEffect(() => {
-    const currentDate = new Date();
-    const deadlineDate = new Date(deadline.date);
+  const [isContentVisible, setContentVisible] = useState(true);
 
+  const formattedDeadline = data.formatted_deadline;
+  const deadlineDate = new Date(
+    formattedDeadline.split('.').reverse().join('-').replace(',', '')
+  );
+
+  useEffect(() => {
+    // 현재 날짜 가져오기
+    const currentDate = new Date();
+
+    // deadline 날짜와 현재 날짜 비교
     if (deadlineDate < currentDate) {
-      setDeadline({ ...deadline, isExpired: true });
-      setIsQuestionResultClickable(true);
+      // deadline 날짜가 지났을 때 컨텐츠를 가리도록 설정
+      setContentVisible(false);
     }
-  }, [deadline.isExpired]);
+  }, [deadlineDate]);
+
+  // useEffect(() => {
+  //   const currentDate = new Date();
+  //   const deadlineDate = new Date(deadline.date);
+
+  //   if (deadlineDate < currentDate) {
+  //     setDeadline({ ...deadline, isExpired: true });
+  //     setIsQuestionResultClickable(true);
+  //   }
+  // }, [deadline.isExpired]);
 
   useEffect(() => {
     async function fetchData() {
@@ -96,13 +114,17 @@ function CommunityDetail() {
         <div></div>
       ) : (
         <S.ComDetailOpinion>
-          <CommunityQuestion
-            subQuestion={'어떻게 생각하나요?'}
-            mainQuestion={'여러분의 의견을 남겨주세요.'}
-          />
-          <ComDetailQuiz />
-          <CommunityQuestion mainQuestion={'자유롭게 의견을 적어주세요.'} />
-          <ComDetailForm />
+          {isContentVisible && (
+            <>
+              <CommunityQuestion
+                subQuestion={'어떻게 생각하나요?'}
+                mainQuestion={'여러분의 의견을 남겨주세요.'}
+              />
+              <ComDetailQuiz />
+              <CommunityQuestion mainQuestion={'자유롭게 의견을 적어주세요.'} />
+              <ComDetailForm />
+            </>
+          )}
         </S.ComDetailOpinion>
       )}
     </S.CommunityDetailWrapper>

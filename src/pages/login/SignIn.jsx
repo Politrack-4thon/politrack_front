@@ -70,6 +70,10 @@ function Signin() {
         const jwtToken = response.data.token; // 서버에서 받은 토큰으로 수정
         setJwtToken(jwtToken); // JWT 값을 상태 변수에 저장
         localStorage.setItem('jwtToken', jwtToken); // JWT 값을 로컬 스토리지에 저장
+
+        // 로그인 성공 시 사용자 ID를 localStorage에 저장
+        localStorage.setItem('user_id', user.user_id);
+
         navigate('/PMain', { state: { user_id: user.user_id } });
       } else {
         alert('아이디나 비밀번호가 일치하지 않습니다.');
