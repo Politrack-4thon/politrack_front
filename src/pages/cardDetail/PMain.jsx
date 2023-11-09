@@ -22,18 +22,20 @@ function PMain() {
   let region = 0;
 
   const [data, setData] = useState({
+    IMAGE:'',
     POLY_NM : '', // 정당명
     HG_NM: '', // 한글 이름
     ENG_NM:'', // 영어 이름
     ORIG_NM:'', // 선거구명
     HOMEPAGE:'', // 홈페이지 링크
+    MONA_CD:'',
 
   });
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await API.get('/politician/poly/<str:poly_nm>');
+        const response = await API.get('/politician/poly/더불어민주당');
         setData(response.data); // data값들 상태 값 변경
 
         if (response.status === 200) {
@@ -53,6 +55,7 @@ function PMain() {
           ENG_NM:'KIM CHUL SU', // 영어 이름
           ORIG_NM:'중구 성동구 갑', // 선거구명
           HOMEPAGE:'#', // 홈페이지 링크
+          MONA_CD:'',
         })
       }
     }
@@ -92,8 +95,12 @@ function PMain() {
   ]
   const defaultImageSrc = 'src/assets/images/default_profile.png'
 
-  const [isVoteInfoVisible, setIsVoteInfoVisible] = useState(true);
-  const [isVoteResultVisible, setIsVoteResultVisible] = useState(true);
+  const [isVoteInfoVisible, setIsVoteInfoVisible] = useState(false);
+  const [isVoteResultVisible, setIsVoteResultVisible] = useState(false);
+  const [selectedParty, setSelectedParty] = useState(false); // 버튼을 선택하지 않은 상태
+  const [party, setParty] = useState(null);
+  const [markerStates, setMarkerstates] = useState("");
+
 
   const toggleVoteInfoVisibility = () => {
     setIsVoteInfoVisible(!isVoteInfoVisible);
@@ -103,6 +110,13 @@ function PMain() {
     setIsVoteResultVisible(!isVoteResultVisible);
   }
 
+  const partyVisibility = () => {
+    setSelectedParty(!selectedParty);
+    setParty(party);
+  }
+
+ 
+ 
   return (
     <S.MainWrapper>
       <CommunityTop
@@ -112,7 +126,12 @@ function PMain() {
       />
       <S.MainContainer>
         <MainSearch/>
-        <MainMap/>
+        
+        <MainMap
+
+        
+        
+        />
  
         <S.Border/>
 
@@ -149,7 +168,7 @@ function PMain() {
         )}
 
         <S.Border/>
-
+        
         <MainSubTitle 
         title='제 21대 국회의원 선거 결과'
         onClick={toggleVoteResultVisibility}
@@ -164,18 +183,34 @@ function PMain() {
 
         <SubTitle>아래 각 당을 선택하여 <br></br>
         당선된 국회의원들을 확인해보세요</SubTitle>
-        <MainSelectBtn/>
+        <S.MainSelectBtnContainer>
+        <MainSelectBtn 
+        polyName='더불어민주당'
+        onClick={partyVisibility}
+        />
+        <MainSelectBtn 
+        polyName='국민의힘'
+        onClick={partyVisibility}
+        />
+        </S.MainSelectBtnContainer>
+        
 
+        {selectedParty && (
         <S.Cards>
-          {(data.length > 0 ? data : dummyData).map((content) => (     
+          {(data.length > 0 ? data : dummyData).map((content) => (
+            <Link to={`/politician/id/${content.MONA_CD}`}>
             <MainCard
+              IMAGE = {content.IMAGE}
               POLY_NM={content.POLY_NM}
               HG_NM={content.HG_NM}
+              ENG_NM = {content.ENG_NM}
               ORIG_NM={content.ORIG_NM}
               HOMEPAGE={content.HOMEPAGE}
             />
+            </Link>
           ))};        
-        </S.Cards>      
+        </S.Cards>  
+        )};    
       </S.MainContainer>
     </S.MainWrapper>
   );

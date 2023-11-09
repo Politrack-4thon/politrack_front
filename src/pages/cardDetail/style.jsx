@@ -82,7 +82,9 @@ background: #EBEDF8;
 `;
 
 export const Cards = styled.div`
-diplay:flex;
+display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: minmax(100px, auto);
 `;
 // Detail.jsx
 export const cardDetail = styled.div `
@@ -146,4 +148,10 @@ font-size: 10px;
 font-style: normal;
 font-weight: 700;
 line-height: 150%; /* 15px */
+`;
+
+
+export const MainSelectBtnContainer = styled.div `
+display:flex;
+gap: 24px;
 `;

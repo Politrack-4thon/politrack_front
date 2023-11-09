@@ -50,7 +50,7 @@ const [cardData, setCardData] = useState({
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await API.get('/politician/poly/<str:poly_nm>');
+        const response = await API.get('/politician/poly/더불어민주당');
         setCardData(response.data); // data값들 상태 값 변경
 
         if (response.status === 200) {
@@ -81,7 +81,7 @@ const [cardData, setCardData] = useState({
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await API.get('/politician/id/<str:MONA_CD>');
+        const response = await API.get('/politician/id/MONA_CD');
         setDetilaData(response.data); // data값들 상태 값 변경
 
         if (response.status === 200) {
@@ -111,7 +111,7 @@ const [cardData, setCardData] = useState({
     }
 
     fetchData();
-  }, []);
+  }, [MONA_CD]);
 
   const handleDetailLink = () => {
     if(detilaDta.DETAIL_LINK) {
