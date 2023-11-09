@@ -26,11 +26,11 @@ const Wrapper = styled.div`
 
 const Content = styled.div`
   flex-grow: 1;
-  min-height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 0;
 `;
 
 const Layout = () => {
@@ -38,8 +38,11 @@ const Layout = () => {
 
   const currentPath = location.pathname;
 
-  // /login 및 /SignUp 경로일 때 푸터 숨김
-  const hideFooter = currentPath === '/signin' || currentPath === '/SignUp';
+  // 인트로, 로그인, 회원가입 시 푸터 숨김
+  const hideFooter =
+    currentPath === '/signin' ||
+    currentPath === '/Signup' ||
+    currentPath === '/intro';
 
   return (
     <BackGroundColor>
