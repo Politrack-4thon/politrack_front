@@ -78,12 +78,12 @@ export const Border = styled.div`
 `;
 
 export const Cards = styled.div`
-  display: flex;
+  diplay: flex;
 `;
 
 // Detail.jsx
 export const cardDetail = styled.div`
-  width: 100%;
+width: 100%:
 `;
 export const cardDetailContainer = styled.div`
   flex-shrink: 0;
