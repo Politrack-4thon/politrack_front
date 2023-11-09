@@ -1,31 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import * as S from './style';
 import { API } from '../../api/axois';
-import { useNavigate } from 'react-router-dom'; // react-router-dom의 useNavigate 불러오기
+import { useNavigate } from 'react-router-dom';
 import CommunityTop from '../../components/Community/CommunityTop';
 import CommunityQuestion from '../../components/Community/CommunityQuestion';
 import CommunityContent from '../../components/Community/CommunityContent';
 
 function Community() {
   const [communityContents, setCommunityContents] = useState([]);
-  const navigate = useNavigate(); // useNavigate 훅 사용
+  const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // 여기에서 로그인 여부를 확인하고 상태를 업데이트합니다.
     const jwtToken = localStorage.getItem('jwtToken');
     if (jwtToken) {
       setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);
-      // 로그인하지 않은 상태면 다른 페이지로 이동
       navigate('/signin');
     }
   }, [navigate]);
 
   useEffect(() => {
     if (isLoggedIn) {
-      // 로그인한 상태에서만 데이터를 가져오도록 처리
       fetchData();
     }
   }, [isLoggedIn]);
@@ -41,7 +38,24 @@ function Community() {
         const sortedCommunityContents = data.sort(
           (a, b) => b.community_id - a.community_id
         );
-        setCommunityContents(sortedCommunityContents);
+
+        // 현재 시간을 가져오는 함수
+        const getCurrentTime = () => new Date();
+
+        // content의 마감 시간과 현재 시간 비교
+        const updatedContents = sortedCommunityContents.map((content) => {
+          const deadline = new Date(content.formatted_deadline);
+
+          // 투표 진행 중 여부 확인
+          const isVotingInProgress = deadline > getCurrentTime();
+
+          return {
+            ...content,
+            isVotingInProgress,
+          };
+        });
+
+        setCommunityContents(updatedContents);
       } else {
         console.error('Error fetching community content:', response.statusText);
       }
@@ -68,6 +82,7 @@ function Community() {
           <CommunityContent
             key={content.id}
             title={content.title}
+            status={content.isVotingInProgress ? '투표진행중' : '투표마감'}
             content={content.content}
           />
         ))}
