@@ -38,7 +38,7 @@ function PMain() {
 
         if (response.status === 200) {
           const data = response.data;
-          setCommunityContents(data);
+          setData(data);
         } else {
           console.error(
             'Error fetching community content:',
