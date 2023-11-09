@@ -7,7 +7,7 @@ export const CommunityWrapper = styled.div`
 `;
 
 export const ContentContainer = styled.div`
-  overflow: scroll;
+  /* overflow: scroll; */
 `;
 
 //CommunityDetail.jsx
