@@ -1,66 +1,53 @@
 import React, { useEffect, useState } from 'react';
 import * as S from './style';
 import { API } from '../../api/axois';
+import { useNavigate } from 'react-router-dom'; // react-router-dom의 useNavigate 불러오기
 import CommunityTop from '../../components/Community/CommunityTop';
 import CommunityQuestion from '../../components/Community/CommunityQuestion';
 import CommunityContent from '../../components/Community/CommunityContent';
 
 function Community() {
   const [communityContents, setCommunityContents] = useState([]);
+  const navigate = useNavigate(); // useNavigate 훅 사용
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await API.get('/politician/community/');
-
-        if (response.status === 200) {
-          const data = response.data;
-
-          // 커뮤니티 리스트를 'id' 역순으로 정렬
-          const sortedCommunityContents = data.sort(
-            (a, b) => b.community_id - a.community_id
-          );
-          setCommunityContents(sortedCommunityContents);
-        } else {
-          console.error(
-            'Error fetching community content:',
-            response.statusText
-          );
-        }
-      } catch (error) {
-        console.error('Error fetching community content:', error);
-      }
+    // 여기에서 로그인 여부를 확인하고 상태를 업데이트합니다.
+    const jwtToken = localStorage.getItem('jwtToken');
+    if (jwtToken) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+      // 로그인하지 않은 상태면 다른 페이지로 이동
+      navigate('/signin');
     }
+  }, [navigate]);
 
-    fetchData();
-  }, []);
+  useEffect(() => {
+    if (isLoggedIn) {
+      // 로그인한 상태에서만 데이터를 가져오도록 처리
+      fetchData();
+    }
+  }, [isLoggedIn]);
 
-  // 더미 데이터
-  const dummyData = [
-    {
-      id: 1,
-      title: '국민의 힘, 김포시 서울시로 편입 추진',
-      status: '투표진행중',
-      content:
-        '국민의힘 소속인 김병수 김포시장이 김기현 국민의힘 대표에게 “김포시 서울 편입 검토해줘” 라고 건의했어요.',
-    },
-    {
-      id: 2,
-      title: '국민의 힘, 김포시 서울시로 편입 추진',
-      status: '투표진행중',
-      content:
-        '국민의힘 소속인 김병수 김포시장이 김기현 국민의힘 대표에게 “김포시 서울 편입 검토해줘” 라고 건의했어요.',
-    },
-    {
-      id: 3,
-      title: '국민의 힘, 김포시 서울시로 편입 추진',
-      status: '투표진행중',
-      content:
-        '국민의힘 소속인 김병수 김포시장이 김기현 국민의힘 대표에게 “김포시 서울 편입 검토해줘” 라고 건의했어요.',
-    },
-  ];
+  async function fetchData() {
+    try {
+      const response = await API.get('/politician/community');
 
-  const marginBottom = 15;
+      if (response.status === 200) {
+        const data = response.data;
+
+        // 커뮤니티 리스트를 'id' 역순으로 정렬
+        const sortedCommunityContents = data.sort((a, b) => b.id - a.id);
+        setCommunityContents(sortedCommunityContents);
+      } else {
+        console.error('Error fetching community content:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error fetching community content:', error);
+    }
+  }
+
   const minContentHeight = 'calc(100vh - 450px)';
 
   return (
@@ -75,17 +62,13 @@ function Community() {
         mainQuestion={'오늘의 쟁점을 확인해보세요.'}
       />
       <S.ContentContainer style={{ minHeight: minContentHeight }}>
-        {(communityContents.length > 0 ? communityContents : dummyData).map(
-          (content) => (
-            <CommunityContent
-              community_id={content.id}
-              title={content.title}
-              // status={content.status}
-              content={content.content}
-              style={{ marginBottom: `${marginBottom}px` }}
-            />
-          )
-        )}
+        {communityContents.map((content) => (
+          <CommunityContent
+            key={content.id}
+            title={content.title}
+            content={content.content}
+          />
+        ))}
       </S.ContentContainer>
     </S.CommunityWrapper>
   );

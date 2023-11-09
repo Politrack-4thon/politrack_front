@@ -1,14 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as S from './style';
-import { Link, useLocation, useNavigate } from 'react-router-dom'; // useNavigate 추가
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { API } from '../../../api/axois';
 
 function Header() {
   const location = useLocation();
   const navigate = useNavigate();
-  const user_id = location.state ? location.state.user_id : null;
-
+  const user_id = localStorage.getItem('user_id');
   const [user, setUser] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(!!user_id);
+
+  useEffect(() => {
+    if (user_id) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, [user_id]);
 
   useEffect(() => {
     const apiUrl = '/user/view/';
@@ -75,10 +83,25 @@ function Header() {
     }
   }, [isSideBarOpen]);
 
+  const handleLogout = async () => {
+    try {
+      const response = await API.post('/user/logout/');
+
+      if (response.status === 200) {
+        localStorage.removeItem('user_id');
+        navigate('/PMain');
+      } else {
+        console.error('로그아웃 실패:', response.status, response.data);
+      }
+    } catch (error) {
+      console.error('로그아웃 API 호출 에러:', error);
+    }
+  };
+
   return (
     <S.HeaderWrapper>
       <S.LogoContainer>
-        <Link to={``}>
+        <Link to={`/PMain`}>
           <S.Logo>
             <S.LogoImg src='/Header/Logo.png' />
           </S.Logo>
@@ -86,16 +109,25 @@ function Header() {
         <S.NavbarLine>
           <S.NavbarLineImg
             src='/Header/NavBarLine.png'
-            onClick={toggleSideBar} // NavbarLineImg를 클릭할 때 Sidebar 열리거나 닫힘
+            onClick={toggleSideBar}
           />
         </S.NavbarLine>
       </S.LogoContainer>
 
       <S.SidebarWrapper ref={sideBarRef}>
-        <S.UserInfo>
-          <S.UserProfile src='/Header/UserProfile.png' />
-          <S.UserName>{user_id}</S.UserName>
-        </S.UserInfo>
+        {isLoggedIn ? (
+          <S.UserInfo>
+            <S.UserProfile src='/Header/UserProfile.png' />
+            <S.UserName>{user_id}</S.UserName>
+          </S.UserInfo>
+        ) : (
+          <Link to='/Signin' onClick={closeSideBar}>
+            <S.LoginContainer>
+              <S.SideBarIcon src='/Header/HeadLoginIcon.png' />
+              <S.LogoutText>로그인</S.LogoutText>
+            </S.LoginContainer>
+          </Link>
+        )}
         <div onClick={() => handleIconClick('/PMain')}>
           <S.PoliContainer>
             <S.SideBarIcon src='/Header/HeadProIcon.png' />
@@ -114,28 +146,32 @@ function Header() {
             <S.SideBarText>퀴즈</S.SideBarText>
           </S.PoliContainer>
         </div>
-        <S.HeadLine>
-          <hr
-            style={{
-              border: 'none',
-              height: '1px',
-              backgroundColor: '#7F85A3',
-              margin: '10px 0',
-              width: '80%',
+        {isLoggedIn && ( // 로그인 상태에 따라 다른 구분선 표시
+          <S.HeadLine>
+            <hr
+              style={{
+                border: 'none',
+                height: '1px',
+                backgroundColor: '#7F85A3',
+                margin: '10px 0',
+                width: '80%',
+              }}
+            />
+          </S.HeadLine>
+        )}
+        {isLoggedIn && ( // 로그인 상태에 따라 다른 링크 또는 버튼 표시
+          <div
+            onClick={() => {
+              closeSideBar();
+              handleLogout();
             }}
-          />
-        </S.HeadLine>
-        <div
-          onClick={() => {
-            closeSideBar();
-            // 로그아웃 로직을 추가하세요
-          }}
-        >
-          <S.LogoutContainer>
-            <S.LogoutIcon src='/Header/HeadLogoutIcon.png' />
-            <S.LogoutText>로그아웃</S.LogoutText>
-          </S.LogoutContainer>
-        </div>
+          >
+            <S.LogoutContainer>
+              <S.LogoutIcon src='/Header/HeadLogoutIcon.png' />
+              <S.LogoutText>로그아웃</S.LogoutText>
+            </S.LogoutContainer>
+          </div>
+        )}
       </S.SidebarWrapper>
     </S.HeaderWrapper>
   );
