@@ -13,6 +13,11 @@ function Signin() {
     password: '',
   });
 
+  const handleLogiMove = () => {
+    // 로그인 페이지로 이동
+    navigate('/SignUp');
+  };
+
   const [jwtToken, setJwtToken] = useState(null); // JWT 토큰 상태 추가
   const [pw, setPw] = useState('');
   const navigate = useNavigate();
@@ -70,7 +75,11 @@ function Signin() {
         const jwtToken = response.data.token; // 서버에서 받은 토큰으로 수정
         setJwtToken(jwtToken); // JWT 값을 상태 변수에 저장
         localStorage.setItem('jwtToken', jwtToken); // JWT 값을 로컬 스토리지에 저장
-        navigate('/PMain');
+
+        // 로그인 성공 시 사용자 ID를 localStorage에 저장
+        localStorage.setItem('user_id', user.user_id);
+
+        navigate('/PMain', { state: { user_id: user.user_id } });
       } else {
         alert('아이디나 비밀번호가 일치하지 않습니다.');
       }
@@ -116,11 +125,19 @@ function Signin() {
           />
         </S.SignInInputWrapper>
       </S.SigninForm>
-      <LoginButton
-        type='submit'
-        onClick={handleLoginClick}
-        buttonText='로그인'
-      />
+      <S.LoginButton>
+        <LoginButton
+          type='submit'
+          onClick={handleLoginClick}
+          buttonText='로그인'
+        />
+      </S.LoginButton>
+      <S.SignupMove>
+        <S.SignupMoveSub>아직 회원이 아니신가요?</S.SignupMoveSub>
+        <S.SignupMoveMain onClick={handleLogiMove}>
+          회원가입 하러가기
+        </S.SignupMoveMain>
+      </S.SignupMove>
     </S.SigninWrapper>
   );
 }

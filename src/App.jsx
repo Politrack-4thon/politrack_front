@@ -7,7 +7,9 @@ import Header from './components/layouts/header/Header';
 
 const BackGroundColor = styled.div`
   width: 100vw;
+  min-height: 100vh;
   background-color: black;
+  position: relative;
 `;
 
 const Wrapper = styled.div`
@@ -16,9 +18,19 @@ const Wrapper = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
+
   max-width: 420px;
   background-color: white;
+  position: relative;
+`;
+
+const Content = styled.div`
+  flex-grow: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 0;
 `;
 
 const Layout = () => {
@@ -26,14 +38,19 @@ const Layout = () => {
 
   const currentPath = location.pathname;
 
-  // /login 및 /SignUp 경로일 때 푸터 숨김
-  const hideFooter = currentPath === '/signin' || currentPath === '/SignUp';
+  // 인트로, 로그인, 회원가입 시 푸터 숨김
+  const hideFooter =
+    currentPath === '/Signin' ||
+    currentPath === '/SignUp' ||
+    currentPath === '/';
 
   return (
     <BackGroundColor>
       <Wrapper>
         <Header />
-        <Outlet />
+        <Content>
+          <Outlet />
+        </Content>
         {!hideFooter && <Footer />}
       </Wrapper>
     </BackGroundColor>

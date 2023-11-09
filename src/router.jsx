@@ -13,6 +13,7 @@ import Detail from './pages/cardDetail/Detail';
 import ComResult from './pages/community/ComResult';
 import SignUp from './pages/login/SignUp';
 import Signin from './pages/login/SignIn';
+import Intro from './pages/Intro/Intro';
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,12 @@ const router = createBrowserRouter([
     children: [
       {
         path: '',
-        element: <Main />,
+        element: <Intro />,
+      },
+
+      {
+        path: 'Intro',
+        element: <Intro />,
       },
       {
         path: 'PMain',
@@ -44,7 +50,7 @@ const router = createBrowserRouter([
         element: <Community />,
       },
       {
-        path: 'CommunityDetail/:id',
+        path: '/communityDetail/:community_id/board/:board_id',
         element: <CommunityDetail />,
       },
       {

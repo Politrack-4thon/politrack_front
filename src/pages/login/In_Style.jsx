@@ -14,9 +14,13 @@ export const SigninForm = styled.div`
 `;
 
 export const SigninWrapper = styled.div`
-  flex-grow: 1;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+  margin-top: 30px;
+  overflow: hidden;
   align-items: center;
 `;
 
@@ -50,4 +54,37 @@ export const InputTitle = styled.div`
   font-size: 16px;
   font-weight: 700;
   font-family: 'NotoSansMedium';
+`;
+
+export const SignupMove = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+`;
+
+export const SignupMoveSub = styled.div`
+  margin-right: 10px;
+  color: #7f85a3;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'NotoSansRegular';
+`;
+export const SignupMoveMain = styled.div`
+  color: black;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'NotoSansRegular';
+  cursor: pointer;
+  &:hover {
+    font-size: 16px;
+  }
+`;
+
+export const LoginButton = styled.div`
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  margin-top: 80px;
 `;

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import * as S from './style';
 import CommunityTop from '../../components/Community/CommunityTop';
 import CommunityDetailBg from '../../components/Community/CommunityDetailBg';
 import ComDetailCard from '../../components/CommunityDetail/ComDetailCard';
-import { API } from '../../api/axois'; // 백엔드 API 모듈 import
+import { API } from '../../api/axois';
 import CommunityQuestion from '../../components/Community/CommunityQuestion';
 import ComDetailQuiz from '../../components/Community/ComDetailQuiz';
 import ComDetailForm from '../../components/Community/ComDetailForm';
@@ -13,6 +13,10 @@ function CommunityDetail() {
   const [communityData, setCommunityData] = useState(null);
   const [isQuestionResultClickable, setIsQuestionResultClickable] =
     useState(true);
+  const { community_id, board_id } = useParams() || {
+    community_id: '',
+    board_id: '',
+  };
 
   const questionResultStyle = {
     color: isQuestionResultClickable ? 'white' : '#C0C5DC',
@@ -22,39 +26,45 @@ function CommunityDetail() {
 
   const navigate = useNavigate();
 
-  //임시
   const [deadline, setDeadline] = useState({
     isExpired: false,
     date: '2023-12-31',
   });
 
-  useEffect(() => {
-    const currentDate = new Date();
-    const deadlineDate = new Date(deadline.date);
+  const [isContentVisible, setContentVisible] = useState(true);
 
+  const formattedDeadline = data.formatted_deadline;
+  const deadlineDate = new Date(
+    formattedDeadline.split('.').reverse().join('-').replace(',', '')
+  );
+
+  useEffect(() => {
+    // 현재 날짜 가져오기
+    const currentDate = new Date();
+
+    // deadline 날짜와 현재 날짜 비교
     if (deadlineDate < currentDate) {
-      setDeadline({ ...deadline, isExpired: true });
-      setIsQuestionResultClickable(true); // 기한이 지났으면 버튼 활성화
+      // deadline 날짜가 지났을 때 컨텐츠를 가리도록 설정
+      setContentVisible(false);
     }
-  }, [deadline.isExpired]);
+  }, [deadlineDate]);
+
+  // useEffect(() => {
+  //   const currentDate = new Date();
+  //   const deadlineDate = new Date(deadline.date);
+
+  //   if (deadlineDate < currentDate) {
+  //     setDeadline({ ...deadline, isExpired: true });
+  //     setIsQuestionResultClickable(true);
+  //   }
+  // }, [deadline.isExpired]);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        // 기한 정보를 가져오는 백엔드 API 엔드포인트 호출
-        const deadlineResponse = await API.get('YOUR_DEADLINE_API_ENDPOINT');
-
-        if (deadlineResponse.status === 200) {
-          const deadlineData = deadlineResponse.data;
-          setDeadline(deadlineData); // 기한 상태로 설정
-        } else {
-          console.error(
-            'Error fetching deadline:',
-            deadlineResponse.statusText
-          );
-        }
-
-        const response = await API.get('YOUR_API_ENDPOINT');
+        const response = await API.get(
+          `/politician/community/${community_id}/`
+        );
 
         if (response.status === 200) {
           const data = response.data;
@@ -71,7 +81,7 @@ function CommunityDetail() {
     }
 
     fetchData();
-  }, []);
+  }, [community_id, board_id]);
 
   return (
     <S.CommunityDetailWrapper>
@@ -90,8 +100,8 @@ function CommunityDetail() {
           style={questionResultStyle}
           onClick={() => {
             if (isQuestionResultClickable) {
-              //이동 링크 변화 필요
-              navigate('/ComResult');
+              // 커뮤니티 디테일 페이지로 이동하도록 변경
+              navigate(`/ComResult/${community_id}`);
             }
           }}
         >
@@ -104,13 +114,17 @@ function CommunityDetail() {
         <div></div>
       ) : (
         <S.ComDetailOpinion>
-          <CommunityQuestion
-            subQuestion={'어떻게 생각하나요?'}
-            mainQuestion={'여러분의 의견을 남겨주세요.'}
-          />
-          <ComDetailQuiz />
-          <CommunityQuestion mainQuestion={'자유롭게 의견을 적어주세요.'} />
-          <ComDetailForm />
+          {isContentVisible && (
+            <>
+              <CommunityQuestion
+                subQuestion={'어떻게 생각하나요?'}
+                mainQuestion={'여러분의 의견을 남겨주세요.'}
+              />
+              <ComDetailQuiz />
+              <CommunityQuestion mainQuestion={'자유롭게 의견을 적어주세요.'} />
+              <ComDetailForm />
+            </>
+          )}
         </S.ComDetailOpinion>
       )}
     </S.CommunityDetailWrapper>
