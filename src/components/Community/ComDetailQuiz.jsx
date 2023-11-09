@@ -95,7 +95,7 @@ function ComDetailQuiz() {
         setVoteModalOpen(true); // 투표 모달 열기
       }
     };
-
+    
     // 투표 후 모달 닫고 재투표까지 가능하도록
     const handleConfirm = () => {
       setVoteModalOpen(false); // 투표 모달 닫기

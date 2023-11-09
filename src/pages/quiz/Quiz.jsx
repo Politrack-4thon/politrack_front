@@ -2,8 +2,9 @@ import React from 'react';
 import * as S from './style';
 
 import CommunityTop from '../../components/Community/CommunityTop';
-import CommunityQuestion from '../../components/Community/CommunityQuestion';
+import QuizQuestion from '../../components/Quiz/QuizQuestion';
 import QuizCard from '../../components/Quiz/QuizCard';
+
 function Quiz() {
   return (
   <S.QuizWrapper>
@@ -12,7 +13,7 @@ function Quiz() {
         titleMain={'정치의 중심지, 서울의 \n 국회의원들을 확인해보세요!'}
         style={{ whiteSpace: 'pre-line' }}
       />
-      <CommunityQuestion
+      <QuizQuestion
         subQuestion={'얼마나 알고있나요?'}
         mainQuestion={'퀴즈를 풀어 나의 레벨을 확인하세요!'}
       />

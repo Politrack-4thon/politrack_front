@@ -10,6 +10,8 @@ import MainSubTitle from "../../components/Main/MainSubTitle";
 import * as S from '../../components/Main/style'
 import * as R from './style';
 
+import { API } from '../../api/axois';
+
 function Detail(props) {
   const params = useParams();
   const {homeLogoUrl, instagramLogoUrl } = props;
@@ -79,7 +81,7 @@ const [cardData, setCardData] = useState({
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await API.get('/politician/orig/<str:orig_nm>');
+        const response = await API.get('/politician/id/<str:MONA_CD>');
         setDetilaData(response.data); // data값들 상태 값 변경
 
         if (response.status === 200) {
@@ -104,7 +106,6 @@ const [cardData, setCardData] = useState({
           BILL_NAME:'', // 법률안 명
           DETAIL_LINK: '', // 법률안 상세보기 링크
           CMITS:'', // 소속 위원회
-
         })
       }
     }
