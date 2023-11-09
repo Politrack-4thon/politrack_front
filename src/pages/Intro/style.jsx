@@ -1,7 +1,6 @@
 import { styled } from 'styled-components';
 
-export const IntroWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-`;
+export const IntroWhole = styled.div``;
+export const IntroWrapper = styled.div``;
+
+export const LoginContainer = styled.div``;

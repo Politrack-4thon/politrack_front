@@ -13,6 +13,11 @@ function Signin() {
     password: '',
   });
 
+  const handleLogiMove = () => {
+    // 로그인 페이지로 이동
+    navigate('/SignUp');
+  };
+
   const [jwtToken, setJwtToken] = useState(null); // JWT 토큰 상태 추가
   const [pw, setPw] = useState('');
   const navigate = useNavigate();
@@ -120,11 +125,19 @@ function Signin() {
           />
         </S.SignInInputWrapper>
       </S.SigninForm>
-      <LoginButton
-        type='submit'
-        onClick={handleLoginClick}
-        buttonText='로그인'
-      />
+      <S.LoginButton>
+        <LoginButton
+          type='submit'
+          onClick={handleLoginClick}
+          buttonText='로그인'
+        />
+      </S.LoginButton>
+      <S.SignupMove>
+        <S.SignupMoveSub>아직 회원이 아니신가요?</S.SignupMoveSub>
+        <S.SignupMoveMain onClick={handleLogiMove}>
+          회원가입 하러가기
+        </S.SignupMoveMain>
+      </S.SignupMove>
     </S.SigninWrapper>
   );
 }
