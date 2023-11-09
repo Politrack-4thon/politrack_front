@@ -87,11 +87,12 @@ export const PoliContainer = styled.div`
   align-items: center;
   margin-top: 30px;
   margin-left: 30px;
+  cursor: pointer;
 `;
 
 export const SideBarIcon = styled.img`
-  width: 25.63px;
-  height: 20px;
+  width: 13%;
+  /* height: 20px; */
   margin-right: 30px;
 `;
 
@@ -117,6 +118,7 @@ export const LogoutContainer = styled.div`
   margin-top: 10px;
   margin-left: 30px;
   margin-bottom: 20px;
+  cursor: pointer;
 `;
 
 export const LogoutIcon = styled.img`

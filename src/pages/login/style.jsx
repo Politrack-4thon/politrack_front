@@ -13,6 +13,7 @@ export const SignupWhole = styled.div`
   -webkit-box-pack: center;
   -webkit-box-align: center;
   margin-top: 30px;
+  overflow: hidden;
 `;
 
 export const LoginTitleWrapper = styled.div`

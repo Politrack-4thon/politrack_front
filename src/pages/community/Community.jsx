@@ -11,11 +11,16 @@ function Community() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await API.get('YOUR_API_ENDPOINT');
+        const response = await API.get('/politician/community/');
 
         if (response.status === 200) {
           const data = response.data;
-          setCommunityContents(data);
+
+          // 커뮤니티 리스트를 'id' 역순으로 정렬
+          const sortedCommunityContents = data.sort(
+            (a, b) => b.community_id - a.community_id
+          );
+          setCommunityContents(sortedCommunityContents);
         } else {
           console.error(
             'Error fetching community content:',
@@ -36,19 +41,22 @@ function Community() {
       id: 1,
       title: '국민의 힘, 김포시 서울시로 편입 추진',
       status: '투표진행중',
-      text: '국민의힘 소속인 김병수 김포시장이 김기현 국민의힘 대표에게 “김포시 서울 편입 검토해줘” 라고 건의했어요.',
+      content:
+        '국민의힘 소속인 김병수 김포시장이 김기현 국민의힘 대표에게 “김포시 서울 편입 검토해줘” 라고 건의했어요.',
     },
     {
       id: 2,
       title: '국민의 힘, 김포시 서울시로 편입 추진',
       status: '투표진행중',
-      text: '국민의힘 소속인 김병수 김포시장이 김기현 국민의힘 대표에게 “김포시 서울 편입 검토해줘” 라고 건의했어요.',
+      content:
+        '국민의힘 소속인 김병수 김포시장이 김기현 국민의힘 대표에게 “김포시 서울 편입 검토해줘” 라고 건의했어요.',
     },
     {
       id: 3,
       title: '국민의 힘, 김포시 서울시로 편입 추진',
       status: '투표진행중',
-      text: '국민의힘 소속인 김병수 김포시장이 김기현 국민의힘 대표에게 “김포시 서울 편입 검토해줘” 라고 건의했어요.',
+      content:
+        '국민의힘 소속인 김병수 김포시장이 김기현 국민의힘 대표에게 “김포시 서울 편입 검토해줘” 라고 건의했어요.',
     },
   ];
 
@@ -70,10 +78,10 @@ function Community() {
         {(communityContents.length > 0 ? communityContents : dummyData).map(
           (content) => (
             <CommunityContent
-              id={content.id}
+              community_id={content.id}
               title={content.title}
-              status={content.status}
-              text={content.text}
+              // status={content.status}
+              content={content.content}
               style={{ marginBottom: `${marginBottom}px` }}
             />
           )

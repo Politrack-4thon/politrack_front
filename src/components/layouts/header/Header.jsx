@@ -1,10 +1,36 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as S from './style';
 import { Link, useLocation, useNavigate } from 'react-router-dom'; // useNavigate 추가
+import { API } from '../../../api/axois';
 
 function Header() {
   const location = useLocation();
   const navigate = useNavigate();
+  const user_id = location.state ? location.state.user_id : null;
+
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const apiUrl = '/user/view/';
+
+    async function fetchUserProfile() {
+      try {
+        const response = await API.get(apiUrl);
+
+        if (response.status === 200) {
+          const user_id = response.data.user_id;
+          console.log('아이디:', user_id);
+          setUser(user_id);
+        } else {
+          console.error('API 요청 실패:', response.status, response.data);
+        }
+      } catch (error) {
+        console.error('API 호출 에러:', error);
+      }
+    }
+
+    fetchUserProfile();
+  }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -68,7 +94,7 @@ function Header() {
       <S.SidebarWrapper ref={sideBarRef}>
         <S.UserInfo>
           <S.UserProfile src='/Header/UserProfile.png' />
-          <S.UserName>사용자 이름</S.UserName>
+          <S.UserName>{user_id}</S.UserName>
         </S.UserInfo>
         <div onClick={() => handleIconClick('/PMain')}>
           <S.PoliContainer>
@@ -78,13 +104,13 @@ function Header() {
         </div>
         <div onClick={() => handleIconClick('/Community')}>
           <S.PoliContainer>
-            <S.SideBarIcon src='/Header/HeadProIcon.png' />
+            <S.SideBarIcon src='/Header/HeadComIcon.png' />
             <S.SideBarText>오늘의 쟁점</S.SideBarText>
           </S.PoliContainer>
         </div>
         <div onClick={() => handleIconClick('/quiz')}>
           <S.PoliContainer>
-            <S.SideBarIcon src='/Header/HeadComIcon.png' />
+            <S.SideBarIcon src='/Header/HeadQuizIcon.png' />
             <S.SideBarText>퀴즈</S.SideBarText>
           </S.PoliContainer>
         </div>
