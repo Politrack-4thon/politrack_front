@@ -165,7 +165,6 @@ function PMain() {
               HOMEPAGE={content.HOMEPAGE}
             />
           ))}
-          ;
         </S.Cards>
       </S.MainContainer>
     </S.MainWrapper>

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const HeaderWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  height: 100%;
+  height: 80px;
   width: 100%;
   max-width: 420px;
   padding: 10px;
