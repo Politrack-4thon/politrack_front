@@ -7,7 +7,9 @@ import Header from './components/layouts/header/Header';
 
 const BackGroundColor = styled.div`
   width: 100vw;
+  min-height: 100vh;
   background-color: black;
+  position: relative;
 `;
 
 const Wrapper = styled.div`
@@ -19,6 +21,16 @@ const Wrapper = styled.div`
   /* align-items: center; */
   max-width: 420px;
   background-color: white;
+  position: relative;
+`;
+
+const Content = styled.div`
+  flex-grow: 1;
+  min-height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Layout = () => {
@@ -33,7 +45,9 @@ const Layout = () => {
     <BackGroundColor>
       <Wrapper>
         <Header />
-        <Outlet />
+        <Content>
+          <Outlet />
+        </Content>
         {!hideFooter && <Footer />}
       </Wrapper>
     </BackGroundColor>
