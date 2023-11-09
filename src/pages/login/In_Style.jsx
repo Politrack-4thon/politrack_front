@@ -14,12 +14,14 @@ export const SigninForm = styled.div`
 `;
 
 export const SigninWrapper = styled.div`
-  flex-grow: 1;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 100%;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+  margin-top: 30px;
   overflow: hidden;
+  align-items: center;
 `;
 
 export const SignInInputWrapper = styled.form`
@@ -59,6 +61,7 @@ export const SignupMove = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  margin-bottom: 20px;
 `;
 
 export const SignupMoveSub = styled.div`
@@ -83,5 +86,5 @@ export const LoginButton = styled.div`
   width: 100%;
   justify-content: center;
   display: flex;
-  margin-top: 120px;
+  margin-top: 80px;
 `;

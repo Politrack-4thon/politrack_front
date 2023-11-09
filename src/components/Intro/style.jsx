@@ -4,35 +4,35 @@ export const IntroFirstWhole = styled.div``;
 
 export const IntroFirstWrapper = styled.div`
   /* border: 1px solid red; */
-  width: 100%;
+  /* width: 100%; */
 `;
 
 export const IntroWrapper2 = styled.div`
   /* border: 1px solid red; */
-  width: 100%;
+  /* width: 100%; */
 `;
 
 export const IntroLogo = styled.img`
-  width: 35%;
+  width: 30%;
 `;
 
 export const IntroLogoContainer = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
-  margin-top: 110px;
+  margin-top: 70px;
   flex-direction: column;
   align-items: center;
 `;
 
 export const IntroLogoTitle = styled.img`
-  width: 70%;
+  width: 60%;
   margin-top: 20px;
 `;
 
 export const IntroDes = styled.div`
   text-align: center;
-  margin-top: 100px;
+  margin-top: 60px;
   line-height: 20px;
   font-size: 14px;
   font-weight: 400;
@@ -58,6 +58,25 @@ export const IntroBtn = styled.div`
   font-weight: 700;
   font-family: 'NotoSansRegular';
   border-radius: 8px;
+`;
+
+export const LoginContainer = styled.div`
+  width: 100%;
+  /* border: 1px solid red; */
+  margin-top: 15px;
+  justify-content: center;
+  display: flex;
+`;
+
+export const SignupMoveMain = styled.div`
+  color: black;
+  font-size: 17px;
+  font-weight: 600;
+  font-family: 'NotoSansRegular';
+  cursor: pointer;
+  &:hover {
+    font-size: 20px;
+  }
 `;
 
 //IntroSecond

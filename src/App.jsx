@@ -40,8 +40,8 @@ const Layout = () => {
 
   // 인트로, 로그인, 회원가입 시 푸터 숨김
   const hideFooter =
-    currentPath === '/signin' ||
-    currentPath === '/Signup' ||
+    currentPath === '/Signin' ||
+    currentPath === '/SignUp' ||
     currentPath === '/intro';
 
   return (
