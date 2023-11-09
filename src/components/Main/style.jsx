@@ -147,7 +147,7 @@ margin-left:20px;
 `;
 
 export const Party1 = styled.div `
-width: 100px; // 변경해야함
+width: 280px; // 변경해야함
 height: 48px;
 flex-shrink: 0;
 border-radius: 4px 0px 0px 4px;
@@ -232,7 +232,7 @@ gap: 8px;
 
 `;
 export const MainCardImage = styled.div`
-
+border-radius: 360px;
 `;
 export const MainCardParty = styled.div `
 flex-shrink: 0;
