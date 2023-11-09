@@ -42,7 +42,7 @@ const Layout = () => {
   const hideFooter =
     currentPath === '/Signin' ||
     currentPath === '/SignUp' ||
-    currentPath === '/intro';
+    currentPath === '/';
 
   return (
     <BackGroundColor>
