@@ -8,4 +8,5 @@ export const QuizWrapper = styled.div`
   flex-direction: column;
   color: ${(props) => props.theme.colors.font};
   margin-bottom: 100px;
+  position:relative;
 `;
