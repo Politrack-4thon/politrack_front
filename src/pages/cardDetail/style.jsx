@@ -78,11 +78,7 @@ export const Border = styled.div`
 `;
 
 export const Cards = styled.div`
-  display: flex;
-  /* width: 100%; */
-  /* border: 1px solid blue; */
-  /* width: 80%; */
-  justify-content: center;
+diplay:flex;
 `;
 // Detail.jsx
 export const cardDetail = styled.div`
@@ -132,17 +128,17 @@ export const cardDetailBill = styled.div`
   margin-left: 20px;
 `;
 
-export const billDetailBtn = styled.button`
-  width: 58px;
-  height: 24px;
-  flex-shrink: 0;
-  border-radius: 4px;
-  background: ${({ theme }) => theme.colors.gray5};
-  color: ${({ theme }) => theme.colors.white};
-  text-align: center;
-  font-family: Noto Sans KR;
-  font-size: 10px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 150%; /* 15px */
+export const billDetailBtn = styled.button `
+width: 58px;
+height: 24px;
+flex-shrink: 0;
+border-radius: 4px;
+background: ${({ theme }) => theme.colors.gray5};
+color: ${({ theme }) => theme.colors.white};
+text-align: center;
+font-family: Noto Sans KR;
+font-size: 10px;
+font-style: normal;
+font-weight: 700;
+line-height: 150%; /* 15px */
 `;

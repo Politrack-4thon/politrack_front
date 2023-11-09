@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 
 import * as S from "./style";
-import MainLocation from "./MainLocation";
+import MainLocation from "./MainMarkerPin";
 
 export default function MainMap() {
     useEffect(() => {
@@ -36,13 +36,10 @@ export default function MainMap() {
       }, []);
         return ( 
     <S.MainMap>
-        {/* <img src="/src/assets/images/map.png"/>
-        {region.map((data) => (
-            <MainLocation
+        <img src="C:\Users\User\OneDrive\바탕 화면\politrack_front\public\Community\map.png">
+
             
-            />
-        ))}
- */}
+        </img>
         
         
 

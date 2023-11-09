@@ -6,7 +6,7 @@ import AnswerDes from "./AnswerDes";
 
 
 function QuizCard() {
-    const [quizData, setQuizData] = useState({
+    const [data, setData] = useState({
         quiz : '', 
         description: '', 
         pick_title:'', 
@@ -21,12 +21,12 @@ function QuizCard() {
     useEffect(() => {
         async function fetchData() {
         try {
-            const response = await API.get('/quiz');
-            setQuizData(response.data); // data값들 상태 값 변경
+            const response = await API.get('/politician/quiz/');
+            setData(response.data); // data값들 상태 값 변경
 
             if (response.status === 200) {
             const data = response.data;
-            setQuizData(data);
+            setData(data);
             } else {
             console.error(
                 'Error fetching community content:',
@@ -35,7 +35,7 @@ function QuizCard() {
             }
         } catch (error) {
             console.error('Error fetching community content:', error);
-            setQuizData ({
+            setData ({
                 quiz : '', 
                 description: '', 
                 pick_title:'', 
@@ -78,10 +78,10 @@ function QuizCard() {
     return (
         <S.QuizWrapper>
             <S.QuizContainer>
-                <S.QuizTop>{quizData.description}</S.QuizTop>
-                <S.QuizContent>{quizData.pick_title}</S.QuizContent>
+                <S.QuizTop>{data.description}</S.QuizTop>
+                <S.QuizContent>{data.pick_title}</S.QuizContent>
                 <S.QuizOptions>
-                    <S.Option onClick={handleOption1Click}>{quizData.pick}</S.Option>
+                    <S.Option onClick={handleOption1Click}>{data.pick}</S.Option>
                     <S.Option>{}</S.Option>
                 </S.QuizOptions>
             </S.QuizContainer>

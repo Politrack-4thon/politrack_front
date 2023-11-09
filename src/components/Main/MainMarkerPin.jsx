@@ -1,6 +1,6 @@
 import React from "react"
 
-function MainLocation(props) {
+function MainMarkerPin(props) {
     return (
         <div style={{position:'absolute'}}>
             <img src="src/assets/images/location.png"/>
@@ -8,4 +8,4 @@ function MainLocation(props) {
     )
 }
 
-export default MainLocation;
+export default MainMarkerPin;
