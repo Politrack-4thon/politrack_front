@@ -155,9 +155,10 @@ display:flex;
 
 export const Map = styled.div `
 position:relative;
-margin-bottom: 20px;
+margin: 32px 0 70px 20px;
 width: 350px;
 height: 250px;
+
 `;
 export const MapImg = styled.img `
 position:absolute;
@@ -176,6 +177,7 @@ font-style: normal;
 font-weight: 700;
 line-height: normal;
 margin-left:20px;
+margin-bottom:8px;
 
 `;
 
@@ -187,5 +189,6 @@ font-style: normal;
 font-weight: 500;
 line-height: normal;
 margin-left:20px;
+margin-bottom:32px;
 
 `;
