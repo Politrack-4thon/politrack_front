@@ -1,11 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 import { useEffect, useState } from "react";
 import * as S from "./style";
 
 function MainCard(props) {
     const imageUrl = props.IMAGE ? props.IMAGE : '/src/assets/images/default_profile.png';
+    const navigate = useNavigate();
+    const handleCard = (MONA_CD) => {
+        navigate(`/Detail`, {state: MONA_CD})
+    }
     const [data, setData] = useState({
         POLY_NM : '', // 정당명
         HG_NM: '', // 한글 이름
@@ -53,12 +57,12 @@ function MainCard(props) {
     }, []);
 
     return (
-        <S.MainCardContainer style={{width: '170px', height: '230px', marginLeft: '20px'}}>
-             <Link to={`Detail/politician/id/${props.MONA_CD}`}>
-                <S.MainCardImage style={{width: '84px', height: '84px'}}>
-                    <img src={props.jpg_link} alt="국회의원 이미지" />
-                </S.MainCardImage>
-            </Link>
+        <S.MainCardContainer style={{width: '170px', height: '230px', marginLeft: '20px'}} onClick={() => handleCard(props.MONA_CD)}>
+            
+            <S.MainCardImage style={{width: '84px', height: '84px'}} >
+                <img src={props.jpg_link} alt="국회의원 이미지"/>
+            </S.MainCardImage>
+            
             <S.MainCardParty style={{width: '70px', height: '24px'}}>{props.POLY_NM}</S.MainCardParty>
             <S.MainCardName style={{fontSize:'12px'}}>{props.HG_NM}&#40;{props.ENG_NM}&#41;</S.MainCardName>
             <S.MainCardDistrict>{props.ORIG_NM}</S.MainCardDistrict>
