@@ -31,6 +31,7 @@ function PMain() {
     imgSrc: 'src/assets/images/pin.png', // 초기 이미지 경로
   });
 
+
   // Detail페이지에 정치인id 넘겨주기
   const HandleCardClick = (props) => {
     Navigate('/Detail', { state: props });
@@ -55,6 +56,7 @@ function PMain() {
   useEffect(() => {
     if (selectedParty) {
       setIsLoading(true); // 로딩 시작
+
       async function fetchData() {
         try {
           const response = await API.get(`/politician/poly/${selectedParty}`);
@@ -135,7 +137,7 @@ function PMain() {
     });
 
     setHiddenElements(true); // 숨겨줌
-  };
+
 
   const dummyData = [
     {
@@ -171,6 +173,12 @@ function PMain() {
       <S.MainContainer>
         <MainSearch />
 
+
+        <MainSearch 
+        handleSearch = {handleSearch}
+        
+        />
+        
         <S.Map>
           <S.MapImg src={MapImg} alt='맵 이미지' />
 
