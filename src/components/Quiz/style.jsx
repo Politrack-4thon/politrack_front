@@ -48,7 +48,9 @@ export const QuizOptions = styled.div`
   display: flex;
   gap: 20px;
   width: 100%;
+
   justify-content: space-between;
+
   /* border: 1px solid red; */
 `;
 

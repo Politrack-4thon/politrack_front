@@ -20,11 +20,14 @@ const dummyData = {
     '여당의 여(與)는 "같은 편" 또는 "돕다"라는 뜻이며, 야당은 재야 정당(在野政黨)의 준말로, 현재 정당 정치에서 정권을 잡고 있지 않은 정당입니다.',
 };
 function NextArrow(props) {
+
   const { className, style, onClick } = props;
   return (
     <div
       className={className}
       style={{ ...style, display: 'block', background: 'red' }}
+
+
       onClick={onClick}
     />
   );
@@ -34,7 +37,9 @@ function PrevArrow(props) {
   return (
     <div
       className={className}
+
       style={{ ...style, display: 'block', background: 'green' }}
+
       onClick={onClick}
     />
   );
@@ -58,7 +63,9 @@ function QuizCard() {
     try {
       const response = await API.get(`/politician/quiz/${currentQuizIndex}`);
       if (response.status === 200 && response.data) {
+
         const picks = response.data.pick.split(', ').map((pick) => pick.trim());
+
         setQuizData({ ...response.data, pick: picks });
       } else {
         console.error('Error fetching quiz data:', response.statusText);
@@ -77,16 +84,20 @@ function QuizCard() {
     await fetchData(); // fetchData를 호출하여 다음 퀴즈 데이터를 가져옵니다.
   };
 
+
   useEffect(() => {
     fetchData(); // 초기 렌더링 시에도 첫 번째 퀴즈 데이터를 가져옵니다.
   }, [currentQuizIndex]); // currentQuizIndex가 변경될 때마다 useEffect가 실행됩니다.
+
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
     setIsAnswerDesOpen(true);
   };
   const settings = {
+
     arrow: true,
+
     infinite: true,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -153,7 +164,9 @@ function QuizCard() {
         />
       )}
     </S.QuizWrapper>
+
   );
+  
 }
 
 export default QuizCard;

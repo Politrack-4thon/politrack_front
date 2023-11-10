@@ -16,12 +16,14 @@ function Detail() {
   useEffect(() => {
     async function fetchData() {
       try {
+
         const response = await API.get(`/politician/id/${MONA_CD}`);
         if (response.status === 200 && response.data) {
           const memberInfo = response.data[0]; // 국회의원 기본 정보
           const bills = response.data.slice(1); // 법률안 목록
           setCardData(memberInfo);
           setBillsData(bills);
+
         } else {
           console.error(
             'Error fetching community content:',

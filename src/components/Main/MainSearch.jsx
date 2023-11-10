@@ -7,6 +7,8 @@ function MainSearch() {
     //     let keyword = event.target.value;
     //     this.setState({search:keyword})
     //   }
+
+    
     return (
         <S.SearchContainer>
             <S.SearchInput>
@@ -17,7 +19,6 @@ function MainSearch() {
             </S.SearchButton>
         </S.SearchContainer>
     );
-
 }
 
 export default MainSearch;
