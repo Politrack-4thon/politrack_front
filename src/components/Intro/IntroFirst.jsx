@@ -29,11 +29,13 @@ function IntroFirst() {
             <S.IntroBtn>서비스 시작하기</S.IntroBtn>
           </S.IntroBtnContainer>
         </Link>
-        <S.LoginContainer>
-          <S.SignupMoveMain onClick={handleLogiMove}>
-            로그인 하러가기
-          </S.SignupMoveMain>
-        </S.LoginContainer>
+        <Link to={`/signin`}>
+          <S.LoginContainer>
+            <S.SignupMoveMain onClick={handleLogiMove}>
+              로그인 하러가기
+            </S.SignupMoveMain>
+          </S.LoginContainer>
+        </Link>
       </S.IntroFirstWrapper>
     </S.IntroFirstWhole>
   );
