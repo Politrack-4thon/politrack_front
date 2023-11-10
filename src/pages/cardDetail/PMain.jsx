@@ -14,7 +14,7 @@ import MainVoteResult from '../../components/Main/MainVoteResult';
 import MainSelectBtn from '../../components/Main/MainSelectBtn';
 import MainCard from '../../components/Main/MainCard';
 
-import { MainCardName, SubTitle } from '../../components/Main/style';
+import { SubTitle } from '../../components/Main/style';
 
 function PMain() {
   let region = 0;
@@ -94,7 +94,6 @@ function PMain() {
   const [isVoteResultVisible, setIsVoteResultVisible] = useState(false);
   const [selectedParty, setSelectedParty] = useState(false); // 버튼을 선택하지 않은 상태
   const [party, setParty] = useState(null);
-  const [markerStates, setMarkerstates] = useState("");
 
 
   const toggleVoteInfoVisibility = () => {
@@ -164,7 +163,6 @@ function PMain() {
 
 
         <S.Border/>
-        
         <MainSubTitle 
         title='제 21대 국회의원 선거 결과'
         onClick={toggleVoteResultVisibility}
@@ -176,9 +174,9 @@ function PMain() {
         />
         )};
         <S.Border/>
-
         <SubTitle>아래 각 당을 선택하여 <br></br>
         당선된 국회의원들을 확인해보세요</SubTitle>
+
         <S.MainSelectBtnContainer>
         <MainSelectBtn 
         polyName='더불어민주당'
@@ -189,7 +187,6 @@ function PMain() {
         onClick={partyVisibility}
         />
         </S.MainSelectBtnContainer>
-        
 
         {selectedParty && (
         <S.Cards>
@@ -207,7 +204,7 @@ function PMain() {
             </Link>
           ))};        
         </S.Cards>  
-        )};    
+        )};
       </S.MainContainer>
     </S.MainWrapper>
   );

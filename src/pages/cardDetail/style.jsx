@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import { StyledLoginButton } from '../../components/Login/style';
 
 export const MainWrapper = styled.div`
   flex-grow: 1;
@@ -78,8 +79,10 @@ export const Border = styled.div`
 `;
 
 export const Cards = styled.div`
-diplay:flex;
-`;
+display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: minmax(100px, auto);
+  `;
 // Detail.jsx
 export const cardDetail = styled.div`
   width: 100%;
@@ -141,4 +144,8 @@ font-size: 10px;
 font-style: normal;
 font-weight: 700;
 line-height: 150%; /* 15px */
+`;
+
+export const MainSelectBtnContainer = styled.div `
+display:flex;
 `;
