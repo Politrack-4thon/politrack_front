@@ -31,6 +31,8 @@ function PMain() {
     imgSrc: 'src/assets/images/pin.png', // 초기 이미지 경로
   });
 
+  const SERVER_URL = 'http://43.200.133.223/';
+
   // Detail페이지에 정치인id 넘겨주기
   const HandleCardClick = (props) => {
     Navigate('/Detail', { state: props });
@@ -470,7 +472,7 @@ function PMain() {
               <Link to={`/politician/id/${content.MONA_CD}`}>
                 <MainCard
                   MONA_CD={content.MONA_CD}
-                  jpg_link={content.jpg_link}
+                  jpg_link={`${SERVER_URL}media/${content.MONA_CD}.jpg`}
                   POLY_NM={content.POLY_NM}
                   HG_NM={content.HG_NM}
                   ENG_NM={content.ENG_NM}

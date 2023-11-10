@@ -10,78 +10,66 @@ import ComDetailQuiz from '../../components/Community/ComDetailQuiz';
 import ComDetailForm from '../../components/Community/ComDetailForm';
 
 function CommunityDetail() {
-  const [communityData, setCommunityData] = useState(null);
-  const [isQuestionResultClickable, setIsQuestionResultClickable] =
-    useState(true);
-  const { community_id, board_id } = useParams() || {
-    community_id: '',
-    board_id: '',
-  };
-
-  const questionResultStyle = {
-    color: isQuestionResultClickable ? 'white' : '#C0C5DC',
-    backgroundColor: isQuestionResultClickable ? '#484A64' : ' #F6F7FE',
-    cursor: isQuestionResultClickable ? 'pointer' : 'default',
-  };
-
+  const [communityData, setCommunityData] = useState('');
+  const [detailData, setDetailData] = useState('');
+  const { community_id } = useParams();
   const navigate = useNavigate();
+  const formattedDate = `${communityData.formatted_created_at} ~ ${communityData.formatted_deadline}`;
+  const [comment, setComment] = useState(''); // comment 상태 관리
 
-  const [deadline, setDeadline] = useState({
-    isExpired: false,
-    date: '2023-12-31',
-  });
-
-  const [isContentVisible, setContentVisible] = useState(true);
-
-  const formattedDeadline = data.formatted_deadline;
-  const deadlineDate = new Date(
-    formattedDeadline.split('.').reverse().join('-').replace(',', '')
-  );
-
+  // 커뮤니티 상세 정보 가져오기
   useEffect(() => {
-    // 현재 날짜 가져오기
-    const currentDate = new Date();
-
-    // deadline 날짜와 현재 날짜 비교
-    if (deadlineDate < currentDate) {
-      // deadline 날짜가 지났을 때 컨텐츠를 가리도록 설정
-      setContentVisible(false);
-    }
-  }, [deadlineDate]);
-
-  // useEffect(() => {
-  //   const currentDate = new Date();
-  //   const deadlineDate = new Date(deadline.date);
-
-  //   if (deadlineDate < currentDate) {
-  //     setDeadline({ ...deadline, isExpired: true });
-  //     setIsQuestionResultClickable(true);
-  //   }
-  // }, [deadline.isExpired]);
-
-  useEffect(() => {
-    async function fetchData() {
+    async function fetchCommunityData() {
       try {
-        const response = await API.get(
-          `/politician/community/${community_id}/`
-        );
-
+        const response = await API.get(`/politician/community`);
         if (response.status === 200) {
-          const data = response.data;
+          const data = response.data.find(
+            (item) => item.community_id === parseInt(community_id)
+          );
           setCommunityData(data);
         } else {
-          console.error(
-            'Error fetching community content:',
-            response.statusText
-          );
+          console.error('Error fetching community data:', response.statusText);
         }
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching community data:', error);
       }
     }
 
-    fetchData();
-  }, [community_id, board_id]);
+    fetchCommunityData();
+  }, [community_id]);
+
+  useEffect(() => {
+    async function fetchDetailData() {
+      try {
+        const detailResponse = await API.get(
+          `/politician/community/${community_id}/detail/`
+        );
+        if (detailResponse.status === 200 && detailResponse.data) {
+          // `board_id`가 `community_id`와 일치하는 첫 번째 객체를 찾는다
+          const matchedDetail = detailResponse.data.find(
+            (item) => item.board_id === parseInt(community_id)
+          );
+          if (matchedDetail) {
+            setDetailData(matchedDetail);
+          } else {
+            console.error('일치하는 데이터가 없음');
+            // 여기에 추가적인 에러 처리 로직을 추가할 수 있음
+          }
+        } else {
+          console.error(
+            '디테일 데이터 가져오기 오류:',
+            detailResponse.statusText
+          );
+        }
+      } catch (error) {
+        console.error('디테일 데이터 가져오기 오류:', error);
+      }
+    }
+    fetchDetailData();
+  }, [community_id]);
+
+  const isContentVisible =
+    new Date(communityData.formatted_deadline) > new Date();
 
   return (
     <S.CommunityDetailWrapper>
@@ -96,35 +84,45 @@ function CommunityDetail() {
           subQuestion={'오늘의 쟁점은 무엇일까요?'}
           mainQuestion={'오늘의 쟁점을 확인해보세요.'}
         />
+
         <S.QuestionResult
-          style={questionResultStyle}
-          onClick={() => {
-            if (isQuestionResultClickable) {
-              // 커뮤니티 디테일 페이지로 이동하도록 변경
-              navigate(`/ComResult/${community_id}`);
-            }
-          }}
+          onClick={() => navigate(`/ComResult/${community_id}`)}
         >
           투표결과 확인하기
         </S.QuestionResult>
       </S.ComDetailVoteContainer>
-
-      <CommunityDetailBg />
-      {deadline.isExpired ? (
-        <div></div>
-      ) : (
+      {communityData && detailData && (
+        <>
+          <CommunityDetailBg
+            formattedDate={formattedDate}
+            comDetailTitle={communityData.title}
+            comDetailText={communityData.content}
+            comDetailA={detailData.idea_a}
+            comDetailB={detailData.idea_b}
+            comDetailC={detailData.idea_c}
+            comDetailADes={detailData.idea_a_des}
+            comDetailBDes={detailData.idea_b_des}
+            comDetailCDes={detailData.idea_c_des}
+          />
+        </>
+      )}
+      {isContentVisible && (
         <S.ComDetailOpinion>
-          {isContentVisible && (
-            <>
-              <CommunityQuestion
-                subQuestion={'어떻게 생각하나요?'}
-                mainQuestion={'여러분의 의견을 남겨주세요.'}
-              />
-              <ComDetailQuiz />
-              <CommunityQuestion mainQuestion={'자유롭게 의견을 적어주세요.'} />
-              <ComDetailForm />
-            </>
-          )}
+          <CommunityQuestion
+            subQuestion={'어떻게 생각하나요?'}
+            mainQuestion={'여러분의 의견을 남겨주세요.'}
+          />
+          <ComDetailQuiz
+            comDetailTitle={communityData.title}
+            comDetailDate={formattedDate}
+            community_id={community_id}
+          />
+          <CommunityQuestion mainQuestion={'자유롭게 의견을 적어주세요.'} />
+          <ComDetailForm
+            comment={comment}
+            setComment={setComment}
+            community={detailData?.community}
+          />
         </S.ComDetailOpinion>
       )}
     </S.CommunityDetailWrapper>

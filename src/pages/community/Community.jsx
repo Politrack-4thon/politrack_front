@@ -11,21 +11,7 @@ function Community() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(() => {
-    const accessToken = localStorage.getItem('accessToken');
-    const refreshToken = localStorage.getItem('refreshToken');
-
-    if (accessToken && refreshToken) {
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
-      // 로그인하지 않은 상태면 경고 메시지 표시
-      alert('로그인이 필요한 페이지입니다.');
-      navigate('/signin');
-    }
-  }, [navigate]);
-
-  async function fetchData() {
+  const fetchData = async () => {
     try {
       const response = await API.get('/politician/community/');
 
@@ -60,7 +46,28 @@ function Community() {
     } catch (error) {
       console.error('Error fetching community content:', error);
     }
-  }
+  };
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    const refreshToken = localStorage.getItem('refreshToken');
+
+    if (accessToken && refreshToken) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+      // 로그인하지 않은 상태면 경고 메시지 표시
+      alert('로그인이 필요한 페이지입니다.');
+      navigate('/signin');
+    }
+  }, [navigate]);
+
+  // 로그인 상태가 변경되면 fetchData 함수를 호출
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchData();
+    }
+  }, [isLoggedIn, fetchData]); // fetchData를 의존성 배열에 추가
 
   const minContentHeight = 'calc(100vh - 450px)';
 
@@ -78,7 +85,8 @@ function Community() {
       <S.ContentContainer style={{ minHeight: minContentHeight }}>
         {communityContents.map((content) => (
           <CommunityContent
-            key={content.id}
+            key={content.community_id}
+            id={content.community_id} // community_id를 id prop으로 전달
             title={content.title}
             status={content.isVotingInProgress ? '투표진행중' : '투표마감'}
             content={content.content}
