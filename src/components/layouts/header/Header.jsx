@@ -85,11 +85,19 @@ function Header() {
 
   const handleLogout = async () => {
     try {
-      const response = await API.post('/user/logout/');
+      const csrfToken = localStorage.getItem('csrfToken');
+
+      const response = await API.post('/user/logout/', {
+        csrf_token: csrfToken,
+      });
 
       if (response.status === 200) {
         localStorage.removeItem('user_id');
+        localStorage.removeItem('csrfToken');
         navigate('/PMain');
+
+        // 로그아웃 성공 알림
+        alert('성공적으로 로그아웃되었습니다.');
       } else {
         console.error('로그아웃 실패:', response.status, response.data);
       }

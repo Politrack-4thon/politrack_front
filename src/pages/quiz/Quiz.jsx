@@ -31,8 +31,8 @@ function Quiz() {
       return (
         <S.QuizWrapper>
           <CommunityTop
-            titlesub={'정치에 한 발자국 가까워지는 경험'}
-            titleMain={'정치의 중심지, 서울의 \n 국회의원들을 확인해보세요!'}
+            titlesub={'기초 용어부터 차근차큰'}
+            titleMain={'어려운 정치용어, \n폴리트랙에서 알아가요!'}
             style={{ whiteSpace: 'pre-line' }}
           />
           <QuizQuestion
