@@ -12,20 +12,18 @@ function Community() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const jwtToken = localStorage.getItem('jwtToken');
-    if (jwtToken) {
+    const accessToken = localStorage.getItem('accessToken');
+    const refreshToken = localStorage.getItem('refreshToken');
+
+    if (accessToken && refreshToken) {
       setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);
+      // 로그인하지 않은 상태면 경고 메시지 표시
+      alert('로그인이 필요한 페이지입니다.');
       navigate('/signin');
     }
   }, [navigate]);
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      fetchData();
-    }
-  }, [isLoggedIn]);
 
   async function fetchData() {
     try {

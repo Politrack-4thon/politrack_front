@@ -11,17 +11,16 @@ function Quiz() {
   const [userIsLoggedIn, setUserIsLoggedIn] = useState(false); // 사용자가 로그인한 상태를 추적
 
   useEffect(() => {
-    // 로그인 여부 확인 (예: 로컬 스토리지에서 토큰 검사)
-    const jwtToken = localStorage.getItem('jwtToken');
-    if (jwtToken) {
-      // 토큰이 존재하면 로그인한 것으로 간주
+    const accessToken = localStorage.getItem('accessToken');
+    const refreshToken = localStorage.getItem('refreshToken');
+
+    if (accessToken && refreshToken) {
       setUserIsLoggedIn(true);
     } else {
-      // 토큰이 없으면 로그인하지 않은 상태
       setUserIsLoggedIn(false);
       // 로그인하지 않은 상태면 경고 메시지 표시
       alert('로그인이 필요한 페이지입니다.');
-      navigate('/signin'); // 로그인 페이지로 이동
+      navigate('/signin');
     }
   }, [navigate]);
 
