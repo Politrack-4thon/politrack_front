@@ -1,6 +1,10 @@
 import { styled } from 'styled-components';
 
 // 프로필 메인_타이틀
+
+export const MainBarWrapper = styled.div`
+  width: 100%;
+`;
 export const MainSubTitleBar = styled.div`
   width: 90%;
   display: flex;
@@ -123,7 +127,19 @@ export const IconAndTitle = styled.div`
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 `;
+
+export const IconImg = styled.img`
+  width: 23%;
+`;
+
+export const IconImgTitle = styled.div`
+  font-size: 14px;
+`;
+
 export const Val = styled.div`
   color: ${({ theme }) => theme.colors.black};
   font-family: NanumGothic;
@@ -137,12 +153,11 @@ export const Val = styled.div`
 export const MainVoteResultContainer = styled.div`
   display: flex;
   /* margin-left: 20px; */
-  /* border: 1px solid red; */
   justify-content: center;
 `;
 
 export const Party1 = styled.div`
-  width: 60%; // 변경해야함
+  width: 60%;
   height: 48px;
   flex-shrink: 0;
   border-radius: 4px 0px 0px 4px;
@@ -157,6 +172,7 @@ export const Party1 = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
 `;
 export const Party2 = styled.div`
   width: 30%; // 변경해야함
@@ -178,11 +194,13 @@ export const Party2 = styled.div`
 
 // 버튼
 export const SelectButton = styled.button`
+  width: 85%;
+  justify-content: center;
   flex-shrink: 0;
   border-radius: 4px;
   background: ${({ theme }) => theme.colors.gray2};
   color: ${({ theme }) => theme.colors.gray5};
-  display:flex;
+  display: flex;
   text-align: center;
   font-family: Noto Sans KR;
   font-size: 14px;
@@ -190,10 +208,11 @@ export const SelectButton = styled.button`
   font-weight: 700;
   line-height: normal;
   padding: 10px;
+  align-items: center;
 `;
 
 export const ButtonContainer = styled.div`
-  width: 163px;
+  width: 50%;
   height: 40px;
   flex-shrink: 0;
   display: flex;
@@ -220,7 +239,7 @@ export const MainCardWhole = styled.div`
   /* width: 100%; */
   /* justify-content: center; */
   display: flex;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   width: 80%;
 `;
 export const MainCardContainer = styled.div`
@@ -232,9 +251,12 @@ export const MainCardContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 8px;
-  width: 40%;
-  margin: 10px;
+  gap: 13px;
+  width: 100%;
+  justify-content: center;
+  /* width: 40%; */
+  /* margin: 10px; */
+  /* border: 1px solid red; */
 `;
 export const MainCardImage = styled.div`
   border-radius: 360px;
@@ -246,10 +268,27 @@ export const MainCardParty = styled.div`
   color: #fff;
   text-align: center;
   font-family: Noto Sans KR;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const MainCardPartys = styled.div`
+  flex-shrink: 0;
+  border-radius: 4px;
+  background: ${({ theme }) => theme.colors.blue};
+  color: #fff;
+  text-align: center;
+  font-family: Noto Sans KR;
   font-size: 10px;
   font-style: normal;
-  font-weight: 700;
-  line-height: 150%; /* 15px */
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const MainCardName = styled.div`
@@ -260,6 +299,7 @@ export const MainCardName = styled.div`
   font-style: normal;
   font-weight: 500;
   line-height: 150%; /* 18px */
+  margin-top: 10px;
 `;
 
 export const MainCardDistrict = styled.div`
@@ -271,6 +311,10 @@ export const MainCardDistrict = styled.div`
   line-height: normal;
 `;
 
+export const MainCardimg = styled.img`
+  width: 140%;
+  margin-top: 20px;
+`;
 export const MainCardUrl = styled.div`
   display: flex;
   gap: 52px;
@@ -325,12 +369,12 @@ export const SearchErrorBtn = styled.button`
 `;
 
 // 지도 마커
-export const MapMarkWrap = styled.img `
-width: 30px;
-height: 33px;
-flex-shrink: 0;
-position:absolute;
-left: ${props => props.left};
-top: ${props => props.top};
-cursor: pointer;
+export const MapMarkWrap = styled.img`
+  width: 30px;
+  height: 33px;
+  flex-shrink: 0;
+  position: absolute;
+  left: ${(props) => props.left};
+  top: ${(props) => props.top};
+  cursor: pointer;
 `;

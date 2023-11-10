@@ -1,54 +1,27 @@
-import React from 'react';
-
-import { useLocation } from "react-router-dom"
-import { useState, useEffect } from 'react';
-
-import MainVoteInfo from "../../components/Main/MainVoteInfo";
-import MainSubTitle from "../../components/Main/MainSubTitle";
-
-import * as S from '../../components/Main/style'
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import MainVoteInfo from '../../components/Main/MainVoteInfo';
+import MainSubTitle from '../../components/Main/MainSubTitle';
+import * as S from '../../components/Main/style';
 import * as R from './style';
-
 import { API } from '../../api/axois';
 
-function Detail(props) {
-  const {state} = useLocation(); // 국회의원별 id받음
-  const {homeLogoUrl, instagramLogoUrl } = props;
-  console.log(state);
+function Detail() {
+  let { MONA_CD } = useParams();
+  const [cardData, setCardData] = useState(null);
+  const [billsData, setBillsData] = useState([]);
   const [isCardDetailSummVisible, setIsCardDetailSummVisible] = useState(true);
   const [isCardDetailBillVisible, setIsCardDetailBillVisible] = useState(true);
-
-  const toggleCardDetailSumm = () => {
-    setIsCardDetailSummVisible(!isCardDetailSummVisible);
-  };
-  
-  const toggleCardDetailBill = () => {
-    setIsCardDetailBillVisible(!isCardDetailBillVisible);
-  }
-
-const [cardData, setCardData] = useState({
-    POLY_NM : '', // 정당명
-    HG_NM: '', // 한글 이름
-    ENG_NM:'', // 영어 이름
-    ORIG_NM:'', // 선거구명
-    HOMEPAGE:'', // 홈페이지 링크
-    UNITS: '3선', // 몇대 당선
-    MEM_TITLE: '', // 약력
-    BILL_NAME:'', // 법률안 명
-    DETAIL_LINK: '', // 법률안 상세보기 링크
-    CMITS:'', // 소속 위원회
-
-});
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await API.get(`/politician/id/${state}:8000`);
-        setCardData(response.data); // data값들 상태 값 변경
-
-        if (response.status === 200) {
-          const data = response.data;
-          setCardData(data);
+        const response = await API.get(`/politician/id/${MONA_CD}`);
+        if (response.status === 200 && response.data) {
+          const memberInfo = response.data[0]; // 국회의원 기본 정보
+          const bills = response.data.slice(1); // 법률안 목록
+          setCardData(memberInfo);
+          setBillsData(bills);
         } else {
           console.error(
             'Error fetching community content:',
@@ -57,85 +30,130 @@ const [cardData, setCardData] = useState({
         }
       } catch (error) {
         console.error('Error fetching community content:', error);
-        setCardData ({
-            POLY_NM : '', // 정당명
-            HG_NM: '', // 한글 이름
-            ENG_NM:'', // 영어 이름
-            ORIG_NM:'', // 선거구명
-            HOMEPAGE:'', // 홈페이지 링크
-            UNITS: '3선', // 몇대 당선
-            MEM_TITLE: '', // 약력
-            BILL_NAME:'', // 법률안 명
-            DETAIL_LINK: '', // 법률안 상세보기 링크
-            CMITS:'', // 소속 위원회
-        })
       }
     }
-
     fetchData();
-  }, [cardData, setCardData]);
-  
-  const handleDetailLink = () => {
-    if(detilaDta.DETAIL_LINK) {
-        window.open(detilaDta.DETAIL_LINK, '_blank');
-    }
-  }
+  }, [MONA_CD]);
 
+  // 약력 문자열을 배열로 변환하는 함수
+  const formatBio = (bio) => {
+    return bio.split('\r\n').map((line, index) => (
+      <span key={index}>
+        {line}
+        <br />
+      </span>
+    ));
+  };
+
+  const getPartyColor = (partyName) => {
+    if (partyName === '더불어민주당') {
+      return '#004EA1';
+    } else if (partyName === '국민의힘') {
+      return '#FF0000';
+    }
+    return '#333'; // 기본 색상
+  };
+
+  // 당선횟수 계산 함수
+  const calculateElectionWins = (unitsString) => {
+    if (!unitsString) {
+      return 0;
+    }
+    const terms = unitsString.split(',').map((term) => term.trim());
+    return terms.length;
+  };
 
   return (
-
-    <div style ={{width:'100%'}}>
-        <S.MainCardContainer style={{width: '100%', height: '429px'}}>
-            <S.MainCardImage style={{width: '150px', height: '150px'}}>
-                <img src='src/assets/images/default_profile.png' alt="국회의원 이미지" />
+    <div style={{ width: '100%' }}>
+      {cardData && (
+        <>
+          <S.MainCardContainer style={{ width: '100%', height: '429px' }}>
+            <S.MainCardImage style={{ width: '150px', height: '150px' }}>
+              <img
+                src='src/assets/images/default_profile.png'
+                alt='국회의원 이미지'
+              />
             </S.MainCardImage>
-            <S.MainCardParty style={{width: '163px', height: '40px'}}>{cardData.POLY_NM}</S.MainCardParty>
-            <S.MainCardName style={{fontSize:'20px'}}>{cardData.HG_NM}&#40;{cardData.ENG_NM}&#41;</S.MainCardName>
-            <S.MainCardDistrict style={{fontSize:'12px'}}>{cardData.ORIG_NM}</S.MainCardDistrict>
+            <S.MainCardParty
+              style={{
+                width: '163px',
+                height: '40px',
+                backgroundColor: getPartyColor(cardData.POLY_NM),
+              }}
+            >
+              {cardData.POLY_NM}
+            </S.MainCardParty>
+            <S.MainCardName style={{ fontSize: '20px' }}>
+              {cardData.HG_NM}&#40;{cardData.ENG_NM}&#41;
+            </S.MainCardName>
+            <S.MainCardDistrict style={{ fontSize: '12px' }}>
+              {cardData.ORIG_NM}
+            </S.MainCardDistrict>
             <S.MainCardUrl>
-                <a href={cardData.HOMEPAGE} target="_blank" rel="noopener noreferrer">
-                    <img src='\src\assets\images\card_home.svg' alt="Home Logo" />
-                </a>
-            </S.MainCardUrl>
-        </S.MainCardContainer>
-        <R.cardDetailContainer>
-            <R.cardDetailRow style={{gap: '16px'}}>
-                <MainVoteInfo 
-                  icon="/src/assets/images/icon1.svg"
-                  title={"당선횟수"}
-                  value={cardData.UNITS}
+              <a
+                href={cardData.HOMEPAGE}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <S.MainCardimg
+                  src='\src\assets\images\card_home.svg'
+                  alt='Home Logo'
                 />
-                <S.MainVoteInfoContainer style={{width: '226.9px', height: '83px'}}>
-                    <S.IconAndTitle>
-                        <img src='/src/assets/images/Frame 41.png'/>
-                    </S.IconAndTitle>
-                    <S.Val>{cardData.CMITS}</S.Val>
-                </S.MainVoteInfoContainer>
+              </a>
+            </S.MainCardUrl>
+          </S.MainCardContainer>
+          <R.cardDetailContainer>
+            <R.cardDetailRow style={{ gap: '16px' }}>
+              <MainVoteInfo
+                icon='/src/assets/images/icon1.svg'
+                title={'당선횟수'}
+                value={`${calculateElectionWins(cardData.UNITS)}선`}
+              />
+              <S.MainVoteInfoContainer style={{ width: '55%', height: '83px' }}>
+                <S.IconAndTitle>
+                  <S.IconImg src='/src/assets/images/CardDetailImg.png' />
+                  <S.IconImgTitle>소속위원회</S.IconImgTitle>
+                </S.IconAndTitle>
+                <S.Val>{cardData.CMITS}</S.Val>
+              </S.MainVoteInfoContainer>
             </R.cardDetailRow>
-            <MainSubTitle 
-            title="국회의원 약력"
-            onClick={toggleCardDetailSumm}
+            <MainSubTitle
+              title='국회의원 약력'
+              onClick={() =>
+                setIsCardDetailSummVisible(!isCardDetailSummVisible)
+              }
             />
-            {isCardDetailSummVisible && (
-            <R.cardDetailSummary>{cardData.MEM_TITLE}</R.cardDetailSummary>
-            )};
-            <MainSubTitle 
-            title="최근 발의 법안"
-            onClick={toggleCardDetailBill}
+            <R.cardDetailSummaryWrapper>
+              {isCardDetailSummVisible && (
+                <R.cardDetailSummary>
+                  {formatBio(cardData.MEM_TITLE)}
+                </R.cardDetailSummary>
+              )}
+            </R.cardDetailSummaryWrapper>
+            <MainSubTitle
+              title='최근 발의 법안'
+              onClick={() =>
+                setIsCardDetailBillVisible(!isCardDetailBillVisible)
+              }
             />
-            {isCardDetailBillVisible && (
-            <R.cardDetailBill>
-                {cardData.BILL_NAME}
-                <R.billDetailBtn onClick={handleDetailLink}>상세보기</R.billDetailBtn> 
-            </R.cardDetailBill>
-            )};
-
-        </R.cardDetailContainer>    
+            <R.CardDetailBillWrapper>
+              {isCardDetailBillVisible &&
+                billsData.map((bill, index) => (
+                  <R.cardDetailBill key={index}>
+                    {bill.BILL_NAME}
+                    <R.billDetailBtn
+                      onClick={() => window.open(bill.DETAIL_LINK, '_blank')}
+                    >
+                      상세보기
+                    </R.billDetailBtn>
+                  </R.cardDetailBill>
+                ))}
+            </R.CardDetailBillWrapper>
+          </R.cardDetailContainer>
+        </>
+      )}
     </div>
-    )
-
-
+  );
 }
-
 
 export default Detail;

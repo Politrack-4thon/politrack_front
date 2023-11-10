@@ -140,7 +140,6 @@ export const ContentTitle = styled.div`
 `;
 
 export const VoteStatusContainer = styled.div`
-  border: 1px solid red;
   width: 100%;
   height: 24px;
   justify-content: flex-end;
