@@ -6,6 +6,7 @@ export const QuizWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  // margin-left: 20px;
 `;
 
 export const QuizContainer = styled.div`
@@ -47,6 +48,7 @@ export const QuizOptions = styled.div`
   display: flex;
   gap: 20px;
   width: 100%;
+  justify-content: space-between; 
   /* border: 1px solid red; */
 `;
 
