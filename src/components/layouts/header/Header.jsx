@@ -85,24 +85,26 @@ function Header() {
 
   const handleLogout = async () => {
     try {
-      const csrfToken = localStorage.getItem('csrfToken');
+      // 로컬 스토리지에서 토큰 삭제
+      localStorage.removeItem('access');
+      localStorage.removeItem('refresh');
+      localStorage.removeItem('user_id'); // 사용자 ID도 삭제
 
-      const response = await API.post('/user/logout/', {
-        csrf_token: csrfToken,
-      });
+      // 서버에 로그아웃 알리기 (필요한 경우)
+      // const response = await API.post('/user/logout/');
+      // if (response.status === 200) {
+      //   // 서버 측 로그아웃 처리 성공
+      // }
 
-      if (response.status === 200) {
-        localStorage.removeItem('user_id');
-        localStorage.removeItem('csrfToken');
-        navigate('/PMain');
+      // 로그인 상태 업데이트
+      setIsLoggedIn(false);
+      navigate('/signin');
 
-        // 로그아웃 성공 알림
-        alert('성공적으로 로그아웃되었습니다.');
-      } else {
-        console.error('로그아웃 실패:', response.status, response.data);
-      }
+      // 로그아웃 성공 알림
+      alert('성공적으로 로그아웃되었습니다.');
     } catch (error) {
-      console.error('로그아웃 API 호출 에러:', error);
+      console.error('로그아웃 처리 중 오류 발생:', error);
+      alert('로그아웃 중 오류가 발생했습니다.');
     }
   };
 

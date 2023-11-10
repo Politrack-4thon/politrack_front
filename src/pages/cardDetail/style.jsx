@@ -78,11 +78,23 @@ export const Border = styled.div`
   background: #ebedf8;
 `;
 
+export const Loading = styled.div`
+  width: 100%;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 150%;
+  font-family: Noto Sans KR;
+  align-items: center;
+  display: flex;
+  text-align: center;
+`;
+
 export const Cards = styled.div`
-display: grid;
+  display: grid;
   grid-template-columns: 1fr 1fr;
   grid-auto-rows: minmax(100px, auto);
-  `;
+`;
 // Detail.jsx
 export const cardDetail = styled.div`
   width: 100%;
@@ -97,21 +109,38 @@ export const cardDetailContainer = styled.div`
 `;
 export const cardDetailRow = styled.div`
   display: flex;
-  margin-left: 20px;
+  justify-content: center;
+`;
+
+export const cardDetailSummaryWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
 `;
 export const cardDetailSummary = styled.div`
-  width: 351px;
+  width: 85%;
   flex-shrink: 0;
   border-radius: 4px;
   background: ${({ theme }) => theme.colors.gray1};
   box-shadow: 2px 4px 10px 0px rgba(72, 74, 100, 0.1);
   padding: 26px 14px;
+  font-size: 12px;
+  line-height: 150%;
+  font-family: Noto Sans KR;
 
-  margin-left: 20px;
+  font-weight: 500;
+`;
+
+export const CardDetailBillWrapper = styled.div`
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const cardDetailBill = styled.div`
-  width: 350px;
+  width: 85%;
   height: 77px;
   flex-shrink: 0;
   border-radius: 8px;
@@ -126,69 +155,72 @@ export const cardDetailBill = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 54px;
-
-  margin-left: 20px;
+  gap: 30px;
+  margin-bottom: 20px;
+  justify-content: space-between;
+  padding: 20px;
 `;
 
-export const billDetailBtn = styled.button `
-width: 58px;
-height: 24px;
-flex-shrink: 0;
-border-radius: 4px;
-background: ${({ theme }) => theme.colors.gray5};
-color: ${({ theme }) => theme.colors.white};
-text-align: center;
-font-family: Noto Sans KR;
-font-size: 10px;
-font-style: normal;
-font-weight: 700;
-line-height: 150%; /* 15px */
+export const billDetailBtn = styled.button`
+  width: 20%;
+  height: 24px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  background: ${({ theme }) => theme.colors.gray5};
+  color: ${({ theme }) => theme.colors.white};
+  text-align: center;
+  font-family: Noto Sans KR;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 15px */
 `;
 
-export const MainSelectBtnContainer = styled.div `
-display:flex;
+export const MainSelectBtnContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  /* border: 1px solid red; */
 `;
-
 
 // 맵
 
-export const Map = styled.div `
-position:relative;
-margin: 32px 0 70px 20px;
-width: 350px;
-height: 250px;
-
+export const Map = styled.div`
+  position: relative;
+  margin: 32px 0 70px 0px;
+  width: 100%;
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
-export const MapImg = styled.img `
-position:absolute;
-margin-left: 20px;
-
+export const MapImg = styled.img`
+  /* margin-left: 20px; */
+  width: 90%;
+  width: 350px;
+  height: 250px;
 `;
 
 // 선택된 구 정보
-export const selectOrigWrapper = styled.div `
-`
-export const SelectOrigTitle = styled.div `
-color: var(--main-black, #000);
-font-family: Noto Sans KR;
-font-size: 16px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
-margin-left:20px;
-margin-bottom:8px;
-
+export const selectOrigWrapper = styled.div``;
+export const SelectOrigTitle = styled.div`
+  color: var(--main-black, #000);
+  font-family: Noto Sans KR;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-left: 20px;
+  margin-bottom: 8px;
 `;
 
-export const SelectOrigSubTitle = styled.div `
-color: var(--main-gray-4, #7F85A3);
-font-family: Noto Sans KR;
-font-size: 10px;
-font-style: normal;
-font-weight: 500;
-line-height: normal;
-margin-left:20px;
-margin-bottom:32px;
-
+export const SelectOrigSubTitle = styled.div`
+  color: var(--main-gray-4, #7f85a3);
+  font-family: Noto Sans KR;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-left: 20px;
+  margin-bottom: 32px;
 `;

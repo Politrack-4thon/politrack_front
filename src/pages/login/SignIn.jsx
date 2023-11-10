@@ -72,18 +72,23 @@ function Signin() {
       });
 
       if (response.status === 200) {
-        const jwtToken = response.data.token; // 서버에서 받은 토큰으로 수정
-        setJwtToken(jwtToken); // JWT 값을 상태 변수에 저장
-        localStorage.setItem('jwtToken', jwtToken); // JWT 값을 로컬 스토리지에 저장
+        // 서버에서 받은 토큰 데이터
+        const { access, refresh } = response.data.token;
+
+        // access와 refresh 토큰을 로컬 스토리지에 저장
+        localStorage.setItem('accessToken', access);
+        localStorage.setItem('refreshToken', refresh);
 
         // 로그인 성공 시 사용자 ID를 localStorage에 저장
         localStorage.setItem('user_id', user.user_id);
 
         navigate('/PMain', { state: { user_id: user.user_id } });
       } else {
+        // 로그인 실패 처리
         alert('아이디나 비밀번호가 일치하지 않습니다.');
       }
     } catch (error) {
+      // 오류 처리
       console.error('로그인 오류:', error);
       alert('서버에서 오류가 발생했습니다. 나중에 다시 시도하세요.');
     }

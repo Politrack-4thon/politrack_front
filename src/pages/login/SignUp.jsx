@@ -84,14 +84,14 @@ function Signup() {
     }
 
     try {
-      const response = await API.post('/user/signin', {
+      const response = await API.post('/user/signin/', {
         // 백엔드로 보낼 데이터
         password: user.password,
         user_id: user.user_id,
         confirm_password: confirmPw,
       });
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         // 회원가입 성공 시 사용자 정보를 userInfo 객체에 저장
         const userInfo = {
           user_id: user.user_id,
