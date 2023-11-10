@@ -178,23 +178,25 @@ export const Party2 = styled.div`
 
 // 버튼
 export const SelectButton = styled.button`
-  width: 45%;
-  height: 40px;
   flex-shrink: 0;
   border-radius: 4px;
   background: ${({ theme }) => theme.colors.gray2};
   color: ${({ theme }) => theme.colors.gray5};
+  display:flex;
   text-align: center;
   font-family: Noto Sans KR;
   font-size: 14px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  padding: 10px;
 `;
 
 export const ButtonContainer = styled.div`
+  width: 163px;
+  height: 40px;
+  flex-shrink: 0;
   display: flex;
-  gap: 15px;
   margin-top: 30px;
   margin-bottom: 60px;
   /* margin-left: 20px; */
