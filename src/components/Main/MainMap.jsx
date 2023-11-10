@@ -1,47 +1,23 @@
 import React from "react";
-import { useEffect } from "react";
 
 import * as S from "./style";
 
-export default function MainMap() {
-    useEffect(() => {
-        async function fetchData() {
-          try {
-            const response = await API.get('/politician/orig/<str:orig_nm>');
-            setData(response.data); // data값들 상태 값 변경
-    
-            if (response.status === 200) {
-              const data = response.data;
-              setCommunityContents(data);
-            } else {
-              console.error(
-                'Error fetching community content:',
-                response.statusText
-              );
-            }
-          } catch (error) {
-            console.error('Error fetching community content:', error);
-            setData ({
-              POLY_NM : '더불어민주당', // 정당명
-              HG_NM: '김철수', // 한글 이름
-              ENG_NM:'KIM CHUL SU', // 영어 이름
-              ORIG_NM:'중구 성동구 갑', // 선거구명
-              HOMEPAGE:'#', // 홈페이지 링크
-            })
-          }
+export default function MainMap(props) {
+    const pinImg = '/src/assets/images/pin.png';
+    return ( 
+        <S.MapMarkWrap
+        src={props.markerStates.markerName === props.markerName ? 'src/assets/images/pin_click.png' : pinImg}
+        onClick={() => 
+            props.handleMarkerClick(props.markerName)        
         }
-    
-        fetchData();
-      }, []);
-        return ( 
-    <S.MainMap>
-        <img src="C:\Users\User\OneDrive\바탕 화면\politrack_front\public\Community\map.png">
-
-
-        </img>
+        top={props.markerStates === props.markerName ? props.clickaftertop : props.clickbeforetop}
+        left={props.markerStates === props.markerName ? props.clickafterleft : props.clickbeforeleft}
         
         
+        >            
 
-    </S.MainMap>
+            
+
+        </S.MapMarkWrap>
     );
 }

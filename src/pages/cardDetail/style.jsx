@@ -149,3 +149,43 @@ line-height: 150%; /* 15px */
 export const MainSelectBtnContainer = styled.div `
 display:flex;
 `;
+
+
+// 맵
+
+export const Map = styled.div `
+position:relative;
+margin-bottom: 20px;
+width: 350px;
+height: 250px;
+`;
+export const MapImg = styled.img `
+position:absolute;
+margin-left: 20px;
+
+`;
+
+// 선택된 구 정보
+export const selectOrigWrapper = styled.div `
+`
+export const SelectOrigTitle = styled.div `
+color: var(--main-black, #000);
+font-family: Noto Sans KR;
+font-size: 16px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+margin-left:20px;
+
+`;
+
+export const SelectOrigSubTitle = styled.div `
+color: var(--main-gray-4, #7F85A3);
+font-family: Noto Sans KR;
+font-size: 10px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+margin-left:20px;
+
+`;
