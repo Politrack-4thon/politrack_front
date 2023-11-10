@@ -56,7 +56,7 @@ function MainCard(props) {
         <S.MainCardContainer style={{width: '170px', height: '230px', marginLeft: '20px'}}>
              <Link to={`Detail/politician/id/${props.MONA_CD}`}>
                 <S.MainCardImage style={{width: '84px', height: '84px'}}>
-                    <img src={imageUrl} alt="국회의원 이미지" />
+                    <img src={props.jpg_link} alt="국회의원 이미지" />
                 </S.MainCardImage>
             </Link>
             <S.MainCardParty style={{width: '70px', height: '24px'}}>{props.POLY_NM}</S.MainCardParty>

@@ -323,3 +323,14 @@ export const SearchErrorBtn = styled.button`
   font-weight: 500;
   line-height: 175%; /* 17.5px */
 `;
+
+// 지도 마커
+export const MapMarkWrap = styled.img `
+width: 30px;
+height: 33px;
+flex-shrink: 0;
+position:absolute;
+left: ${props => props.left};
+top: ${props => props.top};
+cursor: pointer;
+`;

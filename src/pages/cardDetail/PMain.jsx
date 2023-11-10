@@ -16,20 +16,57 @@ import MainCard from '../../components/Main/MainCard';
 
 import { SubTitle } from '../../components/Main/style';
 
+
 function PMain() {
   let region = 0;
+  const MapImg = 'src/assets/images/map.png'
+  const defaultImageSrc = 'src/assets/images/default_profile.png';
+
+  const [isVoteInfoVisible, setIsVoteInfoVisible] = useState(false);
+  const [isVoteResultVisible, setIsVoteResultVisible] = useState(false);
+  const [selectedParty, setSelectedParty] = useState(false); // 버튼을 선택하지 않은 상태
+  const [party, setParty] = useState(null);
+  const [markerStates, setMarkerStates] = useState({
+    markerName: "",
+    imgSrc: "src/assets/images/pin.png", // 초기 이미지 경로
+  });
+  const toggleVoteInfoVisibility = () => {
+    setIsVoteInfoVisible(!isVoteInfoVisible);
+  };
+
+  const toggleVoteResultVisibility = () => {
+    setIsVoteResultVisible(!isVoteResultVisible);
+  };
+
+  const [hiddenElements, setHiddenElements] = useState(false); // 초기값은 보이도록 설정
+
+  const partyVisibility = () => {
+    setSelectedParty(!selectedParty);
+    setParty(party);
+  }
+  const handleMarkerClick = markerName => {
+    setMarkerStates({
+      markerName: markerName,
+      imgSrc: 'src/assets/images/pin_click.png', // 클릭한 마커에 해당하는 이미지로 업데이트
+    });
+
+    setHiddenElements(true); // 숨겨줌
+  }
+
+ 
 
   const [data, setData] = useState({
-    IMAGE:'',
     POLY_NM : '', // 정당명
     HG_NM: '', // 한글 이름
     ENG_NM:'', // 영어 이름
     ORIG_NM:'', // 선거구명
     HOMEPAGE:'', // 홈페이지 링크
     MONA_CD:'',
+    jpg_link:'',
 
   });
 
+  // 정당별 API
   useEffect(() => {
     async function fetchData() {
       try {
@@ -54,12 +91,55 @@ function PMain() {
           ORIG_NM:'중구 성동구 갑', // 선거구명
           HOMEPAGE:'#', // 홈페이지 링크
           MONA_CD:'',
+          jpg_link:'',
         })
       }
     }
 
     fetchData();
   }, []);
+
+  // 선거구별 API
+  const [origData, setorigData] = useState({
+    POLY_NM : '', // 정당명
+    HG_NM: '', // 한글 이름
+    ENG_NM:'', // 영어 이름
+    ORIG_NM:'', // 선거구명
+    HOMEPAGE:'', // 홈페이지 링크
+    MONA_CD:'',
+    jpg_link:'',
+
+  });
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await API.get(`/politician/orig/${markerStates.markerName}`);
+        setorigData(response.data); // update origData state
+  
+        if (response.status === 200) {
+          const data = response.data;
+          setorigData(data);
+        } else {
+          console.error('Error fetching community content:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error fetching community content:', error);
+        setorigData({
+          POLY_NM: '더불어민주당',
+          HG_NM: '김철수',
+          ENG_NM: 'KIM CHUL SU',
+          ORIG_NM: '중구 성동구 갑',
+          HOMEPAGE: '#',
+          MONA_CD: '',
+          jpg_link: '',
+        });
+      }
+    }
+  
+    fetchData();
+  }, [markerStates.markerName]);
+
 
   const dummyData = [
     {
@@ -88,28 +168,6 @@ function PMain() {
       voter: '',
     },
   ];
-  const defaultImageSrc = 'src/assets/images/default_profile.png';
-
-  const [isVoteInfoVisible, setIsVoteInfoVisible] = useState(false);
-  const [isVoteResultVisible, setIsVoteResultVisible] = useState(false);
-  const [selectedParty, setSelectedParty] = useState(false); // 버튼을 선택하지 않은 상태
-  const [party, setParty] = useState(null);
-
-
-  const toggleVoteInfoVisibility = () => {
-    setIsVoteInfoVisible(!isVoteInfoVisible);
-  };
-
-  const toggleVoteResultVisibility = () => {
-    setIsVoteResultVisible(!isVoteResultVisible);
-  };
-
-  const partyVisibility = () => {
-    setSelectedParty(!selectedParty);
-    setParty(party);
-  }
-
- 
  
   return (
     <S.MainWrapper>
@@ -122,17 +180,39 @@ function PMain() {
 
         <MainSearch/>
         
-        <MainMap
+        <S.Map>
+          <S.MapImg src={MapImg} alt= "맵 이미지"/>
 
-        
-        
-        />
- 
+          <MainMap
+          markerName = {"서울 은평구"}
+          markerStates={markerStates}
+          handleMarkerClick={handleMarkerClick}
+          clickaftertop={'30px'}
+          clickbeforetop={'40px'}
+          clickafterleft={'126px'}
+          clickbeforeleft={'136px'}
+               
+          />
+          <MainMap
+          markerName = {"서울 강서구"}
+          markerStates={markerStates}
+          handleMarkerClick={handleMarkerClick}
+          clickaftertop={'80px'}
+          clickbeforetop={'90px'}
+          clickafterleft={'30px'}
+          clickbeforeleft={'40px'}
+               
+          />
+
+
+
+
+        </S.Map>
         <S.Border/>
-
         <MainSubTitle 
         title={dummyData2[region].title}
         onClick={toggleVoteInfoVisibility}
+        style={{ display: hiddenElements ? 'none' : 'flex' }}
         />
         {isVoteInfoVisible && (
           <div>
@@ -166,18 +246,21 @@ function PMain() {
         <MainSubTitle 
         title='제 21대 국회의원 선거 결과'
         onClick={toggleVoteResultVisibility}
+        style={{ display: hiddenElements ? 'none' : 'flex' }}
         />
         {isVoteResultVisible && (
         <MainVoteResult
         party1 = {dummyData2[region].더불어민주당}
         party2 = {dummyData2[region].국민의힘}
+        
         />
-        )};
-        <S.Border/>
-        <SubTitle>아래 각 당을 선택하여 <br></br>
+        )}
+        <S.Border style={{ display: hiddenElements ? 'none' : 'block' }}/>
+        <SubTitle style={{ display: hiddenElements ? 'none' : 'block' }}>
+          아래 각 당을 선택하여 <br></br>
         당선된 국회의원들을 확인해보세요</SubTitle>
 
-        <S.MainSelectBtnContainer>
+        <S.MainSelectBtnContainer  style={{ display: hiddenElements ? 'none' : 'flex' }}>
         <MainSelectBtn 
         polyName='더불어민주당'
         onClick={partyVisibility}
@@ -189,12 +272,12 @@ function PMain() {
         </S.MainSelectBtnContainer>
 
         {selectedParty && (
-        <S.Cards>
+        <S.Cards  style={{ display: hiddenElements ? 'none' : 'grid' }}>
           {(data.length > 0 ? data : dummyData).map((content) => (
-            <Link to={`/politician/id/${content.MONA_CD}`}>
+            <Link to={`/id/${content.MONA_CD}`}>
 
             <MainCard
-              IMAGE = {content.IMAGE}
+              jpg_link = {content.jpg_link}
               POLY_NM={content.POLY_NM}
               HG_NM={content.HG_NM}
               ENG_NM = {content.ENG_NM}
@@ -202,9 +285,31 @@ function PMain() {
               HOMEPAGE={content.HOMEPAGE}
             />
             </Link>
-          ))};        
+          ))}      
         </S.Cards>  
-        )};
+        )}
+
+        <S.selectOrigWrapper style={{ display: hiddenElements ? 'block' : 'none' }}>
+          <S.SelectOrigTitle>현재 선택된 구는 {markerStates.markerName}입니다</S.SelectOrigTitle>
+          <S.SelectOrigSubTitle>"{markerStates.markerName}"는 투표구수가 71개, 선거인수가 262,308명 존재합니다</S.SelectOrigSubTitle>
+          <S.Cards  style={{ display: hiddenElements ? 'grid' : 'none' }}>
+
+          {(origData.length > 0 ? origData : dummyData).map((content) => (
+            <Link to={`/id/${content.MONA_CD}`}>
+
+            <MainCard
+              jpg_link = {content.jpg_link}
+              POLY_NM={content.POLY_NM}
+              HG_NM={content.HG_NM}
+              ENG_NM = {content.ENG_NM}
+              ORIG_NM={markerStates.markerName}
+              HOMEPAGE={content.HOMEPAGE}
+            />
+            </Link>
+          ))}    
+          </S.Cards>  
+
+        </S.selectOrigWrapper>
       </S.MainContainer>
     </S.MainWrapper>
   );

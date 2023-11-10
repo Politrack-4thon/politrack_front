@@ -11,7 +11,7 @@ function MainSubTitle(props) {
         props.onClick();
     }
     return (
-        <S.MainSubTitleBar>
+        <S.MainSubTitleBar style={props.style}>
             <S.SubTitle>{props.title}</S.SubTitle>
             <img style={arrow} src="\src\assets\images\arrow_back.svg"
             onClick={handleArrowClick}/>
