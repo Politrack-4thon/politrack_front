@@ -146,10 +146,6 @@ function PMain() {
       id: 1,
       imageSrc: 'src/assets/images/congress_man1.png',
     },
-    {
-      id: 2,
-      imageSrc: 'src/assets/images/congress_man1.png',
-    },
   ];
   const dummyData2 = [
     // 지역별
@@ -203,12 +199,208 @@ function PMain() {
           clickbeforeleft={'40px'}
                
           />
-
-
-
-
+          <MainMap
+          markerName = {"서울 광진구"}
+          markerStates={markerStates}
+          handleMarkerClick={handleMarkerClick}
+          clickaftertop={'100px'}
+          clickbeforetop={'110px'}
+          clickafterleft={'265px'}
+          clickbeforeleft={'275px'}
+               
+          />
+          <MainMap
+          markerName = {"서울 노원구"}
+          markerStates={markerStates}
+          handleMarkerClick={handleMarkerClick}
+          clickaftertop={'20px'}
+          clickbeforetop={'30px'}
+          clickafterleft={'260px'}
+          clickbeforeleft={'270px'}
+               
+          />
+          <MainMap
+          markerName = {"서울 용산구"}
+          markerStates={markerStates}
+          handleMarkerClick={handleMarkerClick}
+          clickaftertop={'110px'}
+          clickbeforetop={'120px'}
+          clickafterleft={'170px'}
+          clickbeforeleft={'180px'}               
+          />
+          <MainMap
+          markerName = {"서울 동작구"}
+          markerStates={markerStates}
+          handleMarkerClick={handleMarkerClick}
+          clickaftertop={'130px'}
+          clickbeforetop={'140px'}
+          clickafterleft={'150px'}
+          clickbeforeleft={'160px'}              
+          />
+          <MainMap
+          markerName = {"서울 영등포구"}
+          markerStates={markerStates}
+          handleMarkerClick={handleMarkerClick}
+          clickaftertop={'120px'}
+          clickbeforetop={'130px'}
+          clickafterleft={'110px'}
+          clickbeforeleft={'120px'}              
+          />
+          <MainMap
+          markerName = {"서울 서대문구"}
+          markerStates={markerStates}
+          handleMarkerClick={handleMarkerClick}
+          clickaftertop={'80px'}
+          clickbeforetop={'80px'}
+          clickafterleft={'30px'}
+          clickbeforeleft={'150px'}              
+          />
+          <MainMap
+          markerName = {"서울 송파구"}
+          markerStates={markerStates}
+          handleMarkerClick={handleMarkerClick}
+          clickaftertop={'80px'}
+          clickbeforetop={'150px'}
+          clickafterleft={'30px'}
+          clickbeforeleft={'300px'}              
+          />
+          <MainMap
+          markerName = {"서울 마포구"}
+          markerStates={markerStates}
+          handleMarkerClick={handleMarkerClick}
+          clickaftertop={'80px'}
+          clickbeforetop={'90px'}
+          clickafterleft={'110px'}
+          clickbeforeleft={'120px'}              
+          />
+          <MainMap
+          markerName = {"서울 중구성동구"}
+          markerStates={markerStates}
+          handleMarkerClick={handleMarkerClick}
+          clickaftertop={'90px'}
+          clickbeforetop={'100px'}
+          clickafterleft={'210px'}
+          clickbeforeleft={'220px'}              
+          />
+          <MainMap
+          markerName = {"서울 서초구"}
+          markerStates={markerStates}
+          handleMarkerClick={handleMarkerClick}
+          clickaftertop={'160px'}
+          clickbeforetop={'170px'}
+          clickafterleft={'200px'}
+          clickbeforeleft={'210px'}              
+          />
+          <MainMap
+          markerName = {"서울 강북구"}
+          markerStates={markerStates}
+          handleMarkerClick={handleMarkerClick}
+          clickaftertop={'20px'}
+          clickbeforetop={'30px'}
+          clickafterleft={'200px'}
+          clickbeforeleft={'210px'}              
+          />
+          <MainMap
+          markerName = {"서울 강남구"}
+          markerStates={markerStates}
+          handleMarkerClick={handleMarkerClick}
+          clickaftertop={'140px'}
+          clickbeforetop={'150px'}
+          clickafterleft={'240px'}
+          clickbeforeleft={'250px'}              
+          />
+          <MainMap
+          markerName = {"서울 중랑구"}
+          markerStates={markerStates}
+          handleMarkerClick={handleMarkerClick}
+          clickaftertop={'60px'}
+          clickbeforetop={'70px'}
+          clickafterleft={'270px'}
+          clickbeforeleft={'280px'}              
+          />
+          <MainMap
+          markerName = {"서울 동대문구"}
+          markerStates={markerStates}
+          handleMarkerClick={handleMarkerClick}
+          clickaftertop={'70px'}
+          clickbeforetop={'80px'}
+          clickafterleft={'240px'}
+          clickbeforeleft={'250px'}              
+          />
+          <MainMap
+          markerName = {"서울 도봉구"}
+          markerStates={markerStates}
+          handleMarkerClick={handleMarkerClick}
+          clickaftertop={'5px'}
+          clickbeforetop={'10px'}
+          clickafterleft={'220px'}
+          clickbeforeleft={'230px'}              
+          />
+          <MainMap
+          markerName = {"서울 관악구"}
+          markerStates={markerStates}
+          handleMarkerClick={handleMarkerClick}
+          clickaftertop={'170px'}
+          clickbeforetop={'180px'}
+          clickafterleft={'150px'}
+          clickbeforeleft={'160px'}              
+          />
+          <MainMap
+          markerName = {"서울 양천구"}
+          markerStates={markerStates}
+          handleMarkerClick={handleMarkerClick}
+          clickaftertop={'120px'}
+          clickbeforetop={'130px'}
+          clickafterleft={'60px'}
+          clickbeforeleft={'70px'}              
+          />
+          <MainMap
+          markerName = {"서울 구로구"}
+          markerStates={markerStates}
+          handleMarkerClick={handleMarkerClick}
+          clickaftertop={'150px'}
+          clickbeforetop={'160px'}
+          clickafterleft={'60px'}
+          clickbeforeleft={'70px'}              
+          />
+          <MainMap
+          markerName = {"서울 강동구"}
+          markerStates={markerStates}
+          handleMarkerClick={handleMarkerClick}
+          clickaftertop={'100px'}
+          clickbeforetop={'110px'}
+          clickafterleft={'310px'}
+          clickbeforeleft={'320px'}              
+          />
+          <MainMap
+          markerName = {"서울 금천구"}
+          markerStates={markerStates}
+          handleMarkerClick={handleMarkerClick}
+          clickaftertop={'170px'}
+          clickbeforetop={'180px'}
+          clickafterleft={'110px'}
+          clickbeforeleft={'120px'}              
+          />
+          <MainMap
+          markerName = {"서울 종로구"}
+          markerStates={markerStates}
+          handleMarkerClick={handleMarkerClick}
+          clickaftertop={'40px'}
+          clickbeforetop={'50px'}
+          clickafterleft={'170px'}
+          clickbeforeleft={'180px'}              
+          />
+          <MainMap
+          markerName = {"서울 성북구"}
+          markerStates={markerStates}
+          handleMarkerClick={handleMarkerClick}
+          clickaftertop={'50px'}
+          clickbeforetop={'60px'}
+          clickafterleft={'200px'}
+          clickbeforeleft={'210px'}              
+          />
         </S.Map>
-        <S.Border/>
+        <S.Border style={{ display: hiddenElements ? 'none' : 'block' }}/>
         <MainSubTitle 
         title={dummyData2[region].title}
         onClick={toggleVoteInfoVisibility}
@@ -242,7 +434,7 @@ function PMain() {
         )}
 
 
-        <S.Border/>
+        <S.Border style={{ display: hiddenElements ? 'none' : 'block' }}/>
         <MainSubTitle 
         title='제 21대 국회의원 선거 결과'
         onClick={toggleVoteResultVisibility}
@@ -292,7 +484,7 @@ function PMain() {
         <S.selectOrigWrapper style={{ display: hiddenElements ? 'block' : 'none' }}>
           <S.SelectOrigTitle>현재 선택된 구는 {markerStates.markerName}입니다</S.SelectOrigTitle>
           <S.SelectOrigSubTitle>"{markerStates.markerName}"는 투표구수가 71개, 선거인수가 262,308명 존재합니다</S.SelectOrigSubTitle>
-          <S.Cards  style={{ display: hiddenElements ? 'grid' : 'none' }}>
+          <S.Cards style={{ display: hiddenElements ? 'grid' : 'none' }}>
 
           {(origData.length > 0 ? origData : dummyData).map((content) => (
             <Link to={`/id/${content.MONA_CD}`}>
