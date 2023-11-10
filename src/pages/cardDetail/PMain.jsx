@@ -1,7 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { Link, Navigate,useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { API } from '../../api/axois'; // 백엔드 API 모듈 import
 
 import * as S from './style';
@@ -30,6 +29,97 @@ function PMain() {
     markerName: "",
     imgSrc: "src/assets/images/pin.png", // 초기 이미지 경로
   });
+
+    // Detail페이지에 정치인id 넘겨주기
+    const HandleCardClick = (props) => {
+      Navigate('/Detail', {state: props})
+    }
+   
+  
+    const [data, setData] = useState({
+      POLY_NM : '', // 정당명
+      HG_NM: '', // 한글 이름
+      ENG_NM:'', // 영어 이름
+      ORIG_NM:'', // 선거구명
+      HOMEPAGE:'', // 홈페이지 링크
+      MONA_CD:'',
+      jpg_link:'',
+    });
+  
+    // 정당별 API
+    useEffect(() => {
+      async function fetchData() {
+        try {
+          const response = await API.get('/politician/poly/더불어민주당');
+          setData(response.data); // data값들 상태 값 변경
+  
+          if (response.status === 200) {
+            const data = response.data;
+            setData(data);
+          } else {
+            console.error(
+              'Error fetching community content:',
+              response.statusText
+            );
+          }
+        } catch (error) {
+          console.error('Error fetching community content:', error);
+          setData({
+            POLY_NM: '더불어민주당', // 정당명
+            HG_NM: '김철수', // 한글 이름
+            ENG_NM:'KIM CHUL SU', // 영어 이름
+            ORIG_NM:'중구 성동구 갑', // 선거구명
+            HOMEPAGE:'#', // 홈페이지 링크
+            MONA_CD:'',
+            jpg_link:'',
+          })
+        }
+      }
+  
+      fetchData();
+    }, []);
+  
+    // 선거구별 API
+    const [origData, setorigData] = useState({
+      POLY_NM : '', // 정당명
+      HG_NM: '', // 한글 이름
+      ENG_NM:'', // 영어 이름
+      ORIG_NM:'', // 선거구명
+      HOMEPAGE:'', // 홈페이지 링크
+      MONA_CD:'',
+      jpg_link:'',
+  
+    });
+  
+    useEffect(() => {
+      async function fetchData() {
+        try {
+          const response = await API.get(`/politician/orig/${markerStates.markerName}`);
+          setorigData(response.data); // update origData state
+    
+          if (response.status === 200) {
+            const data = response.data;
+            setorigData(data);
+          } else {
+            console.error('Error fetching community content:', response.statusText);
+          }
+        } catch (error) {
+          console.error('Error fetching community content:', error);
+          setorigData({
+            POLY_NM: '더불어민주당',
+            HG_NM: '김철수',
+            ENG_NM: 'KIM CHUL SU',
+            ORIG_NM: '중구 성동구 갑',
+            HOMEPAGE: '#',
+            MONA_CD: '',
+            jpg_link: '',
+          });
+        }
+      }
+    
+      fetchData();
+    }, [markerStates.markerName]);
+  
   const toggleVoteInfoVisibility = () => {
     setIsVoteInfoVisible(!isVoteInfoVisible);
   };
@@ -53,92 +143,6 @@ function PMain() {
     setHiddenElements(true); // 숨겨줌
   }
 
- 
-
-  const [data, setData] = useState({
-    POLY_NM : '', // 정당명
-    HG_NM: '', // 한글 이름
-    ENG_NM:'', // 영어 이름
-    ORIG_NM:'', // 선거구명
-    HOMEPAGE:'', // 홈페이지 링크
-    MONA_CD:'',
-    jpg_link:'',
-
-  });
-
-  // 정당별 API
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await API.get('/politician/poly/더불어민주당');
-        setData(response.data); // data값들 상태 값 변경
-
-        if (response.status === 200) {
-          const data = response.data;
-          setData(data);
-        } else {
-          console.error(
-            'Error fetching community content:',
-            response.statusText
-          );
-        }
-      } catch (error) {
-        console.error('Error fetching community content:', error);
-        setData({
-          POLY_NM: '더불어민주당', // 정당명
-          HG_NM: '김철수', // 한글 이름
-          ENG_NM:'KIM CHUL SU', // 영어 이름
-          ORIG_NM:'중구 성동구 갑', // 선거구명
-          HOMEPAGE:'#', // 홈페이지 링크
-          MONA_CD:'',
-          jpg_link:'',
-        })
-      }
-    }
-
-    fetchData();
-  }, []);
-
-  // 선거구별 API
-  const [origData, setorigData] = useState({
-    POLY_NM : '', // 정당명
-    HG_NM: '', // 한글 이름
-    ENG_NM:'', // 영어 이름
-    ORIG_NM:'', // 선거구명
-    HOMEPAGE:'', // 홈페이지 링크
-    MONA_CD:'',
-    jpg_link:'',
-
-  });
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await API.get(`/politician/orig/${markerStates.markerName}`);
-        setorigData(response.data); // update origData state
-  
-        if (response.status === 200) {
-          const data = response.data;
-          setorigData(data);
-        } else {
-          console.error('Error fetching community content:', response.statusText);
-        }
-      } catch (error) {
-        console.error('Error fetching community content:', error);
-        setorigData({
-          POLY_NM: '더불어민주당',
-          HG_NM: '김철수',
-          ENG_NM: 'KIM CHUL SU',
-          ORIG_NM: '중구 성동구 갑',
-          HOMEPAGE: '#',
-          MONA_CD: '',
-          jpg_link: '',
-        });
-      }
-    }
-  
-    fetchData();
-  }, [markerStates.markerName]);
 
 
   const dummyData = [
@@ -401,7 +405,7 @@ function PMain() {
           />
         </S.Map>
         <S.Border style={{ display: hiddenElements ? 'none' : 'block' }}/>
-        <MainSubTitle 
+        <MainSubTitle
         title={dummyData2[region].title}
         onClick={toggleVoteInfoVisibility}
         style={{ display: hiddenElements ? 'none' : 'flex' }}
@@ -466,17 +470,15 @@ function PMain() {
         {selectedParty && (
         <S.Cards  style={{ display: hiddenElements ? 'none' : 'grid' }}>
           {(data.length > 0 ? data : dummyData).map((content) => (
-            <Link to={`/id/${content.MONA_CD}`}>
-
-            <MainCard
+            <MainCard 
+              MONA_CD = {content.MONA_CD}
               jpg_link = {content.jpg_link}
               POLY_NM={content.POLY_NM}
               HG_NM={content.HG_NM}
               ENG_NM = {content.ENG_NM}
               ORIG_NM={content.ORIG_NM}
-              HOMEPAGE={content.HOMEPAGE}
+              HOMEPAGE={content.HOMEPAGE} 
             />
-            </Link>
           ))}      
         </S.Cards>  
         )}
@@ -487,7 +489,7 @@ function PMain() {
           <S.Cards style={{ display: hiddenElements ? 'grid' : 'none' }}>
 
           {(origData.length > 0 ? origData : dummyData).map((content) => (
-            <Link to={`/id/${content.MONA_CD}`}>
+            <Link to={`/politician/id/${content.MONA_CD}`}>
 
             <MainCard
               jpg_link = {content.jpg_link}

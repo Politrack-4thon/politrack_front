@@ -35,7 +35,7 @@ const router = createBrowserRouter([
         element: <PMain />,
       },
       {
-        path: 'politician/id',
+        path: 'Detail',
         element: <Detail />,
       },
       {
