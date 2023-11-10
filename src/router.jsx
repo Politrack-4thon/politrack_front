@@ -35,7 +35,7 @@ const router = createBrowserRouter([
         element: <PMain />,
       },
       {
-        path: 'Detail',
+        path: 'politician/id/:MONA_CD',
         element: <Detail />,
       },
       {
