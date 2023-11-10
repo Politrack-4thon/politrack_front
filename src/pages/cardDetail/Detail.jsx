@@ -43,7 +43,7 @@ const [cardData, setCardData] = useState({
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await API.get(`/politician/id/${state}:8000`);
+        const response = await API.get(`/politician/id/${state}`);
         setCardData(response.data); // data값들 상태 값 변경
 
         if (response.status === 200) {

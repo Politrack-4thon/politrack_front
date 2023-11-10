@@ -30,6 +30,10 @@ function PMain() {
     imgSrc: "src/assets/images/pin.png", // 초기 이미지 경로
   });
 
+  const [searchName, setSearchName] = useState({
+
+  })
+
     // Detail페이지에 정치인id 넘겨주기
     const HandleCardClick = (props) => {
       Navigate('/Detail', {state: props})
@@ -142,6 +146,9 @@ function PMain() {
 
     setHiddenElements(true); // 숨겨줌
   }
+  const handleSearch = (searchName) => {
+
+  }
 
 
 
@@ -178,7 +185,10 @@ function PMain() {
       />
       <S.MainContainer>
 
-        <MainSearch/>
+        <MainSearch 
+        handleSearch = {handleSearch}
+        
+        />
         
         <S.Map>
           <S.MapImg src={MapImg} alt= "맵 이미지"/>
