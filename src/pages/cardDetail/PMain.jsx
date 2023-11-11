@@ -29,7 +29,7 @@ function PMain() {
 
   const [markerStates, setMarkerStates] = useState({
     markerName: '',
-    markerHgName: '',
+    markerPolyName:'',
     imgSrc: 'src/assets/images/pin.png', // 초기 이미지 경로
   });
 
@@ -132,50 +132,29 @@ function PMain() {
     jpg_link: ``,
   });
 
-  // [list,setLists] = useState([]);
-  // useEffect(()=> {
-  //   const userData = async() =>{
-  //     await axios
-  //       API.get(`politician/name/${searchName}`)
-  //       .then((res)=> {
-  //         setLists(res.data.patientList)
-  //       });
-  //   };
-  //   userData();
-  // })
-  // const handleSearchClick = (e) => {
-  //   e.preventDefault();
-  //   if(search === null || search === '') {
-  //     axios.get(`politician/name/${searchName}`)
-  //     console.log("false")
-  //   } else {
-  //     const filterData = lists.filter
-  //   }
-  // }
+  const handleSearchClick = async () => {
+    try {
+      const response = await API.get(`politician/name/${searchName}`);
+      
+      setPolyName(response.data);
+  
+      setMarkerStates((prevMarkerStates) => {
+        return {
+          ...prevMarkerStates,
+          markerName: response.data.ORIG_NM,
+          markerPolyName: response.data.HG_NM,
+          imgSrc: 'src/assets/images/pin_click.png',
+        };
+      });
 
-  // const handleSearchClick = async () => {
-  //   try {
-  //     const response = await API.get(`politician/name/${searchName}`);
-
-  //     setHgName(response.data);
-
-  //     setMarkerStates((prevMarkerStates) => {
-  //       return {
-  //         ...prevMarkerStates,
-  //         markerName: name.data.ORIG_NM,
-  //         markerHgName: name.data.HG_NM,
-  //         imgSrc: 'src/assets/images/pin_click.png',
-  //       };
-  //     });
-
-  //     setData(response.data);
-
-  //     setHiddenElements(true);
-
-  //   } catch (error) {
-  //     console.error('Error fetching community content:', error);
-  //   }
-  // };
+      setData(response.data);
+  
+      setHiddenElements(true);
+  
+    } catch (error) {
+      console.error('Error fetching community content:', error);
+    }
+  };  
   const toggleVoteInfoVisibility = () => {
     setIsVoteInfoVisible(!isVoteInfoVisible);
   };
@@ -219,12 +198,6 @@ function PMain() {
       더불어민주당: '41개',
       국민의힘: '8개',
     },
-    {
-      title: '경기도',
-      constituency: '',
-      votingPre: '',
-      voter: '',
-    },
   ];
   // onSearch={handleSearch}
   return (
@@ -235,7 +208,7 @@ function PMain() {
         style={{ whiteSpace: 'pre-line' }}
       />
       <S.MainContainer>
-        <S.SearchWrapper onSubmit={(e) => handleSearchClick}>
+      <S.SearchWrapper onSubmit={(e) => handleSearchClick}>
           <S.SearchInput>
             <S.Input
               type='text'
@@ -579,7 +552,7 @@ function PMain() {
             존재합니다
           </S.SelectOrigSubTitle>
           <S.Cards style={{ display: hiddenElements ? 'grid' : 'none' }}>
-            {origData.length > 0 ? (
+          {origData.length > 0 ? (
               origData.map((content) => (
                 <Link to={`/politician/id/${content.MONA_CD}`}>
                   <MainCard

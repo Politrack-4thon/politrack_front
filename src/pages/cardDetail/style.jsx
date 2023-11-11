@@ -235,7 +235,7 @@ export const SelectOrigSubTitle = styled.div`
 `;
 
 // 검색
-export const SearchWrapper = styled.div`
+export const SearchWrapper = styled.form`
   display: flex;
   gap: 16px;
   flex-direction: space-between;
@@ -243,7 +243,7 @@ export const SearchWrapper = styled.div`
   margin-top: 36px;
 `;
 
-export const SearchButton = styled.div`
+export const SearchButton = styled.button`
   width: 40px;
   height: 40px;
   flex-shrink: 0;

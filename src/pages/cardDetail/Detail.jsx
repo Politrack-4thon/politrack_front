@@ -10,19 +10,25 @@ function Detail() {
   let { MONA_CD } = useParams();
   const [cardData, setCardData] = useState(null);
   const [billsData, setBillsData] = useState([]);
+  const [imgData, setImgData] = useState(null);
   const [isCardDetailSummVisible, setIsCardDetailSummVisible] = useState(true);
   const [isCardDetailBillVisible, setIsCardDetailBillVisible] = useState(true);
+  const SERVER_URL = 'http://43.200.133.223';
+
 
   useEffect(() => {
     async function fetchData() {
       try {
 
-        const response = await API.get(`/politician/id/${MONA_CD}`);
+        const response = await API.get(`politician/id/${MONA_CD}`);
         if (response.status === 200 && response.data) {
           const memberInfo = response.data[0]; // 국회의원 기본 정보
           const bills = response.data.slice(1); // 법률안 목록
+          const img = 'http://43.200.133.223/' + memberInfo.jpg_link;
+          
           setCardData(memberInfo);
           setBillsData(bills);
+          setImgData(img);
 
         } else {
           console.error(
@@ -72,7 +78,8 @@ function Detail() {
           <S.MainCardContainer style={{ width: '100%', height: '429px' }}>
             <S.MainCardImage style={{ width: '150px', height: '150px' }}>
               <img
-                src='src/assets/images/default_profile.png'
+                style={{ width: '150px', height: '150px', borderRadius: '360px'}}
+                src={imgData}
                 alt='국회의원 이미지'
               />
             </S.MainCardImage>
