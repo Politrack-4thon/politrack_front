@@ -6,7 +6,7 @@ function ComDetailForm({ user, board, comment, setComment }) {
   const [userInput, setUserInput] = useState(comment || '');
   const [isEditMode, setIsEditMode] = useState(false);
   const [previousUserInput, setPreviousUserInput] = useState(comment || '');
-
+  
   const handleInputChange = (e) => {
     setUserInput(e.target.value);
   };

@@ -9,6 +9,13 @@ export const MainWrapper = styled.div`
   color: ${(props) => props.theme.colors.font};
 `;
 export const MainContainer = styled.div``;
+export const MapBoxContent = styled.div `
+position:relative;
+top:30px;
+height: 30px;
+padding: 5px;
+background-color: ${({ theme }) => theme.colors.gray3};
+`;
 export const DetailTitle = styled.div`
   display: flex;
   flex-direction: column;
@@ -193,6 +200,8 @@ export const Map = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction:column;
+  
 `;
 export const MapImg = styled.img`
   /* margin-left: 20px; */
