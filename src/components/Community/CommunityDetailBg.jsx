@@ -26,9 +26,9 @@ function CommunityDetailBg({
         <S.DetailTitle>
           <ComDetailTitle title={comDetailTitle} text={comDetailText} />
         </S.DetailTitle>
-        <ComDetailCard idea={comDetailA} ideaDes={comDetailADes} />
-        <ComDetailCard idea={comDetailB} ideaDes={comDetailBDes} />
-        <ComDetailCard idea={comDetailC} ideaDes={comDetailCDes} />
+        <ComDetailCard idea={comDetailA} ideaDes={comDetailADes} img='/src/assets/images/emotion_green.svg'/>
+        <ComDetailCard idea={comDetailB} ideaDes={comDetailBDes} img='/src/assets/images/emotion_red.svg'/>
+        <ComDetailCard idea={comDetailC} ideaDes={comDetailCDes} img='/src/assets/images/emotion_blue.svg'/>
       </S.DetailWallpaper>
     </S.DetailBgWrapper>
   );

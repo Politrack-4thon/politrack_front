@@ -12,7 +12,7 @@ function MainCard(props) {
     ? `${SERVER_URL}/${props.jpg_link}`
     : '/src/assets/images/default_profile.png';
   const navigate = useNavigate();
-
+  
   // 정당에 따른 배경색 설정
   const partyColor =
     props.POLY_NM === '국민의힘'
@@ -38,37 +38,6 @@ function MainCard(props) {
     MONA_CD: '',
   });
 
-  //   useEffect(() => {
-  //     async function fetchData() {
-  //       try {
-  //         const response = await API.get('/politician/id/MONA_CD');
-  //         setData(response.data); // data값들 상태 값 변경
-
-  //         if (response.status === 200) {
-  //           const data = response.data;
-  //           setData(data);
-  //         } else {
-  //           console.error(
-  //             'Error fetching community content:',
-  //             response.statusText
-  //           );
-  //         }
-  //       } catch (error) {
-  //         console.error('Error fetching community content:', error);
-  //         setData({
-  //           quiz: '',
-  //           description: '',
-  //           pick_title: '',
-  //           pick: '',
-  //           answer: '',
-  //           answer_des: '',
-  //           MONA_CD: '',
-  //         });
-  //       }
-  //     }
-
-  //     fetchData();
-  //   }, []);
 
   return (
     <S.MainCardContainer

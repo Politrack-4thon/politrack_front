@@ -67,7 +67,7 @@ export const CardTitleContainer = styled.div`
   margin-top: 10px;
 `;
 
-export const CardChar = styled.div`
+export const CardChar = styled.img`
   width: 32px;
   height: 32px;
   background-color: ${({ theme }) => theme.colors.gray1};
