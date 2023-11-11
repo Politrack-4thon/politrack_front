@@ -89,7 +89,10 @@ function Community() {
             id={content.community_id} // community_id를 id prop으로 전달
             title={content.title}
             status={content.isVotingInProgress ? '투표진행중' : '투표마감'}
-            content={content.content}
+            content={
+              content.content.slice(0, 120) +
+              (content.content.length > 120 ? '...' : '')
+            } // 100자로 제한하고, 넘으면 '...' 추가
           />
         ))}
       </S.ContentContainer>

@@ -29,7 +29,7 @@ function PMain() {
 
   const [markerStates, setMarkerStates] = useState({
     markerName: '',
-    markerPolyName:'',
+    markerHgName: '',
     imgSrc: 'src/assets/images/pin.png', // 초기 이미지 경로
   });
 
@@ -118,10 +118,11 @@ function PMain() {
 
   const [searchName, setSearchName] = useState('');
   const handleSearchChange = (e) => {
-    setSearchName(e.target.value)
-  }
-  
-  const [polyName, setPolyName] = useState({
+    e.preventDefault();
+    setSearchName(e.target.value);
+  };
+
+  const [name, setHgName] = useState({
     POLY_NM: '', // 정당명
     HG_NM: '', // 한글 이름
     ENG_NM: '', // 영어 이름
@@ -131,29 +132,50 @@ function PMain() {
     jpg_link: ``,
   });
 
-  const handleSearchClick = async () => {
-    try {
-      const response = await API.get(`politician/name/${searchName}`);
-      
-      setPolyName(response.data);
-  
-      setMarkerStates((prevMarkerStates) => {
-        return {
-          ...prevMarkerStates,
-          markerName: response.data.ORIG_NM,
-          markerPolyName: response.data.HG_NM,
-          imgSrc: 'src/assets/images/pin_click.png',
-        };
-      });
+  // [list,setLists] = useState([]);
+  // useEffect(()=> {
+  //   const userData = async() =>{
+  //     await axios
+  //       API.get(`politician/name/${searchName}`)
+  //       .then((res)=> {
+  //         setLists(res.data.patientList)
+  //       });
+  //   };
+  //   userData();
+  // })
+  // const handleSearchClick = (e) => {
+  //   e.preventDefault();
+  //   if(search === null || search === '') {
+  //     axios.get(`politician/name/${searchName}`)
+  //     console.log("false")
+  //   } else {
+  //     const filterData = lists.filter
+  //   }
+  // }
 
-      setData(response.data);
-  
-      setHiddenElements(true);
-  
-    } catch (error) {
-      console.error('Error fetching community content:', error);
-    }
-  };  
+  // const handleSearchClick = async () => {
+  //   try {
+  //     const response = await API.get(`politician/name/${searchName}`);
+
+  //     setHgName(response.data);
+
+  //     setMarkerStates((prevMarkerStates) => {
+  //       return {
+  //         ...prevMarkerStates,
+  //         markerName: name.data.ORIG_NM,
+  //         markerHgName: name.data.HG_NM,
+  //         imgSrc: 'src/assets/images/pin_click.png',
+  //       };
+  //     });
+
+  //     setData(response.data);
+
+  //     setHiddenElements(true);
+
+  //   } catch (error) {
+  //     console.error('Error fetching community content:', error);
+  //   }
+  // };
   const toggleVoteInfoVisibility = () => {
     setIsVoteInfoVisible(!isVoteInfoVisible);
   };
@@ -176,11 +198,10 @@ function PMain() {
 
     setHiddenElements(true); // 숨겨줌
   };
-  
 
   const handleRefreshClick = () => {
-    setMarkerStates("");
-  }
+    setMarkerStates('');
+  };
 
   const dummyData = [
     {
@@ -214,21 +235,26 @@ function PMain() {
         style={{ whiteSpace: 'pre-line' }}
       />
       <S.MainContainer>
-        <S.SearchWrapper>
-          <S.SearchInput><S.Input 
-          type='text' 
-          placeholder='국회의원 이름을 검색해주세요'
-          value={searchName}
-          onChange={handleSearchChange}
-          />
+        <S.SearchWrapper onSubmit={(e) => handleSearchClick}>
+          <S.SearchInput>
+            <S.Input
+              type='text'
+              placeholder='국회의원 이름을 검색해주세요'
+              value={searchName}
+              onChange={handleSearchChange}
+            />
           </S.SearchInput>
-          <S.SearchButton onClick={handleSearchClick}><img src="/src/assets/images/search.svg" alt="Search"  /></S.SearchButton>
+          <S.SearchButton type='submit'>
+            <img src='/src/assets/images/search.svg' alt='Search' />
+          </S.SearchButton>
         </S.SearchWrapper>
-       
+
         <S.Map>
           <S.MapImg src={MapImg} alt='맵 이미지' />
           <S.MapBoxContent onClick={handleRefreshClick}>
-            {markerStates.markerName ? "새로고침⟲" : "핀을 눌러 정보를 확인하세요!"}
+            {markerStates.markerName
+              ? '새로고침⟲'
+              : '핀을 눌러 정보를 확인하세요!'}
           </S.MapBoxContent>
 
           <MainMap
@@ -522,20 +548,23 @@ function PMain() {
           </S.Loading>
         ) : (
           <S.Cards style={{ display: hiddenElements ? 'none' : 'grid' }}>
-            {/* 데이터를 렌더링하는 로직 */}
-            {(data.length > 0 ? data : dummyData).map((content) => (
-              <Link to={`/politician/id/${content.MONA_CD}`}>
-                <MainCard
-                  MONA_CD={content.MONA_CD}
-                  jpg_link={content.jpg_link}
-                  POLY_NM={content.POLY_NM}
-                  HG_NM={content.HG_NM}
-                  ENG_NM={content.ENG_NM}
-                  ORIG_NM={content.ORIG_NM}
-                  HOMEPAGE={content.HOMEPAGE}
-                />
-              </Link>
-            ))}
+            {data.length > 0 ? (
+              data.map((content) => (
+                <Link to={`/politician/id/${content.MONA_CD}`}>
+                  <MainCard
+                    jpg_link={content.jpg_link}
+                    POLY_NM={content.POLY_NM}
+                    HG_NM={content.HG_NM}
+                    ENG_NM={content.ENG_NM}
+                    ORIG_NM={content.ORIG_NM}
+                    HOMEPAGE={content.HOMEPAGE}
+                    MONA_CD={content.MONA_CD}
+                  />
+                </Link>
+              ))
+            ) : (
+              <div></div> // 데이터가 없을 때 표시될 메시지
+            )}
           </S.Cards>
         )}
 
@@ -550,18 +579,23 @@ function PMain() {
             존재합니다
           </S.SelectOrigSubTitle>
           <S.Cards style={{ display: hiddenElements ? 'grid' : 'none' }}>
-            {(origData.length >= 1 ? origData : dummyData).map((content) => (
-              <Link to={`/politician/id/${content.MONA_CD}`}>
-                <MainCard
-                  jpg_link={content.jpg_link}
-                  POLY_NM={content.POLY_NM}
-                  HG_NM={content.HG_NM}
-                  ENG_NM={content.ENG_NM}
-                  ORIG_NM={content.ORIG_NM}
-                  HOMEPAGE={content.HOMEPAGE}
-                />
-              </Link>
-            ))}
+            {origData.length > 0 ? (
+              origData.map((content) => (
+                <Link to={`/politician/id/${content.MONA_CD}`}>
+                  <MainCard
+                    jpg_link={content.jpg_link}
+                    POLY_NM={content.POLY_NM}
+                    HG_NM={content.HG_NM}
+                    ENG_NM={content.ENG_NM}
+                    ORIG_NM={content.ORIG_NM}
+                    HOMEPAGE={content.HOMEPAGE}
+                    MONA_CD={content.MONA_CD}
+                  />
+                </Link>
+              ))
+            ) : (
+              <div></div> // 데이터가 없을 때 표시될 메시지
+            )}
           </S.Cards>
         </S.selectOrigWrapper>
       </S.MainContainer>
