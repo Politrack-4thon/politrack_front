@@ -25,7 +25,7 @@ function ComResult() {
     const fetchData = async () => {
       try {
         const response = await API.get(
-          '/politician/community/<community_id>/board/<int:board_id>/result'
+          '/politician/community/${community_id}/detail/result'
         );
         setData(response.data);
 
