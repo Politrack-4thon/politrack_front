@@ -30,7 +30,7 @@ function ComResult() {
         setData(response.data);
 
         // 백엔드에서 받아온 wordcloud 이미지 URL 설정
-        const wordcloudURL = `/politician/community/{community_id}/wordcloud`;
+        const wordcloudURL = `/politician/community/${community_id}/wordcloud`;
         setWordcloudImage(wordcloudURL);
       } catch (error) {
         console.error('데이터를 가져오는 중 오류 발생: ', error);
