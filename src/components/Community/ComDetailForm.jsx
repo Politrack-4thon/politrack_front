@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { API } from '../../api/axois';
 import * as S from '../Community/style';
+import VoteModal from './VoteModal';
 
-function ComDetailForm({ user, board, comment, setComment }) {
-  const [userInput, setUserInput] = useState(comment || '');
+function ComDetailForm({ community, comment, setComment }) {
+  const [userInput, setUserInput] = useState(comment); // 초기값으로 comment 사용
   const [isEditMode, setIsEditMode] = useState(false);
   const [previousUserInput, setPreviousUserInput] = useState(comment || '');
-  
+  const [showModal, setShowModal] = useState(false);
   const handleInputChange = (e) => {
     setUserInput(e.target.value);
   };
@@ -38,50 +39,30 @@ function ComDetailForm({ user, board, comment, setComment }) {
   };
 
   const handleFormSubmit = () => {
-    if (isEditMode || userInput.trim() === '') {
-      // 수정 모드이거나 userInput이 빈 문자열인 경우 처리하지 않음
+    // 입력된 데이터가 없거나 수정 모드인 경우, 요청을 보내지 않음
+    if (userInput.trim() === '' || isEditMode) {
       return;
     }
 
-    if (isEditMode) {
-      // 수정 모드에서 수정 완료 버튼을 누른 경우
-      API.patch('https://example.com/api/update-comment', {
-        user: user,
-        board: board,
-        comment: userInput,
+    const postData = {
+      comment: userInput,
+      community: community,
+    };
+
+    API.post('/politician/opinion/', postData)
+      .then((response) => {
+        console.log('댓글이 성공적으로 제출되었습니다.', response.data);
+        setComment(response.data.comment);
+        setShowModal(true); // 모달 표시
+        setIsEditMode(true); // 수정 모드 설정
       })
-        .then((response) => {
-          console.log('댓글이 성공적으로 수정되었습니다.', response.data);
-          setComment(response.data.comment);
-          setIsEditMode(false);
-          setPreviousUserInput(userInput);
-        })
-        .catch((error) => {
-          console.error('댓글 수정 중 오류가 발생했습니다.', error);
-          setIsEditMode(true);
-          setPreviousUserInput(userInput);
-        });
-      console.log('수정 완료 버튼 클릭');
-    } else {
-      // 작성 완료 버튼을 누른 경우
-      API.post('https://example.com/api/submit-comment', {
-        user: user,
-        board: board,
-        comment: userInput,
-      })
-        .then((response) => {
-          console.log('댓글이 성공적으로 제출되었습니다.', response.data);
-          setComment(response.data.comment);
-          setIsEditMode(true);
-          setPreviousUserInput(userInput);
-        })
-        .catch((error) => {
-          console.error('댓글 제출 중 오류가 발생했습니다.', error);
-          setIsEditMode(true);
-          setPreviousUserInput(userInput);
-        });
-      console.log('작성 완료 버튼 클릭');
-    }
+      .catch((error) => {
+        console.error('댓글 제출 중 오류가 발생했습니다.', error);
+      });
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   return (
@@ -91,10 +72,12 @@ function ComDetailForm({ user, board, comment, setComment }) {
         style={{ ...inputStyle, whiteSpace: 'pre-line' }}
         as='textarea'
         onChange={handleInputChange}
+        disabled={isEditMode} // 수정 모드일 때 입력 비활성화
       ></S.FormBg>
       <S.FormBtn style={buttonStyle} onClick={handleFormSubmit}>
         {isEditMode ? '수정 완료' : '작성 완료'}
       </S.FormBtn>
+      <VoteModal isOpen={showModal} onClose={handleCloseModal} />
     </S.FormWrapper>
   );
 }
