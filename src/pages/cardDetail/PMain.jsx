@@ -31,7 +31,7 @@ function PMain() {
     markerName: '',
     imgSrc: 'src/assets/images/pin.png', // 초기 이미지 경로
   });
-  const SERVER_URL = 'http://43.200.133.223/';
+  const SERVER_URL = 'http://43.200.133.223';
 
   // Detail페이지에 정치인id 넘겨주기
   const HandleCardClick = (props) => {
@@ -79,7 +79,7 @@ function PMain() {
     ORIG_NM: '', // 선거구명
     HOMEPAGE: '', // 홈페이지 링크
     MONA_CD: '',
-    jpg_link: '',
+    jpg_link: ``,
   });
 
   useEffect(() => {
@@ -517,7 +517,7 @@ function PMain() {
               <Link to={`/politician/id/${content.MONA_CD}`}>
                 <MainCard
                   MONA_CD={content.MONA_CD}
-                  jpg_link={`${SERVER_URL}media/${content.MONA_CD}.jpg`}
+                  jpg_link={content.jpg_link}
                   POLY_NM={content.POLY_NM}
                   HG_NM={content.HG_NM}
                   ENG_NM={content.ENG_NM}

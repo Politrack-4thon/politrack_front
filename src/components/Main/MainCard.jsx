@@ -6,8 +6,10 @@ import * as S from './style';
 import { API } from '../../api/axois';
 
 function MainCard(props) {
-  const imageUrl = props.IMAGE
-    ? props.IMAGE
+  const SERVER_URL = 'http://43.200.133.223';
+
+  const imageUrl = props.jpg_link
+    ? `${SERVER_URL}/${props.jpg_link}`
     : '/src/assets/images/default_profile.png';
   const navigate = useNavigate();
 
@@ -79,7 +81,7 @@ function MainCard(props) {
       onClick={() => handleCard(props.MONA_CD)}
     >
       <S.MainCardImage style={{ width: '84px', height: '84px' }}>
-        <img src={props.jpg_link} alt='국회의원 이미지' />
+        <img  style={{ width: '84px', height: '84px', borderRadius: '360px'}} src={imageUrl} alt='국회의원 이미지' />
       </S.MainCardImage>
 
       <S.MainCardPartys
