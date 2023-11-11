@@ -59,7 +59,7 @@ const router = createBrowserRouter([
         element: <Quiz />,
       },
       {
-        path: 'ComResult',
+        path: '/ComResult/:community_id',
         element: <ComResult />,
       },
     ],

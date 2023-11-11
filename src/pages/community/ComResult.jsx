@@ -1,52 +1,68 @@
 import React, { useEffect, useState } from 'react';
 import * as S from './style';
 import { API } from '../../api/axois';
+import { useParams } from 'react-router-dom'; // useParams를 import
 
-//component import
 import CommunityQuestion from '../../components/Community/CommunityQuestion';
 import CommunityTop from '../../components/Community/CommunityTop';
 
-// 이미지 파일을 import
 import circleIconImage from '/Community/VoteIconColor.png';
 import circleIconNoImage from '/Community/VoteResultNo.png';
 
 function ComResult() {
   const [data, setData] = useState({
-    title: '',
+    pick_title: '',
     option1_count: 0,
     option2_count: 0,
     option3_count: 0,
-    resultDate: '',
   });
 
   const [wordcloudImage, setWordcloudImage] = useState('');
 
+  const { community_id } = useParams();
+
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchVoteData = async () => {
       try {
         const response = await API.get(
-          '/politician/community/${community_id}/detail/result'
+          `/politician/community/${community_id}/detail/result`
         );
         setData(response.data);
-
-        // 백엔드에서 받아온 wordcloud 이미지 URL 설정
-        const wordcloudURL = `/politician/community/${community_id}/wordcloud`;
-        setWordcloudImage(wordcloudURL);
       } catch (error) {
         console.error('데이터를 가져오는 중 오류 발생: ', error);
-        // 에러 발생 시 더미 데이터 사용
-        setData({
-          title: '"김포시의 서울시 편입에\n 대한 여러분의 생각은 어떤가요?"',
-          option1_count: 50,
-          option2_count: 30,
-          option3_count: 20,
-          resultDate: '2023.11.01 ~ 2023.11.11 21:00',
-        });
       }
     };
 
-    fetchData();
-  }, []);
+    fetchVoteData();
+  }, [community_id]);
+
+  const SERVER_URL = 'http://43.200.133.223';
+
+  useEffect(() => {
+    const fetchWordcloudImage = async () => {
+      try {
+        const response = await API.get(
+          `/politician/community/${community_id}/wordcloud`,
+          {
+            responseType: 'arraybuffer', // 서버로부터 바이너리 데이터를 받기 위해 설정
+          }
+        );
+
+        // Blob 객체 생성
+        const blob = new Blob([response.data], { type: 'image/png' });
+        // Blob 객체를 URL로 변환
+        const imageSrc = URL.createObjectURL(blob);
+        // 이미지 URL 설정
+        setWordcloudImage(imageSrc);
+      } catch (error) {
+        console.error('Error fetching image: ', error);
+        // 에러 시 더미 이미지 설정
+        setWordcloudImage('/path/to/dummy/image.png');
+      }
+    };
+
+    fetchWordcloudImage();
+  }, [community_id]);
 
   // 가장 큰 투표 결과 값을 찾는 로직
   const maxVoteCount = Math.max(
@@ -138,7 +154,7 @@ function ComResult() {
           <S.ComResultBtn> 개표 완료</S.ComResultBtn>
         </S.ComResultBtnContainer>
         <S.ComResultTitle style={{ whiteSpace: 'pre-line' }}>
-          {data.title}
+          {data.pick_title}
         </S.ComResultTitle>
 
         {/*그래프*/}
