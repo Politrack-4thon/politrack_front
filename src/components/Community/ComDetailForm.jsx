@@ -6,9 +6,8 @@ import VoteModal from './VoteModal';
 function ComDetailForm({ community, comment, setComment }) {
   const [userInput, setUserInput] = useState(comment); // 초기값으로 comment 사용
   const [isEditMode, setIsEditMode] = useState(false);
-  const [previousUserInput, setPreviousUserInput] = useState(comment);
+  const [previousUserInput, setPreviousUserInput] = useState(comment || '');
   const [showModal, setShowModal] = useState(false);
-
   const handleInputChange = (e) => {
     setUserInput(e.target.value);
   };

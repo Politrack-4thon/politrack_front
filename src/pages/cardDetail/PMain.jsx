@@ -13,6 +13,7 @@ import MainVoteResult from '../../components/Main/MainVoteResult';
 import MainSelectBtn from '../../components/Main/MainSelectBtn';
 import MainCard from '../../components/Main/MainCard';
 
+//import { search } from '../../components/Main/MainSearch';
 import { SubTitle } from '../../components/Main/style';
 
 function PMain() {
@@ -30,7 +31,6 @@ function PMain() {
     markerName: '',
     imgSrc: 'src/assets/images/pin.png', // 초기 이미지 경로
   });
-
   const SERVER_URL = 'http://43.200.133.223/';
 
   // Detail페이지에 정치인id 넘겨주기
@@ -116,6 +116,43 @@ function PMain() {
     fetchData();
   }, [markerStates.markerName]);
 
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       const response = await API.get(
+  //         `/politician/name/${search}`
+  //       );
+  //       setData(response.data); // update origData state
+
+  //       if (response.status === 200) {
+  //         const data = response.data;
+  //         setData(data);
+  //         console.log("data");
+  //       } else {
+  //         console.error(
+  //           'Error fetching community content:',
+  //           response.statusText
+  //         );
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching community content:', error);
+  //       setData({
+  //         POLY_NM: '더불어민주당',
+  //         HG_NM: '김철수',
+  //         ENG_NM: 'KIM CHUL SU',
+  //         ORIG_NM: '중구 성동구 갑',
+  //         HOMEPAGE: '#',
+  //         MONA_CD: '',
+  //         jpg_link: '',
+  //       });
+  //     }
+  //   }
+
+  //   fetchData();
+  // }, [search]);
+
+
+
   const toggleVoteInfoVisibility = () => {
     setIsVoteInfoVisible(!isVoteInfoVisible);
   };
@@ -138,6 +175,11 @@ function PMain() {
 
     setHiddenElements(true); // 숨겨줌
   };
+  
+
+  const handleRefreshClick = () => {
+    setMarkerStates("");
+  }
 
   const dummyData = [
     {
@@ -162,7 +204,7 @@ function PMain() {
       voter: '',
     },
   ];
-
+  // onSearch={handleSearch}
   return (
     <S.MainWrapper>
       <CommunityTop
@@ -171,10 +213,13 @@ function PMain() {
         style={{ whiteSpace: 'pre-line' }}
       />
       <S.MainContainer>
-        <MainSearch />
-
+        <MainSearch/> 
+       
         <S.Map>
           <S.MapImg src={MapImg} alt='맵 이미지' />
+          <S.MapBoxContent onClick={handleRefreshClick}>
+            {markerStates.markerName ? "새로고침⟲" : "핀을 눌러 정보를 확인하세요!"}
+          </S.MapBoxContent>
 
           <MainMap
             markerName={'서울 은평구'}
