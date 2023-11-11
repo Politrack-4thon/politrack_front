@@ -29,9 +29,9 @@ function PMain() {
 
   const [markerStates, setMarkerStates] = useState({
     markerName: '',
+    markerPolyName:'',
     imgSrc: 'src/assets/images/pin.png', // 초기 이미지 경로
   });
-  const SERVER_URL = 'http://43.200.133.223';
 
   // Detail페이지에 정치인id 넘겨주기
   const HandleCardClick = (props) => {
@@ -116,43 +116,44 @@ function PMain() {
     fetchData();
   }, [markerStates.markerName]);
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const response = await API.get(
-  //         `/politician/name/${search}`
-  //       );
-  //       setData(response.data); // update origData state
+  const [searchName, setSearchName] = useState('');
+  const handleSearchChange = (e) => {
+    setSearchName(e.target.value)
+  }
+  
+  const [polyName, setPolyName] = useState({
+    POLY_NM: '', // 정당명
+    HG_NM: '', // 한글 이름
+    ENG_NM: '', // 영어 이름
+    ORIG_NM: '', // 선거구명
+    HOMEPAGE: '', // 홈페이지 링크
+    MONA_CD: '',
+    jpg_link: ``,
+  });
 
-  //       if (response.status === 200) {
-  //         const data = response.data;
-  //         setData(data);
-  //         console.log("data");
-  //       } else {
-  //         console.error(
-  //           'Error fetching community content:',
-  //           response.statusText
-  //         );
-  //       }
-  //     } catch (error) {
-  //       console.error('Error fetching community content:', error);
-  //       setData({
-  //         POLY_NM: '더불어민주당',
-  //         HG_NM: '김철수',
-  //         ENG_NM: 'KIM CHUL SU',
-  //         ORIG_NM: '중구 성동구 갑',
-  //         HOMEPAGE: '#',
-  //         MONA_CD: '',
-  //         jpg_link: '',
-  //       });
-  //     }
-  //   }
+  const handleSearchClick = async () => {
+    try {
+      const response = await API.get(`politician/name/${searchName}`);
+      
+      setPolyName(response.data);
+  
+      setMarkerStates((prevMarkerStates) => {
+        return {
+          ...prevMarkerStates,
+          markerName: response.data.ORIG_NM,
+          markerPolyName: response.data.HG_NM,
+          imgSrc: 'src/assets/images/pin_click.png',
+        };
+      });
 
-  //   fetchData();
-  // }, [search]);
-
-
-
+      setData(response.data);
+  
+      setHiddenElements(true);
+  
+    } catch (error) {
+      console.error('Error fetching community content:', error);
+    }
+  };  
   const toggleVoteInfoVisibility = () => {
     setIsVoteInfoVisible(!isVoteInfoVisible);
   };
@@ -213,7 +214,16 @@ function PMain() {
         style={{ whiteSpace: 'pre-line' }}
       />
       <S.MainContainer>
-        <MainSearch/> 
+        <S.SearchWrapper>
+          <S.SearchInput><S.Input 
+          type='text' 
+          placeholder='국회의원 이름을 검색해주세요'
+          value={searchName}
+          onChange={handleSearchChange}
+          />
+          </S.SearchInput>
+          <S.SearchButton onClick={handleSearchClick}><img src="/src/assets/images/search.svg" alt="Search"  /></S.SearchButton>
+        </S.SearchWrapper>
        
         <S.Map>
           <S.MapImg src={MapImg} alt='맵 이미지' />
@@ -312,7 +322,7 @@ function PMain() {
             clickbeforeleft={'140px'}
           />
           <MainMap
-            markerName={'서울 중구성동구'}
+            markerName={'서울 성동구'}
             markerStates={markerStates}
             handleMarkerClick={handleMarkerClick}
             clickaftertop={'90px'}
@@ -540,14 +550,14 @@ function PMain() {
             존재합니다
           </S.SelectOrigSubTitle>
           <S.Cards style={{ display: hiddenElements ? 'grid' : 'none' }}>
-            {(origData.length > 0 ? origData : dummyData).map((content) => (
+            {(origData.length >= 1 ? origData : dummyData).map((content) => (
               <Link to={`/politician/id/${content.MONA_CD}`}>
                 <MainCard
                   jpg_link={content.jpg_link}
                   POLY_NM={content.POLY_NM}
                   HG_NM={content.HG_NM}
                   ENG_NM={content.ENG_NM}
-                  ORIG_NM={markerStates.markerName}
+                  ORIG_NM={content.ORIG_NM}
                   HOMEPAGE={content.HOMEPAGE}
                 />
               </Link>

@@ -233,3 +233,49 @@ export const SelectOrigSubTitle = styled.div`
   margin-left: 20px;
   margin-bottom: 32px;
 `;
+
+// 검색
+export const SearchWrapper = styled.div`
+  display: flex;
+  gap: 16px;
+  flex-direction: space-between;
+  justify-content: center;
+  margin-top: 36px;
+`;
+
+export const SearchButton = styled.div`
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: var(--main-gray-2, #ebedf8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+export const SearchInput = styled.div`
+  width: 294px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: var(--main-gray-1, #f6f7fe);
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+`;
+export const Input = styled.input`
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 16px;
+  padding-left: 8px;
+  color: #484a64;
+  font-family: 'Noto Sans KR';
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 175%; /* 21px */
+`;
+

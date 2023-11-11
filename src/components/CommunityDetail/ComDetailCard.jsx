@@ -2,12 +2,12 @@ import React from 'react';
 import * as S from './style';
 import { Link } from 'react-router-dom';
 
-function ComDetailCard({ idea, ideaDes }) {
+function ComDetailCard({ idea, ideaDes,img }) {
   return (
     <S.ComDetailCardWrapper>
       <S.Cardbg>
         <S.CardTitleContainer>
-          <S.CardChar>{/* <S.CardCharImg src='' /> */}</S.CardChar>
+          <S.CardChar src={img}></S.CardChar>
           <S.CardTitle>{idea}</S.CardTitle>
         </S.CardTitleContainer>
         <S.CardContent>{ideaDes}</S.CardContent>
