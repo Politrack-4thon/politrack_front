@@ -29,7 +29,7 @@ function PMain() {
 
   const [markerStates, setMarkerStates] = useState({
     markerName: '',
-    markerPolyName:'',
+    markerHgName:'',
     imgSrc: 'src/assets/images/pin.png', // 초기 이미지 경로
   });
 
@@ -118,10 +118,11 @@ function PMain() {
 
   const [searchName, setSearchName] = useState('');
   const handleSearchChange = (e) => {
+    e.preventDefault();
     setSearchName(e.target.value)
   }
   
-  const [polyName, setPolyName] = useState({
+  const [name, setHgName] = useState({
     POLY_NM: '', // 정당명
     HG_NM: '', // 한글 이름
     ENG_NM: '', // 영어 이름
@@ -131,29 +132,54 @@ function PMain() {
     jpg_link: ``,
   });
 
-  const handleSearchClick = async () => {
-    try {
-      const response = await API.get(`politician/name/${searchName}`);
-      
-      setPolyName(response.data);
-  
-      setMarkerStates((prevMarkerStates) => {
-        return {
-          ...prevMarkerStates,
-          markerName: response.data.ORIG_NM,
-          markerPolyName: response.data.HG_NM,
-          imgSrc: 'src/assets/images/pin_click.png',
-        };
-      });
+  // [list,setLists] = useState([]);
+  // useEffect(()=> {
+  //   const userData = async() =>{
+  //     await axios
+  //       API.get(`politician/name/${searchName}`)
+  //       .then((res)=> {
+  //         setLists(res.data.patientList)
+  //       });
+  //   };
+  //   userData();
+  // })
+  // const handleSearchClick = (e) => {
+  //   e.preventDefault();
+  //   if(search === null || search === '') {
+  //     axios.get(`politician/name/${searchName}`)
+  //     console.log("false")
+  //   } else {
+  //     const filterData = lists.filter
+  //   }
+  // }
 
-      setData(response.data);
+
+
+
+
+  // const handleSearchClick = async () => {
+  //   try {
+  //     const response = await API.get(`politician/name/${searchName}`);
+      
+  //     setHgName(response.data);
   
-      setHiddenElements(true);
+  //     setMarkerStates((prevMarkerStates) => {
+  //       return {
+  //         ...prevMarkerStates,
+  //         markerName: name.data.ORIG_NM,
+  //         markerHgName: name.data.HG_NM,
+  //         imgSrc: 'src/assets/images/pin_click.png',
+  //       };
+  //     });
+
+  //     setData(response.data);
   
-    } catch (error) {
-      console.error('Error fetching community content:', error);
-    }
-  };  
+  //     setHiddenElements(true);
+  
+  //   } catch (error) {
+  //     console.error('Error fetching community content:', error);
+  //   }
+  // };  
   const toggleVoteInfoVisibility = () => {
     setIsVoteInfoVisible(!isVoteInfoVisible);
   };
@@ -198,12 +224,6 @@ function PMain() {
       더불어민주당: '41개',
       국민의힘: '8개',
     },
-    {
-      title: '경기도',
-      constituency: '',
-      votingPre: '',
-      voter: '',
-    },
   ];
   // onSearch={handleSearch}
   return (
@@ -214,7 +234,7 @@ function PMain() {
         style={{ whiteSpace: 'pre-line' }}
       />
       <S.MainContainer>
-        <S.SearchWrapper>
+        <S.SearchWrapper onSubmit={e=>handleSearchClick}>
           <S.SearchInput><S.Input 
           type='text' 
           placeholder='국회의원 이름을 검색해주세요'
@@ -222,7 +242,7 @@ function PMain() {
           onChange={handleSearchChange}
           />
           </S.SearchInput>
-          <S.SearchButton onClick={handleSearchClick}><img src="/src/assets/images/search.svg" alt="Search"  /></S.SearchButton>
+          <S.SearchButton type='submit'><img src="/src/assets/images/search.svg" alt="Search"  /></S.SearchButton>
         </S.SearchWrapper>
        
         <S.Map>
@@ -550,7 +570,7 @@ function PMain() {
             존재합니다
           </S.SelectOrigSubTitle>
           <S.Cards style={{ display: hiddenElements ? 'grid' : 'none' }}>
-            {(origData.length >= 1 ? origData : dummyData).map((content) => (
+            {(origData.length > 0 ? origData : dummyData).map((content) => (
               <Link to={`/politician/id/${content.MONA_CD}`}>
                 <MainCard
                   jpg_link={content.jpg_link}
