@@ -29,7 +29,7 @@ function PMain() {
 
   const [markerStates, setMarkerStates] = useState({
     markerName: '',
-    markerPolyName:'',
+    markerPolyName: '',
     imgSrc: 'src/assets/images/pin.png', // 초기 이미지 경로
   });
 
@@ -72,15 +72,17 @@ function PMain() {
   }, [selectedParty]);
 
   // 선거구별 API
-  const [origData, setorigData] = useState({
-    POLY_NM: '', // 정당명
-    HG_NM: '', // 한글 이름
-    ENG_NM: '', // 영어 이름
-    ORIG_NM: '', // 선거구명
-    HOMEPAGE: '', // 홈페이지 링크
-    MONA_CD: '',
-    jpg_link: ``,
-  });
+  // const [origData, setorigData] = useState({
+  //   POLY_NM: '', // 정당명
+  //   HG_NM: '', // 한글 이름
+  //   ENG_NM: '', // 영어 이름
+  //   ORIG_NM: '', // 선거구명
+  //   HOMEPAGE: '', // 홈페이지 링크
+  //   MONA_CD: '',
+  //   jpg_link: ``,
+  // });
+
+  const [origData, setOrigData] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -88,28 +90,18 @@ function PMain() {
         const response = await API.get(
           `/politician/orig/${markerStates.markerName}`
         );
-        setorigData(response.data); // update origData state
-
         if (response.status === 200) {
-          const data = response.data;
-          setorigData(data);
-        } else {
-          console.error(
-            'Error fetching community content:',
-            response.statusText
+          // 필요한 객체만 필터링
+          const filteredData = response.data.filter(
+            (item) => item.HG_NM && item.POLY_NM
           );
+          setOrigData(filteredData);
+        } else {
+          console.error('Error fetching data:', response.statusText);
         }
       } catch (error) {
-        console.error('Error fetching community content:', error);
-        setorigData({
-          POLY_NM: '더불어민주당',
-          HG_NM: '김철수',
-          ENG_NM: 'KIM CHUL SU',
-          ORIG_NM: '중구 성동구 갑',
-          HOMEPAGE: '#',
-          MONA_CD: '',
-          jpg_link: '',
-        });
+        console.error('Error fetching data:', error);
+        setOrigData([]);
       }
     }
 
@@ -122,22 +114,22 @@ function PMain() {
     setSearchName(e.target.value);
   };
 
-  const [name, setHgName] = useState({
-    POLY_NM: '', // 정당명
-    HG_NM: '', // 한글 이름
-    ENG_NM: '', // 영어 이름
-    ORIG_NM: '', // 선거구명
-    HOMEPAGE: '', // 홈페이지 링크
-    MONA_CD: '',
-    jpg_link: ``,
-  });
+  // const [name, setHgName] = useState({
+  //   POLY_NM: '', // 정당명
+  //   HG_NM: '', // 한글 이름
+  //   ENG_NM: '', // 영어 이름
+  //   ORIG_NM: '', // 선거구명
+  //   HOMEPAGE: '', // 홈페이지 링크
+  //   MONA_CD: '',
+  //   jpg_link: ``,
+  // });
 
   const handleSearchClick = async () => {
     try {
       const response = await API.get(`politician/name/${searchName}`);
-      
+
       setPolyName(response.data);
-  
+
       setMarkerStates((prevMarkerStates) => {
         return {
           ...prevMarkerStates,
@@ -148,13 +140,12 @@ function PMain() {
       });
 
       setData(response.data);
-  
+
       setHiddenElements(true);
-  
     } catch (error) {
       console.error('Error fetching community content:', error);
     }
-  };  
+  };
   const toggleVoteInfoVisibility = () => {
     setIsVoteInfoVisible(!isVoteInfoVisible);
   };
@@ -208,7 +199,7 @@ function PMain() {
         style={{ whiteSpace: 'pre-line' }}
       />
       <S.MainContainer>
-      <S.SearchWrapper onSubmit={(e) => handleSearchClick}>
+        <S.SearchWrapper onSubmit={(e) => handleSearchClick}>
           <S.SearchInput>
             <S.Input
               type='text'
@@ -551,8 +542,9 @@ function PMain() {
             "{markerStates.markerName}"는 투표구수가 71개, 선거인수가 262,308명
             존재합니다
           </S.SelectOrigSubTitle>
+
           <S.Cards style={{ display: hiddenElements ? 'grid' : 'none' }}>
-          {origData.length > 0 ? (
+            {origData.length > 0 ? (
               origData.map((content) => (
                 <Link to={`/politician/id/${content.MONA_CD}`}>
                   <MainCard

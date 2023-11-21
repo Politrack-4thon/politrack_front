@@ -12,7 +12,7 @@ function MainCard(props) {
     ? `${SERVER_URL}/${props.jpg_link}`
     : '/src/assets/images/default_profile.png';
   const navigate = useNavigate();
-  
+
   // 정당에 따른 배경색 설정
   const partyColor =
     props.POLY_NM === '국민의힘'
@@ -24,20 +24,19 @@ function MainCard(props) {
   const handleCard = (MONA_CD) => {
     navigate(`/Detail`, { state: MONA_CD });
   };
-  const [data, setData] = useState({
-    POLY_NM: '', // 정당명
-    HG_NM: '', // 한글 이름
-    ENG_NM: '', // 영어 이름
-    ORIG_NM: '', // 선거구명
-    HOMEPAGE: '', // 홈페이지 링크
-    UNITS: '3선', // 몇대 당선
-    MEM_TITLE: '', // 약력
-    BILL_NAME: '', // 법률안 명
-    DETAIL_LINK: '', // 법률안 상세보기 링크
-    CMITS: '', // 소속 위원회
-    MONA_CD: '',
-  });
-
+  // const [data, setData] = useState({
+  //   POLY_NM: '', // 정당명
+  //   HG_NM: '', // 한글 이름
+  //   ENG_NM: '', // 영어 이름
+  //   ORIG_NM: '', // 선거구명
+  //   HOMEPAGE: '', // 홈페이지 링크
+  //   UNITS: '3선', // 몇대 당선
+  //   MEM_TITLE: '', // 약력
+  //   BILL_NAME: '', // 법률안 명
+  //   DETAIL_LINK: '', // 법률안 상세보기 링크
+  //   CMITS: '', // 소속 위원회
+  //   MONA_CD: '',
+  // });
 
   return (
     <S.MainCardContainer
@@ -50,7 +49,11 @@ function MainCard(props) {
       onClick={() => handleCard(props.MONA_CD)}
     >
       <S.MainCardImage style={{ width: '84px', height: '84px' }}>
-        <img  style={{ width: '84px', height: '84px', borderRadius: '360px'}} src={imageUrl} alt='국회의원 이미지' />
+        <img
+          style={{ width: '84px', height: '84px', borderRadius: '360px' }}
+          src={imageUrl}
+          alt='국회의원 이미지'
+        />
       </S.MainCardImage>
 
       <S.MainCardPartys
