@@ -31,6 +31,7 @@ function PMain() {
     markerName: '',
     markerPolyName: '',
     imgSrc: 'src/assets/images/pin.png', // 초기 이미지 경로
+    victPoly:'',
   });
 
   // Detail페이지에 정치인id 넘겨주기
@@ -46,6 +47,7 @@ function PMain() {
     HOMEPAGE: '', // 홈페이지 링크
     MONA_CD: '',
     jpg_link: '',
+    vict_poly:'',
   });
 
   // 정당 버튼을 클릭했을 때 실행되는 함수
@@ -135,7 +137,7 @@ function PMain() {
           ...prevMarkerStates,
           markerName: response.data.ORIG_NM,
           markerPolyName: response.data.HG_NM,
-          imgSrc: 'src/assets/images/pin_click.png',
+          victPoly:response.data.vict_poly,
         };
       });
 
@@ -146,6 +148,7 @@ function PMain() {
       console.error('Error fetching community content:', error);
     }
   };
+  
   const toggleVoteInfoVisibility = () => {
     setIsVoteInfoVisible(!isVoteInfoVisible);
   };
@@ -153,6 +156,7 @@ function PMain() {
   const toggleVoteResultVisibility = () => {
     setIsVoteResultVisible(!isVoteResultVisible);
   };
+  
 
   const [hiddenElements, setHiddenElements] = useState(false); // 초기값은 보이도록 설정
 
@@ -160,14 +164,41 @@ function PMain() {
     setSelectedParty(!selectedParty);
     setParty(party);
   };
-  const handleMarkerClick = (markerName) => {
-    setMarkerStates({
-      markerName: markerName,
-      imgSrc: 'src/assets/images/pin_click.png', // 클릭한 마커에 해당하는 이미지로 업데이트
-    });
+ 
 
-    setHiddenElements(true); // 숨겨줌
+  const handleMarkerClick = async (markerName) => {
+    try {
+      const response = await API.get(`/politician/orig/${markerName}`);
+        
+      // vict_poly 값 동적으로 찾기(api에서 vict_poly가 2 or 3에 위치하므로)
+      const victPoly = findVictPoly(response.data);
+  
+      setMarkerStates((prevMarkerStates) => ({
+        ...prevMarkerStates,
+        markerName: markerName,
+        imgSrc: 'src/assets/images/pin_click.png',
+        victPoly: victPoly,
+      }));
+    
+      setHiddenElements(true);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   };
+  
+  // vict_poly를 동적으로 찾는 함수
+  const findVictPoly = (data) => {
+    for (let i = 0; i < data.length; i++) {
+      if (data[i]?.vict_poly !== undefined) {
+        return data[i].vict_poly;
+      }
+    }
+    return 0; 
+  };  
+  useEffect(() => {
+    console.log('Updated Marker States:', markerStates);
+  }, [markerStates]);
+    
 
   const handleRefreshClick = () => {
     setMarkerStates('');
@@ -312,7 +343,7 @@ function PMain() {
             clickbeforeleft={'140px'}
           />
           <MainMap
-            markerName={'서울 성동구'}
+            markerName={'서울 중구성동구'}
             markerStates={markerStates}
             handleMarkerClick={handleMarkerClick}
             clickaftertop={'90px'}
