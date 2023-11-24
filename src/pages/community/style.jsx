@@ -22,8 +22,10 @@ export const ComDetailOpinion = styled.div``;
 export const QuestionResult = styled.div`
   width: 120px;
   height: 40px;
-  background-color: ${({ theme }) => theme.colors.gray1};
-  color: ${({ theme }) => theme.colors.gray3};
+  background-color: ${({ isPastDeadline, theme }) =>
+    isPastDeadline ? 'black' : theme.colors.gray1};
+  color: ${({ isPastDeadline, theme }) =>
+    isPastDeadline ? 'white' : theme.colors.gray3};
   font-size: 12px;
   font-weight: 700;
   font-family: 'NotoSansMedium';
