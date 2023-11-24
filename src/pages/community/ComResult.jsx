@@ -301,7 +301,7 @@ function ComResult() {
       </S.ResultLine>
       <S.ResultText style={{ whiteSpace: 'pre-line' }}>
         <span style={{ color: maxVotePercentageColor }}>
-          {`${maxVoteCount.toFixed(0)}%`}
+          {`${maxVoteCount}%`}
         </span>
         의 사용자분들께서
         <br />
