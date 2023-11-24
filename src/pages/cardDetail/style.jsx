@@ -279,3 +279,5 @@ export const Input = styled.input`
   line-height: 175%; /* 21px */
 `;
 
+export const searchNameWrapper = styled.div``;
+

@@ -1,9 +1,6 @@
 import React from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
-
-import { useEffect, useState } from 'react';
 import * as S from './style';
-import { API } from '../../api/axois';
 
 function MainCard(props) {
   const SERVER_URL = 'http://43.200.133.223';
