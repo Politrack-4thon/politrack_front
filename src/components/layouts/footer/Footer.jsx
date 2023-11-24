@@ -9,8 +9,8 @@ function Footer() {
       <S.FooterLine>
         <S.Line />
       </S.FooterLine>
-      <S.FooterEng>@line4thon. All rights Reserved.</S.FooterEng>
-      <S.FooterKor>멋쟁이 사자처럼 4호선톤 발짜국팀</S.FooterKor>
+      <S.FooterEng>@baljjaguk. All rights Reserved.</S.FooterEng>
+      <S.FooterKor>발짜국팀</S.FooterKor>
       <S.FooterLogo>
         <a
           href='https://www.instagram.com/line4thon/'
