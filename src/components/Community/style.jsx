@@ -195,7 +195,7 @@ export const ComDetailDate = styled.div`
   font-weight: 400;
   font-family: 'NotoSansRegular';
   color: ${({ theme }) => theme.colors.gray3};
-  margin-top: 5px;
+  margin-top: 20px;
   margin-left: 10px;
   margin-bottom: 15px;
 `;
@@ -215,6 +215,7 @@ export const DetailQuizWallpaper = styled.div`
   background-color: ${({ theme }) => theme.colors.gray1};
   border-radius: 8px;
   box-shadow: 2px 4px 10px 0 rgba(72, 74, 100, 0.1);
+  padding-top: 30px;
 `;
 
 export const DetailQuizTitle = styled.div`

@@ -65,12 +65,12 @@ function ComDetailQuiz({ comDetailTitle, comDetailDate, community_id }) {
     <S.DetailQuizWrapper>
       <S.DetailQuizWallpaper>
         <S.Vote className={selectedVote ? 'selected' : ''}>
-          <S.VoteText
+          {/* <S.VoteText
             selected={selectedVote}
             onClick={handleVoteSubmission} // '투표하기' 버튼에 handleVoteSubmission 함수 연결
           >
             {isVoteCompleted ? '재투표' : '투표하기'}
-          </S.VoteText>
+          </S.VoteText> */}
         </S.Vote>
         {isVoteModalOpen && (
           <VoteModal isOpen={isVoteModalOpen} onClose={handleConfirm} />

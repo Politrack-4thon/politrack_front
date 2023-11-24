@@ -8,6 +8,7 @@ import CommunityTop from '../../components/Community/CommunityTop';
 
 import circleIconImage from '/Community/VoteIconColor.png';
 import circleIconNoImage from '/Community/VoteResultNo.png';
+import ResultCommon from '../../components/ComResult/ResultCommon';
 
 function ComResult() {
   const [data, setData] = useState({
@@ -17,7 +18,9 @@ function ComResult() {
     option3_count: 0,
   });
 
-  const [wordcloudImage, setWordcloudImage] = useState('');
+  const [wordcloudGoodImage, setWordcloudGoodImage] = useState('');
+  const [wordcloudBadImage, setWordcloudBadImage] = useState('');
+  const [wordcloudSosoImage, setWordcloudSosoImage] = useState('');
 
   const { community_id } = useParams();
 
@@ -38,30 +41,82 @@ function ComResult() {
 
   const SERVER_URL = 'http://43.200.133.223';
 
+  //좋은 것 같아! 라고 생각하는 사람들의 워드 클라우드 이미지 get해오기.
   useEffect(() => {
-    const fetchWordcloudImage = async () => {
+    const fetchWordcloudGoodImage = async () => {
       try {
         const response = await API.get(
-          `/politician/community/${community_id}/wordcloud`,
+          `/politician/community/${community_id}/wordcloudgood`,
           {
             responseType: 'arraybuffer', // 서버로부터 바이너리 데이터를 받기 위해 설정
           }
         );
-
         // Blob 객체 생성
         const blob = new Blob([response.data], { type: 'image/png' });
         // Blob 객체를 URL로 변환
         const imageSrc = URL.createObjectURL(blob);
         // 이미지 URL 설정
-        setWordcloudImage(imageSrc);
+        setWordcloudGoodImage(imageSrc);
       } catch (error) {
         console.error('Error fetching image: ', error);
         // 에러 시 더미 이미지 설정
-        setWordcloudImage('/path/to/dummy/image.png');
+        setWordcloudGoodImage('/path/to/dummy/image.png');
       }
     };
 
-    fetchWordcloudImage();
+    fetchWordcloudGoodImage();
+  }, [community_id]);
+
+  //나쁜 것 같아! 라고 생각하는 사람들의 워드 클라우드 이미지 get해오기.
+  useEffect(() => {
+    const fetchWordcloudBadImage = async () => {
+      try {
+        const response = await API.get(
+          `/politician/community/${community_id}/wordcloudbad`,
+          {
+            responseType: 'arraybuffer', // 서버로부터 바이너리 데이터를 받기 위해 설정
+          }
+        );
+        // Blob 객체 생성
+        const blob = new Blob([response.data], { type: 'image/png' });
+        // Blob 객체를 URL로 변환
+        const imageSrc = URL.createObjectURL(blob);
+        // 이미지 URL 설정
+        setWordcloudBadImage(imageSrc);
+      } catch (error) {
+        console.error('Error fetching image: ', error);
+        // 에러 시 더미 이미지 설정
+        setWordcloudBadImage('/path/to/dummy/image.png');
+      }
+    };
+
+    fetchWordcloudBadImage();
+  }, [community_id]);
+
+  //잘 모르겠어! 라고 생각하는 사람들의 워드 클라우드 이미지 get해오기.
+  useEffect(() => {
+    const fetchWordcloudSosoImage = async () => {
+      try {
+        const response = await API.get(
+          `/politician/community/${community_id}/wordcloudsoso`,
+          {
+            responseType: 'arraybuffer', // 서버로부터 바이너리 데이터를 받기 위해 설정
+          }
+        );
+        // Blob 객체 생성
+        const blob = new Blob([response.data], { type: 'image/png' });
+        // Blob 객체를 URL로 변환
+        const imageSrc = URL.createObjectURL(blob);
+        // 이미지 URL 설정
+        setWordcloudSosoImage(imageSrc);
+      } catch (error) {
+        console.error('Error fetching image: ', error);
+        // 에러 시 더미 이미지 설정
+        setWordcloudSosoImage('/path/to/dummy/image.png');
+      }
+    };
+
+    fetchWordcloudSosoImage();
   }, [community_id]);
 
   // 가장 큰 투표 결과 값을 찾는 로직
@@ -257,9 +312,43 @@ function ComResult() {
         유저들이 이와 같은 반응을 보인 이유는 무엇일까요? <br />
         다음 워드 클라우드를 통해 유저들이 어떤 생각을 가지고 있는지 분석해봐요!
       </S.ResultTextSub>
+
+      {/* 좋은 것 같아를 선택한 사람의 워드 클라우드 */}
+      <S.ResultTitle>
+        <S.VoteResultContent>
+          좋은 것 같아!를 선택한 사람들의 의견이에요.
+        </S.VoteResultContent>
+      </S.ResultTitle>
       <S.ResultCloud>
-        <S.ResultCloudImg src={wordcloudImage} alt='Word Cloud' />
+        <S.ResultCloudImg src={wordcloudGoodImage} alt='Word Cloud' />
       </S.ResultCloud>
+
+      {/* 나쁜 것 같아를 선택한 사람의 워드 클라우드 */}
+      <S.ResultTitle>
+        <S.VoteResultContent>
+          나쁜 것 같아!를 선택한 사람들의 의견이에요.
+        </S.VoteResultContent>
+      </S.ResultTitle>
+      <S.ResultCloud>
+        <S.ResultCloudImg src={wordcloudBadImage} alt='Word Cloud' />
+      </S.ResultCloud>
+
+      {/* 잘 모르겠어를 선택한 사람의 워드 클라우드 */}
+      <S.ResultTitle>
+        <S.VoteResultContent>
+          잘 모르겠어를 선택한 사람들의 의견이에요.
+        </S.VoteResultContent>
+      </S.ResultTitle>
+      <S.ResultCloud>
+        <S.ResultCloudImg src={wordcloudSosoImage} alt='Word Cloud' />
+      </S.ResultCloud>
+
+      <CommunityQuestion
+        subQuestion={'다들 어떻게 생각했을까요?'}
+        mainQuestion={'공통적으로 생각한 의견들이에요.'}
+      />
+      <ResultCommon />
+
       <S.ResultLine>
         <S.ResultLineImg src='/Community/ResultDots.png' />
       </S.ResultLine>
