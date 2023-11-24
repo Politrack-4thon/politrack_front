@@ -315,8 +315,9 @@ function ComResult() {
 
       {/* 좋은 것 같아를 선택한 사람의 워드 클라우드 */}
       <S.ResultTitle>
+        <S.CardChar src='/src/assets/images/emotion_green.svg'></S.CardChar>
         <S.VoteResultContent>
-          좋은 것 같아!를 선택한 사람들의 의견이에요.
+          좋은 것 같아! 를 선택한 사람들의 의견이에요.
         </S.VoteResultContent>
       </S.ResultTitle>
       <S.ResultCloud>
@@ -325,8 +326,9 @@ function ComResult() {
 
       {/* 나쁜 것 같아를 선택한 사람의 워드 클라우드 */}
       <S.ResultTitle>
+        <S.CardChar src='/src/assets/images/emotion_red.svg'></S.CardChar>
         <S.VoteResultContent>
-          나쁜 것 같아!를 선택한 사람들의 의견이에요.
+          난 별로,, 를 선택한 사람들의 의견이에요.
         </S.VoteResultContent>
       </S.ResultTitle>
       <S.ResultCloud>
@@ -335,8 +337,9 @@ function ComResult() {
 
       {/* 잘 모르겠어를 선택한 사람의 워드 클라우드 */}
       <S.ResultTitle>
+        <S.CardChar src='/src/assets/images/emotion_blue.svg'></S.CardChar>
         <S.VoteResultContent>
-          잘 모르겠어를 선택한 사람들의 의견이에요.
+          잘 모르겠어 를 선택한 사람들의 의견이에요.
         </S.VoteResultContent>
       </S.ResultTitle>
       <S.ResultCloud>
