@@ -219,6 +219,16 @@ export const ResultTitle = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
+`;
+
+export const CardChar = styled.img`
+  width: 32px;
+  height: 32px;
+  background-color: ${({ theme }) => theme.colors.gray1};
+  border-radius: 16px;
+  margin-left: 10px;
+  margin-right: 5px;
 `;
 
 export const VoteResultContent = styled.div`
@@ -230,7 +240,7 @@ export const VoteResultContent = styled.div`
 export const ResultCloud = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 30px;
+  margin-top: 10px;
 `;
 
 export const ResultCloudImg = styled.img`
