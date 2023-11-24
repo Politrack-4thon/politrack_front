@@ -139,27 +139,27 @@ function ComResult() {
   const circleIconSrc3 =
     data.option3_count === maxVoteCount ? circleIconImage : circleIconNoImage;
 
-  const maxVotePercentage = (() => {
-    if (data.option1_count === maxVoteCount) {
-      return (
-        (data.option1_count /
-          (data.option1_count + data.option2_count + data.option3_count)) *
-        100
-      );
-    } else if (data.option2_count === maxVoteCount) {
-      return (
-        (data.option2_count /
-          (data.option1_count + data.option2_count + data.option3_count)) *
-        100
-      );
-    } else {
-      return (
-        (data.option3_count /
-          (data.option1_count + data.option2_count + data.option3_count)) *
-        100
-      );
-    }
-  })();
+  // const maxVotePercentage = (() => {
+  //   if (data.option1_count === maxVoteCount) {
+  //     return (
+  //       (data.option1_count /
+  //         (data.option1_count + data.option2_count + data.option3_count)) *
+  //       100
+  //     );
+  //   } else if (data.option2_count === maxVoteCount) {
+  //     return (
+  //       (data.option2_count /
+  //         (data.option1_count + data.option2_count + data.option3_count)) *
+  //       100
+  //     );
+  //   } else {
+  //     return (
+  //       (data.option3_count /
+  //         (data.option1_count + data.option2_count + data.option3_count)) *
+  //       100
+  //     );
+  //   }
+  // })();
 
   const maxVoteText = (() => {
     if (data.option1_count === maxVoteCount) {
@@ -301,13 +301,14 @@ function ComResult() {
       </S.ResultLine>
       <S.ResultText style={{ whiteSpace: 'pre-line' }}>
         <span style={{ color: maxVotePercentageColor }}>
-          {`${maxVotePercentage.toFixed(0)}%`}
+          {`${maxVoteCount}%`}
         </span>
         의 사용자분들께서
         <br />
         <span style={{ color: maxVoteTextColor }}>"{maxVoteText}"</span>라고
         대답했어요
       </S.ResultText>
+
       <S.ResultTextSub>
         유저들이 이와 같은 반응을 보인 이유는 무엇일까요? <br />
         다음 워드 클라우드를 통해 유저들이 어떤 생각을 가지고 있는지 분석해봐요!
