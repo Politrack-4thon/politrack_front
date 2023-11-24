@@ -153,7 +153,6 @@ export const VoteStatus = styled.div`
   font-size: 10px;
   font-family: 'NotoSansRegular';
   font-weight: 700;
-  background-color: ${({ theme }) => theme.colors.gray5};
   display: flex;
   align-items: center;
   justify-content: center;
