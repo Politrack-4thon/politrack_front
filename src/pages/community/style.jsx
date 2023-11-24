@@ -214,6 +214,19 @@ export const ResultTextSub = styled.div`
   margin-top: 20px;
 `;
 
+export const ResultTitle = styled.div`
+  margin-top: 40px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
+export const VoteResultContent = styled.div`
+  font-size: 16px;
+  font-family: 'NotoSansMedium';
+  font-weight: 700;
+`;
+
 export const ResultCloud = styled.div`
   display: flex;
   justify-content: center;
