@@ -12,6 +12,7 @@ import MainVoteInfo from '../../components/Main/MainVoteInfo';
 import MainVoteResult from '../../components/Main/MainVoteResult';
 import MainSelectBtn from '../../components/Main/MainSelectBtn';
 import MainCard from '../../components/Main/MainCard';
+import MainSearchError from '../../components/Main/MainSearchError';
 
 //import { search } from '../../components/Main/MainSearch';
 import { SubTitle } from '../../components/Main/style';
@@ -26,6 +27,7 @@ function PMain() {
   const [selectedParty, setSelectedParty] = useState(false); // 버튼을 선택하지 않은 상태
   const [party, setParty] = useState(null);
   const [isLoading, setIsLoading] = useState(false); // 로딩 상태 관리
+  const [selectedMarker, setSelectedMarker] = useState(null); // 검색한 국회의원의 지역구 선택 상태
 
   const [markerStates, setMarkerStates] = useState({
     markerName: '',
@@ -73,19 +75,8 @@ function PMain() {
     }
   }, [selectedParty]);
 
-  // 선거구별 API
-  // const [origData, setorigData] = useState({
-  //   POLY_NM: '', // 정당명
-  //   HG_NM: '', // 한글 이름
-  //   ENG_NM: '', // 영어 이름
-  //   ORIG_NM: '', // 선거구명
-  //   HOMEPAGE: '', // 홈페이지 링크
-  //   MONA_CD: '',
-  //   jpg_link: ``,
-  // });
-
   const [origData, setOrigData] = useState([]);
-
+  const [polyData, setPolyData] = useState([]);
   useEffect(() => {
     async function fetchData() {
       try {
@@ -110,45 +101,87 @@ function PMain() {
     fetchData();
   }, [markerStates.markerName]);
 
-  const [searchName, setSearchName] = useState('');
-  const handleSearchChange = (e) => {
+  const [userInput, setUserInput] = useState('');
+  const [searchName, setSearchName] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
+
+  const onUserinput = (e) => {
     e.preventDefault();
-    setSearchName(e.target.value);
-  };
+    setUserInput(e.target.value);
 
-  // const [name, setHgName] = useState({
-  //   POLY_NM: '', // 정당명
-  //   HG_NM: '', // 한글 이름
-  //   ENG_NM: '', // 영어 이름
-  //   ORIG_NM: '', // 선거구명
-  //   HOMEPAGE: '', // 홈페이지 링크
-  //   MONA_CD: '',
-  //   jpg_link: ``,
-  // });
+  }
 
-  const handleSearchClick = async () => {
-    try {
-      const response = await API.get(`politician/name/${searchName}`);
-
-      setPolyName(response.data);
-
-      setMarkerStates((prevMarkerStates) => {
-        return {
+  useEffect(() => {
+  
+    const fetchData = async () => {
+      try {
+        const response = await API.get(`politician/name/${searchName}`);
+    
+        setPolyData(response.data);
+    
+        setMarkerStates((prevMarkerStates) => ({
           ...prevMarkerStates,
           markerName: response.data.ORIG_NM,
           markerPolyName: response.data.HG_NM,
-          victPoly:response.data.vict_poly,
-        };
-      });
-
-      setData(response.data);
-
-      setHiddenElements(true);
-    } catch (error) {
-      console.error('Error fetching community content:', error);
-    }
-  };
+        }));
+    
+        setData(response.data);
+    
+        setHiddenElements(true);
+      } catch (error) {
+        console.error('Error fetching community content:', error);
+      }
+    };
   
+    fetchData(); // fetchData 함수를 바로 실행
+  
+  }, [searchName]); 
+
+  const [hiddenSearchCards, setHiddenSearchCards] = useState(true); // 초기값은 안보이도록 설정
+  const [nameData, setNameData] = useState([]);
+  const [showSearchErrorModal, setShowSearchErrorModal] = useState(false);
+
+  // 검색
+  const handleSearchClick = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await API.get(`politician/name/${userInput}`);
+      setNameData(response.data);
+
+      if (response.data.length > 0) {
+        const firstResult = response.data[0];
+        const origNm = extractOrigNm(firstResult.ORIG_NM);
+        setSelectedMarker(origNm);
+      } else {
+        setShowSearchErrorModal(true);
+      }
+      
+      setMarkerStates((prevMarkerStates) => ({
+        ...prevMarkerStates,
+        markerName:'',
+        imgSrc: 'src/assets/images/pin_click.png',
+        
+      }));
+
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+    
+    setHiddenSearchCards(false)
+    setHiddenOrigElement(true);
+    setHiddenElements(true);
+  }
+  const extractOrigNm = (origNm) => {
+    const match = origNm.match(/.*?(갑|을)/); // Matches any characters until "갑" or "을"
+    const extractedString = match ? match[0].replace(/(갑|을)/, '') : origNm;
+  
+    return extractedString;
+  }  
+  const handleCloseSearchError = () => {
+    setShowSearchErrorModal(false);
+  };
+
   const toggleVoteInfoVisibility = () => {
     setIsVoteInfoVisible(!isVoteInfoVisible);
   };
@@ -159,7 +192,7 @@ function PMain() {
   
 
   const [hiddenElements, setHiddenElements] = useState(false); // 초기값은 보이도록 설정
-
+  const [hiddenOrigElement, setHiddenOrigElement] = useState(true); // 초기값은 안보이도록
   const partyVisibility = () => {
     setSelectedParty(!selectedParty);
     setParty(party);
@@ -179,8 +212,11 @@ function PMain() {
         imgSrc: 'src/assets/images/pin_click.png',
         victPoly: victPoly,
       }));
+      setSelectedMarker(null);
     
       setHiddenElements(true);
+      setHiddenOrigElement(false); // 카드가 보이도록
+      setHiddenSearchCards(true);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -194,11 +230,7 @@ function PMain() {
       }
     }
     return 0; 
-  };  
-  useEffect(() => {
-    console.log('Updated Marker States:', markerStates);
-  }, [markerStates]);
-    
+  };      
 
   const handleRefreshClick = () => {
     setMarkerStates('');
@@ -230,20 +262,27 @@ function PMain() {
         style={{ whiteSpace: 'pre-line' }}
       />
       <S.MainContainer>
-        <S.SearchWrapper onSubmit={(e) => handleSearchClick}>
-          <S.SearchInput>
-            <S.Input
-              type='text'
-              placeholder='국회의원 이름을 검색해주세요'
-              value={searchName}
-              onChange={handleSearchChange}
-            />
-          </S.SearchInput>
-          <S.SearchButton type='submit'>
-            <img src='/src/assets/images/search.svg' alt='Search' />
-          </S.SearchButton>
-        </S.SearchWrapper>
+      <S.SearchWrapper onSubmit={handleSearchClick}>
+        <S.SearchInput>
+          <S.Input
+            type='text'
+            placeholder='국회의원 이름을 검색해주세요'
+            value={userInput}
+            onChange={onUserinput}
+            
+          />
+        </S.SearchInput>
+        <S.SearchButton type='submit'>
+          <img src='/src/assets/images/search.svg' alt='Search' />
+        </S.SearchButton>
+      </S.SearchWrapper>
+      
+      {/* 여기서 searchResults를 사용하여 검색 결과를 렌더링합니다. */}
+      {searchResults.map((result) => (
+        <div key={result.id}>{result.name}</div>
+      ))}
 
+    
         <S.Map>
           <S.MapImg src={MapImg} alt='맵 이미지' />
           <S.MapBoxContent onClick={handleRefreshClick}>
@@ -260,6 +299,7 @@ function PMain() {
             clickbeforetop={'40px'}
             clickafterleft={'126px'}
             clickbeforeleft={'156px'}
+            selectedMarker={selectedMarker}
           />
           <MainMap
             markerName={'서울 강서구'}
@@ -269,6 +309,7 @@ function PMain() {
             clickbeforetop={'90px'}
             clickafterleft={'30px'}
             clickbeforeleft={'60px'}
+            selectedMarker={selectedMarker}
           />
           <MainMap
             markerName={'서울 광진구'}
@@ -278,6 +319,7 @@ function PMain() {
             clickbeforetop={'110px'}
             clickafterleft={'265px'}
             clickbeforeleft={'295px'}
+            selectedMarker={selectedMarker}
           />
           <MainMap
             markerName={'서울 노원구'}
@@ -287,6 +329,7 @@ function PMain() {
             clickbeforetop={'30px'}
             clickafterleft={'260px'}
             clickbeforeleft={'290px'}
+            selectedMarker={selectedMarker}
           />
           <MainMap
             markerName={'서울 용산구'}
@@ -296,6 +339,7 @@ function PMain() {
             clickbeforetop={'120px'}
             clickafterleft={'170px'}
             clickbeforeleft={'200px'}
+            selectedMarker={selectedMarker}
           />
           <MainMap
             markerName={'서울 동작구'}
@@ -305,6 +349,7 @@ function PMain() {
             clickbeforetop={'140px'}
             clickafterleft={'150px'}
             clickbeforeleft={'180px'}
+            selectedMarker={selectedMarker}
           />
           <MainMap
             markerName={'서울 영등포구'}
@@ -314,6 +359,7 @@ function PMain() {
             clickbeforetop={'130px'}
             clickafterleft={'110px'}
             clickbeforeleft={'140px'}
+            selectedMarker={selectedMarker}
           />
           <MainMap
             markerName={'서울 서대문구'}
@@ -323,6 +369,7 @@ function PMain() {
             clickbeforetop={'80px'}
             clickafterleft={'30px'}
             clickbeforeleft={'170px'}
+            selectedMarker={selectedMarker}
           />
           <MainMap
             markerName={'서울 송파구'}
@@ -332,6 +379,7 @@ function PMain() {
             clickbeforetop={'150px'}
             clickafterleft={'30px'}
             clickbeforeleft={'320px'}
+            selectedMarker={selectedMarker}
           />
           <MainMap
             markerName={'서울 마포구'}
@@ -341,6 +389,7 @@ function PMain() {
             clickbeforetop={'90px'}
             clickafterleft={'110px'}
             clickbeforeleft={'140px'}
+            selectedMarker={selectedMarker}
           />
           <MainMap
             markerName={'서울 중구성동구'}
@@ -350,6 +399,8 @@ function PMain() {
             clickbeforetop={'100px'}
             clickafterleft={'210px'}
             clickbeforeleft={'240px'}
+            selectedMarker={selectedMarker}
+            
           />
           <MainMap
             markerName={'서울 서초구'}
@@ -359,6 +410,7 @@ function PMain() {
             clickbeforetop={'170px'}
             clickafterleft={'200px'}
             clickbeforeleft={'230px'}
+            selectedMarker={selectedMarker}
           />
           <MainMap
             markerName={'서울 강북구'}
@@ -368,6 +420,7 @@ function PMain() {
             clickbeforetop={'30px'}
             clickafterleft={'200px'}
             clickbeforeleft={'230px'}
+            selectedMarker={selectedMarker}
           />
           <MainMap
             markerName={'서울 강남구'}
@@ -377,6 +430,7 @@ function PMain() {
             clickbeforetop={'150px'}
             clickafterleft={'240px'}
             clickbeforeleft={'270px'}
+            selectedMarker={selectedMarker}
           />
           <MainMap
             markerName={'서울 중랑구'}
@@ -386,6 +440,7 @@ function PMain() {
             clickbeforetop={'70px'}
             clickafterleft={'270px'}
             clickbeforeleft={'300px'}
+            selectedMarker={selectedMarker}
           />
           <MainMap
             markerName={'서울 동대문구'}
@@ -395,6 +450,7 @@ function PMain() {
             clickbeforetop={'80px'}
             clickafterleft={'240px'}
             clickbeforeleft={'270px'}
+            selectedMarker={selectedMarker}
           />
           <MainMap
             markerName={'서울 도봉구'}
@@ -404,6 +460,7 @@ function PMain() {
             clickbeforetop={'10px'}
             clickafterleft={'220px'}
             clickbeforeleft={'250px'}
+            selectedMarker={selectedMarker}
           />
           <MainMap
             markerName={'서울 관악구'}
@@ -413,6 +470,7 @@ function PMain() {
             clickbeforetop={'180px'}
             clickafterleft={'150px'}
             clickbeforeleft={'180px'}
+            selectedMarker={selectedMarker}
           />
           <MainMap
             markerName={'서울 양천구'}
@@ -422,6 +480,7 @@ function PMain() {
             clickbeforetop={'130px'}
             clickafterleft={'60px'}
             clickbeforeleft={'90px'}
+            selectedMarker={selectedMarker}
           />
           <MainMap
             markerName={'서울 구로구'}
@@ -431,6 +490,7 @@ function PMain() {
             clickbeforetop={'160px'}
             clickafterleft={'60px'}
             clickbeforeleft={'90px'}
+            selectedMarker={selectedMarker}
           />
           <MainMap
             markerName={'서울 강동구'}
@@ -440,6 +500,7 @@ function PMain() {
             clickbeforetop={'110px'}
             clickafterleft={'310px'}
             clickbeforeleft={'340px'}
+            selectedMarker={selectedMarker}
           />
           <MainMap
             markerName={'서울 금천구'}
@@ -449,6 +510,7 @@ function PMain() {
             clickbeforetop={'180px'}
             clickafterleft={'110px'}
             clickbeforeleft={'140px'}
+            selectedMarker={selectedMarker}
           />
           <MainMap
             markerName={'서울 종로구'}
@@ -458,6 +520,7 @@ function PMain() {
             clickbeforetop={'50px'}
             clickafterleft={'170px'}
             clickbeforeleft={'200px'}
+            selectedMarker={selectedMarker}
           />
           <MainMap
             markerName={'서울 성북구'}
@@ -467,6 +530,7 @@ function PMain() {
             clickbeforetop={'60px'}
             clickafterleft={'200px'}
             clickbeforeleft={'230px'}
+            selectedMarker={selectedMarker}
           />
         </S.Map>
 
@@ -564,8 +628,8 @@ function PMain() {
         )}
 
         <S.selectOrigWrapper
-          style={{ display: hiddenElements ? 'block' : 'none' }}
-        >
+          style={{ display: hiddenOrigElement ? 'none' : 'block' }}>
+        
           <S.SelectOrigTitle>
             현재 선택된 구는 {markerStates.markerName}입니다
           </S.SelectOrigTitle>
@@ -594,6 +658,60 @@ function PMain() {
             )}
           </S.Cards>
         </S.selectOrigWrapper>
+        <S.Cards style={{ display: hiddenElements && polyData.length > 0 ? 'grid' : 'none' }}>
+          {polyData.length > 0 && polyData.map((content) => (
+            <Link to={`/politician/id/${content.MONA_CD}`}>
+              <MainCard
+                jpg_link={content.jpg_link}
+                POLY_NM={content.POLY_NM}
+                HG_NM={content.HG_NM}
+                ENG_NM={content.ENG_NM}
+                ORIG_NM={content.ORIG_NM}
+                HOMEPAGE={content.HOMEPAGE}
+                MONA_CD={content.MONA_CD}
+              />
+            </Link>
+          ))}
+        </S.Cards>
+          <S.searchNameWrapper style={{ display: hiddenSearchCards ? 'none' : 'block' }}>
+            <S.SelectOrigTitle>
+                현재 선택된 구는 {selectedMarker}입니다
+              </S.SelectOrigTitle>
+              <S.SelectOrigSubTitle>
+                "{markerStates.markerName}"는 투표구수가 71개, 선거인수가 262,308명
+                존재합니다
+              </S.SelectOrigSubTitle>
+              
+              <S.Cards style={{ display: hiddenSearchCards ? 'none' : 'grid' }}>
+                  {nameData.length > 0 ? (
+                    nameData.map((content) => (
+                      <Link to={`/politician/id/${content.MONA_CD}`}>
+                        <MainCard
+                          jpg_link={content.jpg_link}
+                          POLY_NM={content.POLY_NM}
+                          HG_NM={content.HG_NM}
+                          ENG_NM={content.ENG_NM}
+                          ORIG_NM={content.ORIG_NM}
+                          HOMEPAGE={content.HOMEPAGE}
+                          MONA_CD={content.MONA_CD}
+                        />
+                      </Link>
+                    ))
+                  ) : (
+                    <div>
+                    {showSearchErrorModal && (
+                      <MainSearchError onClose={handleCloseSearchError} />
+                    )}
+                  </div>
+                  )}
+                </S.Cards>
+ 
+
+          </S.searchNameWrapper>
+          <MainSearchError/>
+
+
+
       </S.MainContainer>
     </S.MainWrapper>
   );
