@@ -71,6 +71,11 @@ function CommunityDetail() {
   const isContentVisible =
     new Date(communityData.formatted_deadline) > new Date();
 
+  const hasDeadlinePassed = () => {
+    const deadline = new Date(communityData.formatted_deadline);
+    return new Date() > deadline;
+  };
+
   return (
     <S.CommunityDetailWrapper>
       <CommunityTop
@@ -86,7 +91,12 @@ function CommunityDetail() {
         />
 
         <S.QuestionResult
-          onClick={() => navigate(`/ComResult/${community_id}`)}
+          onClick={() => {
+            if (hasDeadlinePassed()) {
+              navigate(`/ComResult/${community_id}`);
+            }
+          }}
+          isPastDeadline={hasDeadlinePassed()}
         >
           투표결과 확인하기
         </S.QuestionResult>

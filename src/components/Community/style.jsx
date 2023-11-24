@@ -114,11 +114,12 @@ export const ContentWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 10px;
+  padding: 10px;
 `;
 
 export const ContentBg = styled.div`
   width: 90%;
-  height: 100px;
+  height: 110px;
   border-radius: 8px;
   background-color: ${({ theme }) => theme.colors.gray1};
   box-shadow: 2px 4px 10px 0 rgba(72, 74, 100, 0.1);
