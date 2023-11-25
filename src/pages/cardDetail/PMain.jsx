@@ -235,7 +235,7 @@ function PMain() {
   };      
 
   const handleRefreshClick = () => {
-    setMarkerStates('');
+    window.location.reload();
   };
 
   const dummyData = [
