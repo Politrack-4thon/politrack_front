@@ -323,6 +323,9 @@ export const MainCardUrl = styled.div`
 
 // 검색 실패
 export const SearchErrorContainer = styled.div`
+  position:relative;
+  top: -380px;
+  left: 100px;
   width: 223px;
   height: 111px;
   flex-shrink: 0;
@@ -333,6 +336,8 @@ export const SearchErrorContainer = styled.div`
   align-items: center;
   justify-content: center;
   gap: 10px;
+
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 `;
 export const SearchErrorContent1 = styled.div`
   color: #000;
