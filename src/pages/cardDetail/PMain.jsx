@@ -153,8 +153,6 @@ function PMain() {
         const firstResult = response.data[0];
         const origNm = extractOrigNm(firstResult.ORIG_NM);
         setSelectedMarker(origNm);
-      } else {
-        setShowSearchErrorModal(true);
       }
       
       setMarkerStates((prevMarkerStates) => ({
@@ -166,6 +164,9 @@ function PMain() {
 
     } catch (error) {
       console.error('Error fetching data:', error);
+      setShowSearchErrorModal(true);
+      console.log(showSearchErrorModal);
+
     }
     
     setHiddenSearchCards(false)
@@ -178,6 +179,7 @@ function PMain() {
   
     return extractedString;
   }  
+
   const handleCloseSearchError = () => {
     setShowSearchErrorModal(false);
   };
@@ -277,11 +279,6 @@ function PMain() {
         </S.SearchButton>
       </S.SearchWrapper>
       
-      {/* 여기서 searchResults를 사용하여 검색 결과를 렌더링합니다. */}
-      {searchResults.map((result) => (
-        <div key={result.id}>{result.name}</div>
-      ))}
-
     
         <S.Map>
           <S.MapImg src={MapImg} alt='맵 이미지' />
@@ -699,16 +696,15 @@ function PMain() {
                     ))
                   ) : (
                     <div>
-                    {showSearchErrorModal && (
-                      <MainSearchError onClose={handleCloseSearchError} />
-                    )}
-                  </div>
+                      {showSearchErrorModal && (
+                        <MainSearchError onClose={handleCloseSearchError} />
+                      )}
+                    </div>
                   )}
                 </S.Cards>
  
 
           </S.searchNameWrapper>
-          <MainSearchError/>
 
 
 
