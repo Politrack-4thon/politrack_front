@@ -28,9 +28,10 @@ function ComResult() {
     const fetchVoteData = async () => {
       try {
         const response = await API.get(
-          `/politician/community/${community_id}/detail/result`
+          `/politician/community/${community_id}/detail/result/`
         );
         setData(response.data);
+        // console.log(response.data);
       } catch (error) {
         console.error('데이터를 가져오는 중 오류 발생: ', error);
       }
@@ -192,6 +193,27 @@ function ComResult() {
     }
   })();
 
+  //의견 작성 정리
+
+  const [opinionData, setOpinionData] = useState(null);
+
+  useEffect(() => {
+    const fetchOpinionData = async () => {
+      try {
+        const response = await API.get(
+          `/politician/community/${community_id}/opinion/${community_id}`
+        );
+        if (response.status === 200) {
+          setOpinionData(response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching opinion data:', error);
+      }
+    };
+
+    fetchOpinionData();
+  }, [community_id]);
+
   return (
     <S.ComResultWrapper>
       <CommunityTop
@@ -352,6 +374,7 @@ function ComResult() {
         mainQuestion={'공통적으로 생각한 의견들이에요.'}
       />
       <ResultCommon />
+      {opinionData && <ResultCommon opinionData={opinionData} />}
 
       <S.ResultLine>
         <S.ResultLineImg src='/Community/ResultDots.png' />

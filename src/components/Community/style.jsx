@@ -301,6 +301,7 @@ export const VoteIcon = styled.div`
   height: 30px;
   background-size: cover;
   margin-right: -5px;
+  z-index: 100;
 `;
 
 //VoteModal
@@ -309,14 +310,15 @@ export const VoteModalWrapper = styled.div`
   position: absolute;
   top: 0;
   left: 5;
-  width: 90%;
-  height: 100%;
+  width: 100%;
+  height: 46%;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
   border-radius: 8px;
+  margin-top: 800px;
 `;
 
 export const VoteModalBg = styled.div`
