@@ -5,9 +5,6 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Footer from './components/layouts/footer/Footer';
 import Header from './components/layouts/header/Header';
 
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-
 const BackGroundColor = styled.div`
   width: 100vw;
   min-height: 100vh;
