@@ -19,6 +19,21 @@ export const CommunityDetailWrapper = styled.div`
 
 export const ComDetailOpinion = styled.div``;
 
+export const FormWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
+export const FormBtn = styled.button`
+  width: 90%;
+  background-color: ${({ theme }) => theme.colors.gray2};
+  color: ${({ theme }) => theme.colors.gray3};
+  height: 40px;
+  margin-top: 20px;
+  border-radius: 8px;
+`;
+
 export const QuestionResult = styled.div`
   width: 120px;
   height: 40px;
@@ -72,6 +87,7 @@ export const ComResultTitle = styled.div`
   font-family: 'NotoSansMedium';
   line-height: 21px;
   justify-content: center;
+  padding: 15px;
 `;
 
 export const ComResultBtnContainer = styled.div`

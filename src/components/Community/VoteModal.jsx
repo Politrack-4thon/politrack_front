@@ -9,7 +9,7 @@ function VoteModal({ onClose }) {
         <S.VoteModalSub>
           여러분의 소중한 의견을 모아 전달해드릴게요!
         </S.VoteModalSub>
-        <S.VoteModalBtn onClick={onClose}>확인</S.VoteModalBtn>
+        {/* <S.VoteModalBtn onClick={onClose}>확인</S.VoteModalBtn> */}
       </S.VoteModalBg>
     </S.VoteModalWrapper>
   );
