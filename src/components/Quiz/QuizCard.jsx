@@ -8,15 +8,16 @@ function QuizCard() {
     quiz_id: '',
     description: '',
     pick_title: '',
+    pick:'',
     answer: '',
     answer_des: '',
   });
 
   const [selectedOption, setSelectedOption] = useState('');
   const [isAnswerDesOpen, setIsAnswerDesOpen] = useState(false);
-  const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
+  const [currentQuizIndex, setCurrentQuizIndex] = useState(1);
 
-  const fixedPicks = ['Option 1', 'Option 2']; // 항상 고정된 옵션
+  const fixedPicks = ['option1', 'option2']; // 항상 고정된 옵션
 
   const fetchData = async () => {
     try {
@@ -36,6 +37,14 @@ function QuizCard() {
   useEffect(() => {
     fetchData();
   }, [currentQuizIndex]);
+  useEffect(() => {
+    console.log(selectedOption)
+  }, [selectedOption]);
+
+  useEffect(() => {
+    console.log(quizData.answer)
+  }, [quizData]);
+
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
@@ -57,7 +66,7 @@ function QuizCard() {
         <S.QuizOptions>
           {fixedPicks.map((option, index) => (
             <S.Option key={index} onClick={() => handleOptionClick(option)}>
-              <S.OptionText>{option === 'Option 1' ? 'O' : 'X'}</S.OptionText>
+              <S.OptionText>{option === 'option1' ? 'O' : 'X'}</S.OptionText>
             </S.Option>
           ))}
         </S.QuizOptions>
