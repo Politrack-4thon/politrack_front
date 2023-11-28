@@ -1,8 +1,7 @@
 import React from 'react';
 import * as S from './style';
-import { Link } from 'react-router-dom';
 
-function ComDetailCard({ idea, ideaDes,img }) {
+function ComDetailCard({ idea, ideaDes, img }) {
   return (
     <S.ComDetailCardWrapper>
       <S.Cardbg>

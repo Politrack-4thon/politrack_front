@@ -3,7 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import * as S from './style';
 import CommunityTop from '../../components/Community/CommunityTop';
 import CommunityDetailBg from '../../components/Community/CommunityDetailBg';
-import ComDetailCard from '../../components/CommunityDetail/ComDetailCard';
 import { API } from '../../api/axois';
 import CommunityQuestion from '../../components/Community/CommunityQuestion';
 import ComDetailQuiz from '../../components/Community/ComDetailQuiz';

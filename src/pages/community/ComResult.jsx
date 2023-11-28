@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import * as S from './style';
 import { API } from '../../api/axois';
-import { useParams } from 'react-router-dom'; // useParams를 import
+import { useParams } from 'react-router-dom';
 
 import CommunityQuestion from '../../components/Community/CommunityQuestion';
 import CommunityTop from '../../components/Community/CommunityTop';
