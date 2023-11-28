@@ -1,8 +1,5 @@
 // LoginForm.jsx
-
 import React from 'react';
-import { LoginInput } from './style';
-import { StyledLoginButton } from './style';
 import * as S from './style';
 
 export function LoginInputComponent({

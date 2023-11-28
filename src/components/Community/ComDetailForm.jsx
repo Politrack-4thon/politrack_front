@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { API } from '../../api/axois';
 import * as S from '../Community/style';
-import VoteModal from './VoteModal';
 
 function ComDetailForm({ selectedVote, setComment, disabled, ...props }) {
   useEffect(() => {
