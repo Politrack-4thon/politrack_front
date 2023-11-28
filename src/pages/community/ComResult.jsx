@@ -140,28 +140,6 @@ function ComResult() {
   const circleIconSrc3 =
     data.option3_count === maxVoteCount ? circleIconImage : circleIconNoImage;
 
-  // const maxVotePercentage = (() => {
-  //   if (data.option1_count === maxVoteCount) {
-  //     return (
-  //       (data.option1_count /
-  //         (data.option1_count + data.option2_count + data.option3_count)) *
-  //       100
-  //     );
-  //   } else if (data.option2_count === maxVoteCount) {
-  //     return (
-  //       (data.option2_count /
-  //         (data.option1_count + data.option2_count + data.option3_count)) *
-  //       100
-  //     );
-  //   } else {
-  //     return (
-  //       (data.option3_count /
-  //         (data.option1_count + data.option2_count + data.option3_count)) *
-  //       100
-  //     );
-  //   }
-  // })();
-
   const maxVoteText = (() => {
     if (data.option1_count === maxVoteCount) {
       return '좋은 것 같아';
@@ -260,7 +238,7 @@ function ComResult() {
                   data.option1_count === maxVoteCount ? 'white' : '#484A64',
               }}
             >
-              좋은 것 같아
+              좋은 것 같아!
             </S.GraphText>
           </S.Graph>
 
