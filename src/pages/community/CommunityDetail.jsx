@@ -60,14 +60,14 @@ function CommunityDetail() {
           `/politician/community/${community_id}/detail/`
         );
         if (detailResponse.status === 200 && detailResponse.data) {
-          // `board_id`가 `community_id`와 일치하는 첫 번째 객체를 찾는다
           const matchedDetail = detailResponse.data.find(
-            (item) => item.board_id === parseInt(community_id)
+            (item) => item.community_id === parseInt(community_id)
           );
           if (matchedDetail) {
             setDetailData(matchedDetail);
           } else {
             console.error('일치하는 데이터가 없음');
+            // 여기에서 사용자에게 알리거나 다른 조치를 취할 수 있습니다.
           }
         } else {
           console.error(
@@ -151,22 +151,20 @@ function CommunityDetail() {
           투표결과 확인하기
         </S.QuestionResult>
       </S.ComDetailVoteContainer>
-      {communityData && detailData && (
-        <>
-          <CommunityDetailBg
-            formattedDate={formattedDate}
-            comDetailTitle={communityData.title}
-            comDetailText={communityData.content}
-            comDetailA={detailData.idea_a}
-            comDetailB={detailData.idea_b}
-            comDetailC={detailData.idea_c}
-            comDetailADes={detailData.idea_a_des}
-            comDetailBDes={detailData.idea_b_des}
-            comDetailCDes={detailData.idea_c_des}
-          />
-        </>
+      {communityData && (
+        <CommunityDetailBg
+          formattedDate={formattedDate}
+          comDetailTitle={communityData.title}
+          comDetailText={communityData.content}
+          comDetailA={detailData.idea_a}
+          comDetailB={detailData.idea_b}
+          comDetailC={detailData.idea_c}
+          comDetailADes={detailData.idea_a_des}
+          comDetailBDes={detailData.idea_b_des}
+          comDetailCDes={detailData.idea_c_des}
+        />
       )}
-      {isContentVisible && (
+      {!hasDeadlinePassed() && isContentVisible && (
         <S.ComDetailOpinion>
           <CommunityQuestion
             subQuestion={'어떻게 생각하나요?'}

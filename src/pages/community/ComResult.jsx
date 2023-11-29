@@ -21,6 +21,11 @@ function ComResult() {
   const [wordcloudGoodImage, setWordcloudGoodImage] = useState('');
   const [wordcloudBadImage, setWordcloudBadImage] = useState('');
   const [wordcloudSosoImage, setWordcloudSosoImage] = useState('');
+  const [wordcloudGoodImageLoaded, setWordcloudGoodImageLoaded] =
+    useState(false);
+  const [wordcloudBadImageLoaded, setWordcloudBadImageLoaded] = useState(false);
+  const [wordcloudSosoImageLoaded, setWordcloudSosoImageLoaded] =
+    useState(false);
 
   const { community_id } = useParams();
 
@@ -322,7 +327,11 @@ function ComResult() {
         </S.VoteResultContent>
       </S.ResultTitle>
       <S.ResultCloud>
-        <S.ResultCloudImg src={wordcloudGoodImage} alt='Word Cloud' />
+        {wordcloudGoodImageLoaded ? (
+          <S.ResultCloudImg src={wordcloudGoodImage} alt='Word Cloud' />
+        ) : (
+          <S.ResultNoneText>모아진 의견이 없어요 🥺</S.ResultNoneText>
+        )}
       </S.ResultCloud>
 
       {/* 나쁜 것 같아를 선택한 사람의 워드 클라우드 */}
@@ -333,7 +342,11 @@ function ComResult() {
         </S.VoteResultContent>
       </S.ResultTitle>
       <S.ResultCloud>
-        <S.ResultCloudImg src={wordcloudBadImage} alt='Word Cloud' />
+        {wordcloudBadImageLoaded ? (
+          <S.ResultCloudImg src={wordcloudBadImage} alt='Word Cloud' />
+        ) : (
+          <S.ResultNoneText>모아진 의견이 없어요 🥺</S.ResultNoneText>
+        )}
       </S.ResultCloud>
 
       {/* 잘 모르겠어를 선택한 사람의 워드 클라우드 */}
@@ -344,7 +357,11 @@ function ComResult() {
         </S.VoteResultContent>
       </S.ResultTitle>
       <S.ResultCloud>
-        <S.ResultCloudImg src={wordcloudSosoImage} alt='Word Cloud' />
+        {wordcloudSosoImageLoaded ? (
+          <S.ResultCloudImg src={wordcloudSosoImage} alt='Word Cloud' />
+        ) : (
+          <S.ResultNoneText>모아진 의견이 없어요 🥺</S.ResultNoneText>
+        )}
       </S.ResultCloud>
 
       <CommunityQuestion

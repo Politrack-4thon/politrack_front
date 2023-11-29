@@ -33,7 +33,7 @@ function PMain() {
     markerName: '',
     markerPolyName: '',
     imgSrc: 'src/assets/images/pin.png', // 초기 이미지 경로
-    victPoly:'',
+    victPoly: '',
   });
 
   // Detail페이지에 정치인id 넘겨주기
@@ -49,7 +49,7 @@ function PMain() {
     HOMEPAGE: '', // 홈페이지 링크
     MONA_CD: '',
     jpg_link: '',
-    vict_poly:'',
+    vict_poly: '',
   });
 
   // 정당 버튼을 클릭했을 때 실행되는 함수
@@ -108,34 +108,31 @@ function PMain() {
   const onUserinput = (e) => {
     e.preventDefault();
     setUserInput(e.target.value);
-
-  }
+  };
 
   useEffect(() => {
-  
     const fetchData = async () => {
       try {
         const response = await API.get(`politician/name/${searchName}`);
-    
+
         setPolyData(response.data);
-    
+
         setMarkerStates((prevMarkerStates) => ({
           ...prevMarkerStates,
           markerName: response.data.ORIG_NM,
           markerPolyName: response.data.HG_NM,
         }));
-    
+
         setData(response.data);
-    
+
         setHiddenElements(true);
       } catch (error) {
         console.error('Error fetching community content:', error);
       }
     };
-  
+
     fetchData(); // fetchData 함수를 바로 실행
-  
-  }, [searchName]); 
+  }, [searchName]);
 
   const [hiddenSearchCards, setHiddenSearchCards] = useState(true); // 초기값은 안보이도록 설정
   const [nameData, setNameData] = useState([]);
@@ -154,31 +151,28 @@ function PMain() {
         const origNm = extractOrigNm(firstResult.ORIG_NM);
         setSelectedMarker(origNm);
       }
-      
+
       setMarkerStates((prevMarkerStates) => ({
         ...prevMarkerStates,
-        markerName:'',
+        markerName: '',
         imgSrc: 'src/assets/images/pin_click.png',
-        
       }));
-
     } catch (error) {
       console.error('Error fetching data:', error);
       setShowSearchErrorModal(true);
       console.log(showSearchErrorModal);
-
     }
-    
-    setHiddenSearchCards(false)
+
+    setHiddenSearchCards(false);
     setHiddenOrigElement(true);
     setHiddenElements(true);
-  }
+  };
   const extractOrigNm = (origNm) => {
     const match = origNm.match(/.*?(갑|을)/); // Matches any characters until "갑" or "을"
     const extractedString = match ? match[0].replace(/(갑|을)/, '') : origNm;
-  
+
     return extractedString;
-  }  
+  };
 
   const handleCloseSearchError = () => {
     setShowSearchErrorModal(false);
@@ -191,7 +185,6 @@ function PMain() {
   const toggleVoteResultVisibility = () => {
     setIsVoteResultVisible(!isVoteResultVisible);
   };
-  
 
   const [hiddenElements, setHiddenElements] = useState(false); // 초기값은 보이도록 설정
   const [hiddenOrigElement, setHiddenOrigElement] = useState(true); // 초기값은 안보이도록
@@ -199,15 +192,14 @@ function PMain() {
     setSelectedParty(!selectedParty);
     setParty(party);
   };
- 
 
   const handleMarkerClick = async (markerName) => {
     try {
       const response = await API.get(`/politician/orig/${markerName}`);
-        
+
       // vict_poly 값 동적으로 찾기(api에서 vict_poly가 2 or 3에 위치하므로)
       const victPoly = findVictPoly(response.data);
-  
+
       setMarkerStates((prevMarkerStates) => ({
         ...prevMarkerStates,
         markerName: markerName,
@@ -215,7 +207,7 @@ function PMain() {
         victPoly: victPoly,
       }));
       setSelectedMarker(null);
-    
+
       setHiddenElements(true);
       setHiddenOrigElement(false); // 카드가 보이도록
       setHiddenSearchCards(true);
@@ -223,7 +215,7 @@ function PMain() {
       console.error('Error fetching data:', error);
     }
   };
-  
+
   // vict_poly를 동적으로 찾는 함수
   const findVictPoly = (data) => {
     for (let i = 0; i < data.length; i++) {
@@ -231,8 +223,8 @@ function PMain() {
         return data[i].vict_poly;
       }
     }
-    return 0; 
-  };      
+    return 0;
+  };
 
   const handleRefreshClick = () => {
     window.location.reload();
@@ -264,28 +256,26 @@ function PMain() {
         style={{ whiteSpace: 'pre-line' }}
       />
       <S.MainContainer>
-      <S.SearchWrapper onSubmit={handleSearchClick}>
-        <S.SearchInput>
-          <S.Input
-            type='text'
-            placeholder='국회의원 이름을 검색해주세요'
-            value={userInput}
-            onChange={onUserinput}
-            
-          />
-        </S.SearchInput>
-        <S.SearchButton type='submit'>
-          <img src='/src/assets/images/search.svg' alt='Search' />
-        </S.SearchButton>
-      </S.SearchWrapper>
-      
-    
+        <S.SearchWrapper onSubmit={handleSearchClick}>
+          <S.SearchInput>
+            <S.Input
+              type='text'
+              placeholder='국회의원 이름을 검색해주세요'
+              value={userInput}
+              onChange={onUserinput}
+            />
+          </S.SearchInput>
+          <S.SearchButton type='submit'>
+            <img src='/src/assets/images/search.svg' alt='Search' />
+          </S.SearchButton>
+        </S.SearchWrapper>
+
         <S.Map>
           <S.MapImg src={MapImg} alt='맵 이미지' />
           <S.MapBoxContent onClick={handleRefreshClick}>
             {markerStates.markerName
               ? '새로고침⟲'
-              : '핀을 눌러 정보를 확인하세요!'}
+              : '핀을 눌러 정보를 확인해보세요!'}
           </S.MapBoxContent>
 
           <MainMap
@@ -397,7 +387,6 @@ function PMain() {
             clickafterleft={'210px'}
             clickbeforeleft={'240px'}
             selectedMarker={selectedMarker}
-            
           />
           <MainMap
             markerName={'서울 서초구'}
@@ -625,8 +614,8 @@ function PMain() {
         )}
 
         <S.selectOrigWrapper
-          style={{ display: hiddenOrigElement ? 'none' : 'block' }}>
-        
+          style={{ display: hiddenOrigElement ? 'none' : 'block' }}
+        >
           <S.SelectOrigTitle>
             현재 선택된 구는 {markerStates.markerName}입니다
           </S.SelectOrigTitle>
@@ -655,59 +644,61 @@ function PMain() {
             )}
           </S.Cards>
         </S.selectOrigWrapper>
-        <S.Cards style={{ display: hiddenElements && polyData.length > 0 ? 'grid' : 'none' }}>
-          {polyData.length > 0 && polyData.map((content) => (
-            <Link to={`/politician/id/${content.MONA_CD}`}>
-              <MainCard
-                jpg_link={content.jpg_link}
-                POLY_NM={content.POLY_NM}
-                HG_NM={content.HG_NM}
-                ENG_NM={content.ENG_NM}
-                ORIG_NM={content.ORIG_NM}
-                HOMEPAGE={content.HOMEPAGE}
-                MONA_CD={content.MONA_CD}
-              />
-            </Link>
-          ))}
+        <S.Cards
+          style={{
+            display: hiddenElements && polyData.length > 0 ? 'grid' : 'none',
+          }}
+        >
+          {polyData.length > 0 &&
+            polyData.map((content) => (
+              <Link to={`/politician/id/${content.MONA_CD}`}>
+                <MainCard
+                  jpg_link={content.jpg_link}
+                  POLY_NM={content.POLY_NM}
+                  HG_NM={content.HG_NM}
+                  ENG_NM={content.ENG_NM}
+                  ORIG_NM={content.ORIG_NM}
+                  HOMEPAGE={content.HOMEPAGE}
+                  MONA_CD={content.MONA_CD}
+                />
+              </Link>
+            ))}
         </S.Cards>
-          <S.searchNameWrapper style={{ display: hiddenSearchCards ? 'none' : 'block' }}>
-            <S.SelectOrigTitle>
-                현재 선택된 구는 {selectedMarker}입니다
-              </S.SelectOrigTitle>
-              <S.SelectOrigSubTitle>
-                "{markerStates.markerName}"는 투표구수가 71개, 선거인수가 262,308명
-                존재합니다
-              </S.SelectOrigSubTitle>
-              
-              <S.Cards style={{ display: hiddenSearchCards ? 'none' : 'grid' }}>
-                  {nameData.length > 0 ? (
-                    nameData.map((content) => (
-                      <Link to={`/politician/id/${content.MONA_CD}`}>
-                        <MainCard
-                          jpg_link={content.jpg_link}
-                          POLY_NM={content.POLY_NM}
-                          HG_NM={content.HG_NM}
-                          ENG_NM={content.ENG_NM}
-                          ORIG_NM={content.ORIG_NM}
-                          HOMEPAGE={content.HOMEPAGE}
-                          MONA_CD={content.MONA_CD}
-                        />
-                      </Link>
-                    ))
-                  ) : (
-                    <div>
-                      {showSearchErrorModal && (
-                        <MainSearchError onClose={handleCloseSearchError} />
-                      )}
-                    </div>
-                  )}
-                </S.Cards>
- 
+        <S.searchNameWrapper
+          style={{ display: hiddenSearchCards ? 'none' : 'block' }}
+        >
+          <S.SelectOrigTitle>
+            현재 선택된 구는 {selectedMarker}입니다
+          </S.SelectOrigTitle>
+          <S.SelectOrigSubTitle>
+            "{markerStates.markerName}"는 투표구수가 71개, 선거인수가 262,308명
+            존재합니다
+          </S.SelectOrigSubTitle>
 
-          </S.searchNameWrapper>
-
-
-
+          <S.Cards style={{ display: hiddenSearchCards ? 'none' : 'grid' }}>
+            {nameData.length > 0 ? (
+              nameData.map((content) => (
+                <Link to={`/politician/id/${content.MONA_CD}`}>
+                  <MainCard
+                    jpg_link={content.jpg_link}
+                    POLY_NM={content.POLY_NM}
+                    HG_NM={content.HG_NM}
+                    ENG_NM={content.ENG_NM}
+                    ORIG_NM={content.ORIG_NM}
+                    HOMEPAGE={content.HOMEPAGE}
+                    MONA_CD={content.MONA_CD}
+                  />
+                </Link>
+              ))
+            ) : (
+              <div>
+                {showSearchErrorModal && (
+                  <MainSearchError onClose={handleCloseSearchError} />
+                )}
+              </div>
+            )}
+          </S.Cards>
+        </S.searchNameWrapper>
       </S.MainContainer>
     </S.MainWrapper>
   );

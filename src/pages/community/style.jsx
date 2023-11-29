@@ -265,5 +265,11 @@ export const ResultCloudImg = styled.img`
   width: 354px;
   height: 286px;
   //워드클라우드 api 연동시 삭제 할 내용
-  border: 1px solid red;
+  /* border: 1px solid red; */
+`;
+
+export const ResultNoneText = styled.div`
+  font-size: 13px;
+  font-family: 'NotoSansMedium';
+  font-weight: 400;
 `;
