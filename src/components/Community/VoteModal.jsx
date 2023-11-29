@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from './style';
 
-function VoteModal({ onClose }) {
+function VoteModal({ onClose, style }) {
   return (
     <S.VoteModalWrapper>
       <S.VoteModalBg>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { API } from '../../api/axois';
 import * as S from '../Community/style';
+import VoteModal from './VoteModal';
 
 function ComDetailQuiz({
   comDetailTitle,
@@ -8,6 +9,7 @@ function ComDetailQuiz({
   setSelectedVote,
   selectedVote,
   disabled,
+  showModal,
   ...props
 }) {
   const [isExpired, setIsExpired] = useState(false);
@@ -66,6 +68,7 @@ function ComDetailQuiz({
 
         <S.ComDetailDate>{comDetailDate}</S.ComDetailDate>
       </S.DetailQuizWallpaper>
+      {showModal && <VoteModal />}
     </S.DetailQuizWrapper>
   );
 }

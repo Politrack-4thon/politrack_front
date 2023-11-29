@@ -62,7 +62,7 @@ export const QuestionWrapper = styled.div`
   margin-top: 40px;
   margin-left: 25px;
   position: relative;
-  z-index: 2;
+  /* z-index: ; */
   justify-content: space-between;
   flex-direction: row;
   align-items: center;
@@ -308,17 +308,14 @@ export const VoteIcon = styled.div`
 
 export const VoteModalWrapper = styled.div`
   position: absolute;
-  top: 0;
-  left: 5;
-  width: 100%;
-  height: 46%;
+  width: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
   border-radius: 8px;
-  margin-top: 800px;
+  height: 100%;
 `;
 
 export const VoteModalBg = styled.div`
