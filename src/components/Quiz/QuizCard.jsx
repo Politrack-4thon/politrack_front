@@ -34,17 +34,6 @@ function QuizCard() {
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, [currentQuizIndex]);
-  useEffect(() => {
-    console.log(selectedOption)
-  }, [selectedOption]);
-
-  useEffect(() => {
-    console.log(quizData.answer)
-  }, [quizData]);
-
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);

@@ -14,7 +14,6 @@ import MainSelectBtn from '../../components/Main/MainSelectBtn';
 import MainCard from '../../components/Main/MainCard';
 import MainSearchError from '../../components/Main/MainSearchError';
 
-//import { search } from '../../components/Main/MainSearch';
 import { SubTitle } from '../../components/Main/style';
 
 function PMain() {
@@ -168,7 +167,7 @@ function PMain() {
     setHiddenElements(true);
   };
   const extractOrigNm = (origNm) => {
-    const match = origNm.match(/.*?(갑|을)/); // Matches any characters until "갑" or "을"
+    const match = origNm.match(/.*?(갑|을)/);
     const extractedString = match ? match[0].replace(/(갑|을)/, '') : origNm;
 
     return extractedString;
