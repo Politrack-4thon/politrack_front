@@ -9,12 +9,14 @@ export const MainWrapper = styled.div`
   color: ${(props) => props.theme.colors.font};
 `;
 export const MainContainer = styled.div``;
-export const MapBoxContent = styled.div `
-position:relative;
-top:30px;
-height: 30px;
-padding: 5px;
-background-color: ${({ theme }) => theme.colors.gray3};
+export const MapBoxContent = styled.div`
+  position: relative;
+  top: 30px;
+  height: 30px;
+  padding: 5px;
+  background-color: ${({ theme }) => theme.colors.gray1};
+  font-size: 14px;
+  padding: 5px;
 `;
 export const DetailTitle = styled.div`
   display: flex;
@@ -200,8 +202,7 @@ export const Map = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction:column;
-  
+  flex-direction: column;
 `;
 export const MapImg = styled.img`
   /* margin-left: 20px; */
@@ -280,4 +281,3 @@ export const Input = styled.input`
 `;
 
 export const searchNameWrapper = styled.div``;
-
