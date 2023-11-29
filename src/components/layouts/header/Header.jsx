@@ -86,9 +86,17 @@ function Header() {
   const handleLogout = async () => {
     try {
       // 로컬 스토리지에서 토큰 삭제
-      localStorage.removeItem('access');
-      localStorage.removeItem('refresh');
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
       localStorage.removeItem('user_id'); // 사용자 ID도 삭제
+      localStorage.removeItem('userInfo'); // 사용자 ID도 삭제
+
+      // 모든 'submitted-'로 시작하는 로컬 스토리지 아이템을 삭제
+      Object.keys(localStorage).forEach((key) => {
+        if (key.startsWith('submitted-')) {
+          localStorage.removeItem(key);
+        }
+      });
 
       // 서버에 로그아웃 알리기 (필요한 경우)
       // const response = await API.post('/user/logout/');

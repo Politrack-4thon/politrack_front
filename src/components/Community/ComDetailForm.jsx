@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { API } from '../../api/axois';
 import * as S from '../Community/style';
+import VoteModal from './VoteModal';
 
-function ComDetailForm({ selectedVote, setComment, disabled, ...props }) {
+function ComDetailForm({
+  selectedVote,
+  setComment,
+  disabled,
+  showModal,
+  ...props
+}) {
   useEffect(() => {
     // console.log('Selected Vote changed to:', selectedVote);
   }, [selectedVote]);
@@ -19,6 +26,7 @@ function ComDetailForm({ selectedVote, setComment, disabled, ...props }) {
         onChange={handleInputChange}
         disabled={disabled}
       ></S.FormBg>
+      {showModal && <VoteModal />}
     </S.FormWrapper>
   );
 }

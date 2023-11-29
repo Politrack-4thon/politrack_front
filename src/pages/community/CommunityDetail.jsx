@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as S from './style';
 import CommunityTop from '../../components/Community/CommunityTop';
@@ -7,7 +7,6 @@ import { API } from '../../api/axois';
 import CommunityQuestion from '../../components/Community/CommunityQuestion';
 import ComDetailQuiz from '../../components/Community/ComDetailQuiz';
 import ComDetailForm from '../../components/Community/ComDetailForm';
-import VoteModal from '../../components/Community/VoteModal';
 
 function CommunityDetail() {
   const [communityData, setCommunityData] = useState('');
@@ -19,6 +18,7 @@ function CommunityDetail() {
   const [selectedVote, setSelectedVote] = useState(''); // 또는 useState('')
   const [showModal, setShowModal] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [hasSubmitted, setHasSubmitted] = useState(false); // 제출 여부 추적
 
   // useEffect(() => {
   //   console.log('Selected Vote changed to:', selectedVote);
@@ -95,6 +95,9 @@ function CommunityDetail() {
       alert('투표를 먼저 선택해주세요.');
       return;
     }
+    setHasSubmitted(true);
+    setShowModal(true); // 모달 표시
+    localStorage.setItem(`submitted-${community_id}`, 'true');
 
     const voteMapping = {
       '좋은 것 같아!': 'option1',
@@ -122,9 +125,19 @@ function CommunityDetail() {
 
   const isButtonActive = selectedVote !== '';
 
-  const handleCloseModal = () => {
-    setShowModal(false); // 모달을 닫음
-  };
+  useEffect(() => {
+    // 컴포넌트가 마운트될 때 토큰을 확인
+    const checkSubmissionStatus = () => {
+      // 여기서 토큰 확인 로직을 구현하거나 API 호출을 수행
+      const submitted = localStorage.getItem(`submitted-${community_id}`);
+      if (submitted === 'true') {
+        setHasSubmitted(true);
+        setIsModalOpen(true); // 이미 제출한 경우 모달을 열어둔다
+      }
+    };
+
+    checkSubmissionStatus();
+  }, [community_id]);
 
   return (
     <S.CommunityDetailWrapper>
@@ -177,6 +190,7 @@ function CommunityDetail() {
             selectedVote={selectedVote}
             setSelectedVote={setSelectedVote}
             disabled={isModalOpen}
+            showModal={isModalOpen}
           />
           <CommunityQuestion mainQuestion={'자유롭게 의견을 적어주세요.'} />
           <ComDetailForm
@@ -186,12 +200,13 @@ function CommunityDetail() {
             setSelectedVote={setSelectedVote}
             setComment={setComment}
             disabled={isModalOpen}
+            showModal={isModalOpen}
           />
-          {isModalOpen && <VoteModal />}
+
           <S.FormWrapper>
             <S.FormBtn
               onClick={handleFormSubmit}
-              disabled={!isButtonActive}
+              disabled={!isButtonActive || hasSubmitted}
               style={{
                 backgroundColor: isButtonActive ? '#484A64' : '#EBEDF8',
                 color: isButtonActive ? 'white' : '#C0C5DC',
@@ -200,9 +215,6 @@ function CommunityDetail() {
               작성 완료
             </S.FormBtn>
           </S.FormWrapper>
-          {showModal && (
-            <VoteModal isOpen={showModal} onClose={handleCloseModal} />
-          )}
         </S.ComDetailOpinion>
       )}
     </S.CommunityDetailWrapper>
