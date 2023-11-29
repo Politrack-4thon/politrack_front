@@ -15,21 +15,18 @@ function Detail() {
   const [isCardDetailBillVisible, setIsCardDetailBillVisible] = useState(true);
   const SERVER_URL = 'http://43.200.133.223';
 
-
   useEffect(() => {
     async function fetchData() {
       try {
-
         const response = await API.get(`politician/id/${MONA_CD}`);
         if (response.status === 200 && response.data) {
           const memberInfo = response.data[0]; // 국회의원 기본 정보
           const bills = response.data.slice(1); // 법률안 목록
           const img = 'http://43.200.133.223/' + memberInfo.jpg_link;
-          
+
           setCardData(memberInfo);
           setBillsData(bills);
           setImgData(img);
-
         } else {
           console.error(
             'Error fetching community content:',
@@ -45,7 +42,12 @@ function Detail() {
 
   // 약력 문자열을 배열로 변환하는 함수
   const formatBio = (bio) => {
-    return bio.split('\r\n').map((line, index) => (
+    // &bull;을 -로 바꾸기
+    const updatedBio = bio
+      .replace(/&bull;/g, '-')
+      .replace(/17&middot;19&middot;/g, '');
+
+    return updatedBio.split('\r\n').map((line, index) => (
       <span key={index}>
         {line}
         <br />
@@ -74,8 +76,8 @@ function Detail() {
   // 맨위로 이동하는 버튼 함수
   const MoveToTop = () => {
     // top:0 >> 맨위로  behavior:smooth >> 부드럽게 이동할수 있게 설정하는 속성
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <div style={{ width: '100%' }}>
@@ -84,7 +86,11 @@ function Detail() {
           <S.MainCardContainer style={{ width: '100%', height: '429px' }}>
             <S.MainCardImage style={{ width: '150px', height: '150px' }}>
               <img
-                style={{ width: '150px', height: '150px', borderRadius: '360px'}}
+                style={{
+                  width: '150px',
+                  height: '150px',
+                  borderRadius: '360px',
+                }}
                 src={imgData}
                 alt='국회의원 이미지'
               />
@@ -164,10 +170,9 @@ function Detail() {
                   </R.cardDetailBill>
                 ))}
             </R.CardDetailBillWrapper>
-            <R.GotoTop  onClick={MoveToTop}>
+            <R.GotoTop onClick={MoveToTop}>
               <img src='\src\assets\images\gotoup_btn.svg'></img>
             </R.GotoTop>
-
           </R.cardDetailContainer>
         </>
       )}

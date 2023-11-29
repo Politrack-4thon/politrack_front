@@ -34,7 +34,7 @@ function MainCard(props) {
     >
       <S.MainCardImage style={{ width: '84px', height: '84px' }}>
         <img
-          style={{ width: '84px', height: '84px', borderRadius: '360px' }}
+          style={{ width: '100%', height: '100%', borderRadius: '360px' }}
           src={imageUrl}
           alt='국회의원 이미지'
         />

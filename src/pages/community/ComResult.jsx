@@ -29,6 +29,33 @@ function ComResult() {
 
   const { community_id } = useParams();
 
+  const [communityData, setCommunityData] = useState({
+    title: '',
+    content: '',
+    formatted_created_at: '',
+    formatted_deadline: '',
+  });
+
+  useEffect(() => {
+    const fetchCommunityData = async () => {
+      try {
+        // Fetch the community data from the `/politician/community` endpoint
+        const response = await API.get(`/politician/community`);
+        const community = response.data.find(
+          (item) => item.community_id === parseInt(community_id)
+        );
+        if (community) {
+          // Update the community data state variable
+          setCommunityData(community);
+        }
+      } catch (error) {
+        console.error('Error fetching community data: ', error);
+      }
+    };
+
+    fetchCommunityData();
+  }, [community_id]);
+
   useEffect(() => {
     const fetchVoteData = async () => {
       try {
@@ -214,7 +241,7 @@ function ComResult() {
           <S.ComResultBtn> 개표 완료</S.ComResultBtn>
         </S.ComResultBtnContainer>
         <S.ComResultTitle style={{ whiteSpace: 'pre-line' }}>
-          {data.pick_title}
+          {communityData.title}
         </S.ComResultTitle>
 
         {/*그래프*/}
@@ -298,7 +325,10 @@ function ComResult() {
               잘 모르겠어
             </S.GraphText>
           </S.Graph>
-          <S.ResultDate>{data.resultDate}</S.ResultDate>
+          <S.ResultDate>
+            {communityData.formatted_created_at} ~{' '}
+            {communityData.formatted_deadline}
+          </S.ResultDate>
         </S.GraphWrapper>
       </S.ComResultBg>
       <S.ResultLine>
