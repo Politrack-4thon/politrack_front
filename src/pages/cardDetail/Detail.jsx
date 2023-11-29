@@ -71,6 +71,12 @@ function Detail() {
     return terms.length;
   };
 
+  // 맨위로 이동하는 버튼 함수
+  const MoveToTop = () => {
+    // top:0 >> 맨위로  behavior:smooth >> 부드럽게 이동할수 있게 설정하는 속성
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
   return (
     <div style={{ width: '100%' }}>
       {cardData && (
@@ -158,6 +164,10 @@ function Detail() {
                   </R.cardDetailBill>
                 ))}
             </R.CardDetailBillWrapper>
+            <R.GotoTop  onClick={MoveToTop}>
+              <img src='\src\assets\images\gotoup_btn.svg'></img>
+            </R.GotoTop>
+
           </R.cardDetailContainer>
         </>
       )}
