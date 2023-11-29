@@ -115,6 +115,7 @@ export const cardDetailContainer = styled.div`
   background: ${({ theme }) => theme.colors.white};
   box-shadow: -4px 0px 24px 0px rgba(0, 0, 0, 0.12);
   padding: 20px 0;
+  position: relative;
 `;
 export const cardDetailRow = styled.div`
   display: flex;
@@ -282,13 +283,10 @@ export const Input = styled.input`
 
 export const searchNameWrapper = styled.div``;
 
-
 export const GotoTop = styled.div`
-position: fixed;
-top:720px;
-right: 420px;
-border-radius:50%;
-cursor: pointer; 
-z-index: 1; 
+  position: fixed;
+  transform: translate(-50%, 0%);
+  left: calc(50% + 160px);
+  bottom: 20px;
+  cursor: pointer;
 `;
-
