@@ -27,6 +27,8 @@ function PMain() {
   const [party, setParty] = useState(null);
   const [isLoading, setIsLoading] = useState(false); // 로딩 상태 관리
   const [selectedMarker, setSelectedMarker] = useState(null); // 검색한 국회의원의 지역구 선택 상태
+  const [tpgCount, setTpgCount] = useState(0);
+  const [cfmtnElcnt, setCfmtnElcnt] = useState(0);
 
   const [markerStates, setMarkerStates] = useState({
     markerName: '',
@@ -49,6 +51,8 @@ function PMain() {
     MONA_CD: '',
     jpg_link: '',
     vict_poly: '',
+    tpgCount: '',
+    cfmtnElcnt: '',
   });
 
   // 정당 버튼을 클릭했을 때 실행되는 함수
@@ -82,21 +86,22 @@ function PMain() {
         const response = await API.get(
           `/politician/orig/${markerStates.markerName}`
         );
-        if (response.status === 200) {
-          // 필요한 객체만 필터링
-          const filteredData = response.data.filter(
-            (item) => item.HG_NM && item.POLY_NM
-          );
-          setOrigData(filteredData);
+        if (response.status === 200 && response.data.length > 0) {
+          setOrigData(response.data);
+
+          // Assuming the first element contains the tpgCount and cfmtnElcnt
+          const regionData = response.data[0];
+          setTpgCount(regionData.tpgCount || 0);
+          setCfmtnElcnt(regionData.cfmtnElcnt || 0);
         } else {
           console.error('Error fetching data:', response.statusText);
+          setOrigData([]);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
         setOrigData([]);
       }
     }
-
     fetchData();
   }, [markerStates.markerName]);
 
@@ -619,13 +624,14 @@ function PMain() {
             현재 선택된 구는 {markerStates.markerName}입니다
           </S.SelectOrigTitle>
           <S.SelectOrigSubTitle>
-            "{markerStates.markerName}"는 투표구수가 71개, 선거인수가 262,308명
-            존재합니다
+            "{markerStates.markerName}"는 투표구수가 {tpgCount}개, 선거인수가{' '}
+            {cfmtnElcnt}명 존재합니다.
           </S.SelectOrigSubTitle>
 
           <S.Cards style={{ display: hiddenElements ? 'grid' : 'none' }}>
-            {origData.length > 0 ? (
-              origData.map((content) => (
+            {origData
+              .filter((content) => content.HG_NM) // 'HG_NM' 키를 가진 객체만 처리
+              .map((content) => (
                 <Link to={`/politician/id/${content.MONA_CD}`}>
                   <MainCard
                     jpg_link={content.jpg_link}
@@ -637,10 +643,7 @@ function PMain() {
                     MONA_CD={content.MONA_CD}
                   />
                 </Link>
-              ))
-            ) : (
-              <div></div> // 데이터가 없을 때 표시될 메시지
-            )}
+              ))}
           </S.Cards>
         </S.selectOrigWrapper>
         <S.Cards
