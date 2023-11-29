@@ -281,3 +281,14 @@ export const Input = styled.input`
 `;
 
 export const searchNameWrapper = styled.div``;
+
+
+export const GotoTop = styled.div`
+position: fixed;
+top:720px;
+right: 420px;
+border-radius:50%;
+cursor: pointer; 
+z-index: 1; 
+`;
+
