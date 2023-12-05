@@ -43,7 +43,17 @@ function QuizCard() {
   const goToNextQuiz = () => {
     setCurrentQuizIndex(currentQuizIndex + 1);
   };
+  useEffect(() => {
+    fetchData();
+  }, [currentQuizIndex]);
+  useEffect(() => {
+    console.log(selectedOption)
+  }, [selectedOption]);
 
+  useEffect(() => {
+    console.log(quizData.answer)
+  }, [quizData]);
+  
   return (
     <S.QuizWrapper>
       <S.QuizContainer>
