@@ -403,10 +403,13 @@ export const FormBtn = styled.button`
 /* 카테고리 */
 export const ComCategroyContainer = styled.div`
 display:flex;
-justify-content:center;
+margin-left:20px;
+justify-content: flex-start; /* Align categories to the left */
 align-items:center;
 margin-top:16px;
 gap:10px;
+flex-wrap: wrap; /* Add flex-wrap property to allow wrapping to the next line */
+max-width: 600px; /* Set a maximum width for the container */
 `;
 export const ComCategory = styled.div`
 padding: 8px 10px;
@@ -432,7 +435,7 @@ ${props =>
       gap: 10px;
       border-radius: 50px;
       background: ${({ theme }) => theme.colors.gray5};
-      
+
       color: ${({ theme }) => theme.colors.white};
       font-family: Noto Sans KR;
       font-size: 12px;
