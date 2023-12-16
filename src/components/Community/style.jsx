@@ -400,3 +400,45 @@ export const FormBtn = styled.button`
   margin-top: 20px;
   border-radius: 8px;
 `;
+/* 카테고리 */
+export const ComCategroyContainer = styled.div`
+display:flex;
+justify-content:center;
+align-items:center;
+margin-top:16px;
+gap:10px;
+`;
+export const ComCategory = styled.div`
+padding: 8px 10px;
+justify-content: center;
+align-items: center;
+gap: 10px;
+border-radius: 50px;
+background:  ${({ theme }) => theme.colors.gray2};
+color:  ${({ theme }) => theme.colors.gray4};
+font-family: Noto Sans KR;
+font-size: 12px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+cursor:pointer;
+
+${props => 
+  props.active && css`
+      display: flex;
+      padding: 8px 10px;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      border-radius: 50px;
+      background: ${({ theme }) => theme.colors.gray5};
+      
+      color: ${({ theme }) => theme.colors.white};
+      font-family: Noto Sans KR;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+    `}
+
+`;
