@@ -1,19 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import * as S from './style';
 import { API } from '../../api/axois';
 import { useNavigate } from 'react-router-dom';
 import CommunityTop from '../../components/Community/CommunityTop';
 import CommunityQuestion from '../../components/Community/CommunityQuestion';
 import CommunityContent from '../../components/Community/CommunityContent';
+import ComCategory from '../../components/Community/ComCategory';
+
 
 function Community() {
   const [communityContents, setCommunityContents] = useState([]);
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  // 기본 카테고리 state 선언
+  const [category, setCategory] = useState(' ')
+  // 콜백으로 사용 할 카테고리 함수
+  const onSelect = useCallback(Category => setCategory(Category), [])
+  
   const fetchData = async () => {
     try {
-      const response = await API.get('/politician/community/');
+      const response = await API.get(`/politician/community/?category=${category}`);
 
       if (response.status === 200) {
         const data = response.data;
@@ -69,6 +75,12 @@ function Community() {
     }
   }, [isLoggedIn, fetchData]); // fetchData를 의존성 배열에 추가
 
+  // category 상태가 변경되면 fetchData 함수를 호출
+  useEffect(() => {
+    fetchData();
+  }, [category]); // category를 의존성 배열에 추가
+  
+
   const minContentHeight = 'calc(100vh - 450px)';
 
   return (
@@ -83,6 +95,9 @@ function Community() {
         mainQuestion={'오늘의 쟁점을 확인해보세요.'}
       />
       <S.ContentContainer style={{ minHeight: minContentHeight }}>
+       <ComCategory category={category} onSelect = {onSelect}/>
+
+
         {communityContents.map((content) => (
           <CommunityContent
             key={content.community_id}
