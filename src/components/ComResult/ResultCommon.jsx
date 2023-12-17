@@ -7,7 +7,14 @@ function ResultCommon({ opinionData }) {
     return (
       <S.NoneResultCommonWrapper>
         <S.NoneResultCommonText>
-          잠시만 기다려주세요! <br /> 관리자가 의견을 정리하는 중이에요 :)
+          {/* 잠시만 기다려주세요! <br /> 관리자가 의견을 정리하는 중이에요 :) */}
+          과학의 발전도 좋지만 윤리적인 문제와 특히 사고가 나면 누가 어떻게
+          책임질 것인지에 대한 법적 기준도 고려해야 해요!
+        </S.NoneResultCommonText>
+        <S.NoneResultCommonText>
+          {/* 잠시만 기다려주세요! <br /> 관리자가 의견을 정리하는 중이에요 :) */}
+          과학의 발전도 좋지만 윤리적인 문제와 특히 사고가 나면 누가 어떻게
+          책임질 것인지에 대한 법적 기준도 고려해야 해요!
         </S.NoneResultCommonText>
       </S.NoneResultCommonWrapper>
     );

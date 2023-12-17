@@ -3,7 +3,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import * as S from './style';
 
 function MainCard(props) {
-  const SERVER_URL = 'http://43.200.133.223';
+  const SERVER_URL = 'http://43.200.133.223/';
 
   const imageUrl = props.jpg_link
     ? `${SERVER_URL}/${props.jpg_link}`

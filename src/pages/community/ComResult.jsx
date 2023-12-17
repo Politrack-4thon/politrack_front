@@ -22,10 +22,10 @@ function ComResult() {
   const [wordcloudBadImage, setWordcloudBadImage] = useState('');
   const [wordcloudSosoImage, setWordcloudSosoImage] = useState('');
   const [wordcloudGoodImageLoaded, setWordcloudGoodImageLoaded] =
-    useState(false);
-  const [wordcloudBadImageLoaded, setWordcloudBadImageLoaded] = useState(false);
+    useState(true);
+  const [wordcloudBadImageLoaded, setWordcloudBadImageLoaded] = useState(true);
   const [wordcloudSosoImageLoaded, setWordcloudSosoImageLoaded] =
-    useState(false);
+    useState(true);
 
   const { community_id } = useParams();
 
@@ -72,7 +72,7 @@ function ComResult() {
     fetchVoteData();
   }, [community_id]);
 
-  const SERVER_URL = 'http://43.200.133.223';
+  const SERVER_URL = 'http://43.200.133.223/';
 
   //좋은 것 같아! 라고 생각하는 사람들의 워드 클라우드 이미지 get해오기.
   useEffect(() => {
@@ -358,7 +358,7 @@ function ComResult() {
       </S.ResultTitle>
       <S.ResultCloud>
         {wordcloudGoodImageLoaded ? (
-          <S.ResultCloudImg src={wordcloudGoodImage} alt='Word Cloud' />
+          <S.ResultCloudImg src={wordcloudGoodImage} />
         ) : (
           <S.ResultNoneText>모아진 의견이 없어요 🥺</S.ResultNoneText>
         )}
@@ -373,7 +373,7 @@ function ComResult() {
       </S.ResultTitle>
       <S.ResultCloud>
         {wordcloudBadImageLoaded ? (
-          <S.ResultCloudImg src={wordcloudBadImage} alt='Word Cloud' />
+          <S.ResultCloudImg src={wordcloudBadImage} />
         ) : (
           <S.ResultNoneText>모아진 의견이 없어요 🥺</S.ResultNoneText>
         )}
@@ -388,7 +388,7 @@ function ComResult() {
       </S.ResultTitle>
       <S.ResultCloud>
         {wordcloudSosoImageLoaded ? (
-          <S.ResultCloudImg src={wordcloudSosoImage} alt='Word Cloud' />
+          <S.ResultCloudImg src={wordcloudSosoImage} />
         ) : (
           <S.ResultNoneText>모아진 의견이 없어요 🥺</S.ResultNoneText>
         )}
