@@ -2,12 +2,16 @@ import { styled, css } from 'styled-components';
 
 export const NoneResultCommonWrapper = styled.div`
   width: 100%;
-  text-align: center;
+  /* text-align: center; */
   justify-content: center;
   line-height: 170%;
   margin-top: 20px;
   align-content: center;
   display: flex;
+  flex-direction: column;
+  gap: 20px;
+  /* border: 1px solid red; */
+  align-items: center;
 `;
 
 export const NoneResultCommonText = styled.div`
@@ -16,6 +20,7 @@ export const NoneResultCommonText = styled.div`
   background-color: #f6f7fe;
   padding: 10px;
   font-family: 'NotoSansRegular';
+  font-size: 12px;
 `;
 
 export const ResultCommonWrapper = styled.div`

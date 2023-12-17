@@ -117,6 +117,7 @@ export const MainVoteInfoContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
+  padding: 10px;
 `;
 
 export const IconAndTitle = styled.div`
@@ -323,7 +324,7 @@ export const MainCardUrl = styled.div`
 
 // 검색 실패
 export const SearchErrorContainer = styled.div`
-  position:relative;
+  position: relative;
   top: -380px;
   left: 100px;
   width: 223px;

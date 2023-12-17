@@ -283,7 +283,7 @@ function PMain() {
           </S.MapBoxContent>
 
           <MainMap
-            markerName={'서울 은평구'}
+            markerName={'은평구'}
             markerStates={markerStates}
             handleMarkerClick={handleMarkerClick}
             clickaftertop={'30px'}
@@ -293,7 +293,7 @@ function PMain() {
             selectedMarker={selectedMarker}
           />
           <MainMap
-            markerName={'서울 강서구'}
+            markerName={'강서구'}
             markerStates={markerStates}
             handleMarkerClick={handleMarkerClick}
             clickaftertop={'80px'}
@@ -303,7 +303,7 @@ function PMain() {
             selectedMarker={selectedMarker}
           />
           <MainMap
-            markerName={'서울 광진구'}
+            markerName={'광진구'}
             markerStates={markerStates}
             handleMarkerClick={handleMarkerClick}
             clickaftertop={'100px'}
@@ -313,7 +313,7 @@ function PMain() {
             selectedMarker={selectedMarker}
           />
           <MainMap
-            markerName={'서울 노원구'}
+            markerName={'노원구'}
             markerStates={markerStates}
             handleMarkerClick={handleMarkerClick}
             clickaftertop={'20px'}
@@ -323,7 +323,7 @@ function PMain() {
             selectedMarker={selectedMarker}
           />
           <MainMap
-            markerName={'서울 용산구'}
+            markerName={'용산구'}
             markerStates={markerStates}
             handleMarkerClick={handleMarkerClick}
             clickaftertop={'110px'}
@@ -333,7 +333,7 @@ function PMain() {
             selectedMarker={selectedMarker}
           />
           <MainMap
-            markerName={'서울 동작구'}
+            markerName={'동작구'}
             markerStates={markerStates}
             handleMarkerClick={handleMarkerClick}
             clickaftertop={'130px'}
@@ -343,7 +343,7 @@ function PMain() {
             selectedMarker={selectedMarker}
           />
           <MainMap
-            markerName={'서울 영등포구'}
+            markerName={'영등포구'}
             markerStates={markerStates}
             handleMarkerClick={handleMarkerClick}
             clickaftertop={'120px'}
@@ -353,7 +353,7 @@ function PMain() {
             selectedMarker={selectedMarker}
           />
           <MainMap
-            markerName={'서울 서대문구'}
+            markerName={'서대문구'}
             markerStates={markerStates}
             handleMarkerClick={handleMarkerClick}
             clickaftertop={'80px'}
@@ -363,7 +363,7 @@ function PMain() {
             selectedMarker={selectedMarker}
           />
           <MainMap
-            markerName={'서울 송파구'}
+            markerName={'송파구'}
             markerStates={markerStates}
             handleMarkerClick={handleMarkerClick}
             clickaftertop={'80px'}
@@ -373,7 +373,7 @@ function PMain() {
             selectedMarker={selectedMarker}
           />
           <MainMap
-            markerName={'서울 마포구'}
+            markerName={'마포구'}
             markerStates={markerStates}
             handleMarkerClick={handleMarkerClick}
             clickaftertop={'80px'}
@@ -383,7 +383,7 @@ function PMain() {
             selectedMarker={selectedMarker}
           />
           <MainMap
-            markerName={'서울 중구성동구'}
+            markerName={'중구성동구'}
             markerStates={markerStates}
             handleMarkerClick={handleMarkerClick}
             clickaftertop={'90px'}
@@ -393,7 +393,7 @@ function PMain() {
             selectedMarker={selectedMarker}
           />
           <MainMap
-            markerName={'서울 서초구'}
+            markerName={'서초구'}
             markerStates={markerStates}
             handleMarkerClick={handleMarkerClick}
             clickaftertop={'160px'}
@@ -403,7 +403,7 @@ function PMain() {
             selectedMarker={selectedMarker}
           />
           <MainMap
-            markerName={'서울 강북구'}
+            markerName={'강북구'}
             markerStates={markerStates}
             handleMarkerClick={handleMarkerClick}
             clickaftertop={'20px'}
@@ -413,7 +413,7 @@ function PMain() {
             selectedMarker={selectedMarker}
           />
           <MainMap
-            markerName={'서울 강남구'}
+            markerName={'강남구'}
             markerStates={markerStates}
             handleMarkerClick={handleMarkerClick}
             clickaftertop={'140px'}
@@ -423,7 +423,7 @@ function PMain() {
             selectedMarker={selectedMarker}
           />
           <MainMap
-            markerName={'서울 중랑구'}
+            markerName={'중랑구'}
             markerStates={markerStates}
             handleMarkerClick={handleMarkerClick}
             clickaftertop={'60px'}
@@ -433,7 +433,7 @@ function PMain() {
             selectedMarker={selectedMarker}
           />
           <MainMap
-            markerName={'서울 동대문구'}
+            markerName={'동대문구'}
             markerStates={markerStates}
             handleMarkerClick={handleMarkerClick}
             clickaftertop={'70px'}
@@ -443,7 +443,7 @@ function PMain() {
             selectedMarker={selectedMarker}
           />
           <MainMap
-            markerName={'서울 도봉구'}
+            markerName={'도봉구'}
             markerStates={markerStates}
             handleMarkerClick={handleMarkerClick}
             clickaftertop={'5px'}
@@ -453,7 +453,7 @@ function PMain() {
             selectedMarker={selectedMarker}
           />
           <MainMap
-            markerName={'서울 관악구'}
+            markerName={'관악구'}
             markerStates={markerStates}
             handleMarkerClick={handleMarkerClick}
             clickaftertop={'170px'}
@@ -463,7 +463,7 @@ function PMain() {
             selectedMarker={selectedMarker}
           />
           <MainMap
-            markerName={'서울 양천구'}
+            markerName={'양천구'}
             markerStates={markerStates}
             handleMarkerClick={handleMarkerClick}
             clickaftertop={'120px'}
@@ -473,7 +473,7 @@ function PMain() {
             selectedMarker={selectedMarker}
           />
           <MainMap
-            markerName={'서울 구로구'}
+            markerName={'구로구'}
             markerStates={markerStates}
             handleMarkerClick={handleMarkerClick}
             clickaftertop={'150px'}
@@ -483,7 +483,7 @@ function PMain() {
             selectedMarker={selectedMarker}
           />
           <MainMap
-            markerName={'서울 강동구'}
+            markerName={'강동구'}
             markerStates={markerStates}
             handleMarkerClick={handleMarkerClick}
             clickaftertop={'100px'}
@@ -493,7 +493,7 @@ function PMain() {
             selectedMarker={selectedMarker}
           />
           <MainMap
-            markerName={'서울 금천구'}
+            markerName={'금천구'}
             markerStates={markerStates}
             handleMarkerClick={handleMarkerClick}
             clickaftertop={'170px'}
@@ -503,7 +503,7 @@ function PMain() {
             selectedMarker={selectedMarker}
           />
           <MainMap
-            markerName={'서울 종로구'}
+            markerName={'종로구'}
             markerStates={markerStates}
             handleMarkerClick={handleMarkerClick}
             clickaftertop={'40px'}
@@ -513,7 +513,7 @@ function PMain() {
             selectedMarker={selectedMarker}
           />
           <MainMap
-            markerName={'서울 성북구'}
+            markerName={'성북구'}
             markerStates={markerStates}
             handleMarkerClick={handleMarkerClick}
             clickaftertop={'50px'}

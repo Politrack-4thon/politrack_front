@@ -13,7 +13,7 @@ function Detail() {
   const [imgData, setImgData] = useState(null);
   const [isCardDetailSummVisible, setIsCardDetailSummVisible] = useState(true);
   const [isCardDetailBillVisible, setIsCardDetailBillVisible] = useState(true);
-  const SERVER_URL = 'http://43.200.133.223';
+  const SERVER_URL = 'http://43.200.133.223/';
 
   useEffect(() => {
     async function fetchData() {
@@ -45,6 +45,7 @@ function Detail() {
     // &bull;을 -로 바꾸기
     const updatedBio = bio
       .replace(/&bull;/g, '-')
+      .replace(/&middot;/g, '-')
       .replace(/17&middot;19&middot;/g, '');
 
     return updatedBio.split('\r\n').map((line, index) => (

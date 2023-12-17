@@ -5,7 +5,7 @@ import * as S from './style';
 function Main() {
   return (
     <S.MainWrapper>
-      <S.MainTitle>4호선톤 ㄱㅂㅈㄱ</S.MainTitle>
+      <S.MainTitle>ㄱㅂㅈㄱ</S.MainTitle>
       {/* 추후 삭제예정 */}
       <S.MainSection>
         <Link to='/PMain'>
