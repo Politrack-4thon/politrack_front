@@ -92,3 +92,32 @@ export const CardContent = styled.div`
   font-weight: 400;
   margin-top: 10px;
 `;
+
+// ComDetailNeWS.jsx
+export const ComDetailNewsWrapper = styled.div `
+width: 107px;
+height: 83px;
+flex-shrink: 0;
+border-radius: 6px;
+border: 1px solid var(--main-Gray2, #EBEDF8);
+background: var(--main-Gray1, #F6F7FE);
+width: 30%; 
+box-sizing: border-box;
+padding: 10px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap: 10px;
+`;
+export const articleImg = styled.div`
+
+`;
+export const articleText = styled.div`
+color: ${({ theme }) => theme.colors.black};
+font-family: Noto Sans KR;
+font-size: 12px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+`;
