@@ -7,10 +7,12 @@ import { API } from '../../api/axois';
 import CommunityQuestion from '../../components/Community/CommunityQuestion';
 import ComDetailQuiz from '../../components/Community/ComDetailQuiz';
 import ComDetailForm from '../../components/Community/ComDetailForm';
+import ComDetailNews from '../../components/CommunityDetail/ComDetailNews';
 
 function CommunityDetail() {
   const [communityData, setCommunityData] = useState('');
   const [detailData, setDetailData] = useState('');
+  const [newsData, setNewsData] = useState('');
   const { community_id } = useParams();
   const navigate = useNavigate();
   const formattedDate = `${communityData.formatted_created_at} ~ ${communityData.formatted_deadline}`;
@@ -81,6 +83,25 @@ function CommunityDetail() {
     }
     fetchDetailData();
   }, [community_id]);
+
+  useEffect(() => {
+    async function fetchDetailNews() {
+      try {
+        const newsResponse = await API.get(
+          `/politician/naver-search?query=${communityData.title}`
+        );
+        const data = newsResponse.data;
+        if (newsResponse.status === 200) {
+          setNewsData(data);
+        } else {
+          console.error('Error fetching community data:', response.statusText);
+        }
+      } catch (error) {
+        console.error('디테일 데이터 가져오기 오류:', error);
+      }
+    }
+    fetchDetailNews();
+  },[communityData]);
 
   const isContentVisible =
     new Date(communityData.formatted_deadline) > new Date();
@@ -177,6 +198,22 @@ function CommunityDetail() {
           comDetailCDes={detailData.idea_c_des}
         />
       )}
+      <CommunityQuestion
+        subQuestion={'신문사는 어떻게 전했을까요?'}
+        mainQuestion={'다양한 기사를 읽고 견해를 넓혀요.'}
+      />
+      <S.ComDetailNewsWrapper>
+        {newsData.items && newsData.items.map((item, index) => (
+    
+        <ComDetailNews
+          key={index}
+          linkUrl={item.originallink}
+        />
+
+
+        ))}
+
+      </S.ComDetailNewsWrapper>
       {!hasDeadlinePassed() && isContentVisible && (
         <S.ComDetailOpinion>
           <CommunityQuestion

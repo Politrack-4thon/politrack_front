@@ -9,8 +9,6 @@ const comCategories = [
   { id: 4, text: '문화', url: '문화' },
   { id: 5, text: '행정', url: '행정' },
   { id: 6, text: '국제 사회', url: '국제' },
-  // {id:8, text:"행정", url:'행정'},
-  // {id:9, text:"행정", url:'행정'},
 ];
 
 const ComCategory = ({ onSelect, category }) => {

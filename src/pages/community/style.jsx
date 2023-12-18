@@ -297,3 +297,12 @@ font-weight: 700;
 line-height: normal;
 cursor:pointer;
 `;
+
+/* 뉴스 */
+export const ComDetailNewsWrapper = styled.div`
+display:flex;
+flex-wrap: wrap;
+margin-left:20px;
+margin-right: 20px;
+gap: 15px;
+`;
