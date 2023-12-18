@@ -203,7 +203,7 @@ function CommunityDetail() {
         mainQuestion={'다양한 기사를 읽고 견해를 넓혀요.'}
       />
       <S.ComDetailNewsWrapper>
-        {newsData.items && newsData.items.map((item, index) => (
+        {newsData.items && newsData.items.slice(0, 3).map((item, index) => (
     
         <ComDetailNews
           key={index}
